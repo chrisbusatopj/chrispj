@@ -1739,23 +1739,25 @@ function TestemunhosSection() {
 // ─── Inscrição ────────────────────────────────────────────────────────────────
 
 const inclusosOnline = [
-  'Módulo pré-vivência para se preparar e aproveitar melhor o encontro',
-  'Mapa musical aplicado ao movimento',
-  'Estrutura musical para dançarinos: prática, não teoria',
-  'Musicalização: o sentir como ponto de partida',
-  'Como perceber os caminhos dentro da música',
-  'Exercícios para criar musicalidade com o que já sabe',
+  '4 horas de imersão ao vivo em música e movimento',
+  'Módulo pré-vivência para chegar preparado',
+  'Mapa Musical aplicado diretamente à dança',
+  'Estrutura da música traduzida para quem dança',
+  'Exercícios para ouvir além dos passos',
+  'Práticas para encontrar caminhos dentro da música',
+  'Exercícios para transformar percepção musical em movimento',
+  '6 meses de acesso à gravação para rever e praticar',
 ]
 
 const inclusosPresencial = [
-  'Tudo do acesso online',
-  'Vivência presencial com Chris Busato',
-  'Módulo pré-vivência para se preparar e aproveitar melhor o encontro',
-  '6 meses de acesso à gravação da vivência presencial',
-  'Prática ao vivo com música',
-  'Exercícios em dupla e em grupo',
-  'Interação direta e feedback em tempo real',
-  'Você sai sabendo brincar dentro da música, não só seguir ela',
+  '4 horas de imersão presencial em música e movimento',
+  'Tudo que você vivencia na transmissão ao vivo',
+  'Mapa Musical aplicado ao seu corpo, na prática',
+  'Práticas individuais, em dupla e em grupo',
+  'Exercícios para romper a dependência dos passos',
+  'Exploração de diferentes possibilidades dentro da mesma música',
+  'Feedback de Chris durante as práticas',
+  '6 meses de acesso à gravação para rever e aprofundar',
 ]
 
 function CheckItem({ text, light }) {
@@ -1966,7 +1968,7 @@ function BarraVagas({ escuro = true }) {
   )
 }
 
-function InscricaoSection() {
+function InscricaoSection({ mostrarTimer = true }) {
   const [ref, inView] = useInView()
   const w = useWindowWidth()
   const mobile = w < 768
@@ -2171,7 +2173,7 @@ function InscricaoSection() {
                   </div>
                 })}
               </div>
-              {loteOnline.ativo && <div style={{ marginTop: 20, paddingTop: 16, borderTop: `1px solid ${C.sageLight}`, color: C.sageDark }}>
+              {mostrarTimer && loteOnline.ativo && <div style={{ marginTop: 20, paddingTop: 16, borderTop: `1px solid ${C.sageLight}`, color: C.sageDark }}>
                 <p style={{ fontSize: 12, fontWeight: 600, margin: '0 0 12px' }}>{proximoLote ? 'O lote vira em' : 'As inscrições encerram em'}</p>
                 <div role="timer" aria-live="off" aria-label={`${contagemLote[0][0]} dias, ${contagemLote[1][0]} horas, ${contagemLote[2][0]} minutos e ${contagemLote[3][0]} segundos ${proximoLote ? 'para a virada de lote' : 'para o encerramento'}`} style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 8 }}>
                   {contagemLote.map(([valor, unidade]) => <div key={unidade} aria-hidden="true" style={{ borderRight: unidade === 'seg' ? 'none' : `1px solid ${C.sageLight}`, textAlign: 'center' }}>
@@ -2332,7 +2334,7 @@ function InscricaoSection() {
                   </div>
                 })}
               </div>
-              {lotePresencial.ativo && <div style={{ marginTop: 20, paddingTop: 16, borderTop: `1px solid ${C.sageLight}`, color: highlightOnline ? C.sageDark : C.sageLight }}>
+              {mostrarTimer && lotePresencial.ativo && <div style={{ marginTop: 20, paddingTop: 16, borderTop: `1px solid ${C.sageLight}`, color: highlightOnline ? C.sageDark : C.sageLight }}>
                 <p style={{ fontSize: 12, fontWeight: 600, margin: '0 0 12px' }}>{proximoLotePresencial ? 'O lote vira em' : 'As inscrições encerram em'}</p>
                 <div role="timer" aria-live="off" aria-label={`${contagemLotePresencial[0][0]} dias, ${contagemLotePresencial[1][0]} horas, ${contagemLotePresencial[2][0]} minutos e ${contagemLotePresencial[3][0]} segundos ${proximoLotePresencial ? 'para a virada de lote' : 'para o encerramento'}`} style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 8 }}>
                   {contagemLotePresencial.map(([valor, unidade]) => <div key={unidade} aria-hidden="true" style={{ borderRight: unidade === 'seg' ? 'none' : `1px solid ${C.sageLight}`, textAlign: 'center' }}>
@@ -2583,7 +2585,7 @@ function Footer() {
 
 // ─── Root ────────────────────────────────────────────────────────────────────
 
-export default function BrincandoNaMusicaLP({ globalMode = false, highlightOnline = false, onlineUrl = 'https://pay.cakto.com.br/wp92bu4' }) {
+export default function BrincandoNaMusicaLP({ mostrarTimer = true, globalMode = false, highlightOnline = false, onlineUrl = 'https://pay.cakto.com.br/wp92bu4' }) {
   useEffect(() => {
     const link = document.createElement('link')
     link.href = 'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap'
@@ -2656,7 +2658,7 @@ export default function BrincandoNaMusicaLP({ globalMode = false, highlightOnlin
         <TransformacaoSection />
         <ParaQuemSection />
         <VivenciasSection />
-        <InscricaoSection />
+        <InscricaoSection mostrarTimer={mostrarTimer} />
         <TestemunhosSection />
         <FaqSection />
         <Footer />

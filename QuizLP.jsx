@@ -1,3 +1,5 @@
+import { LOTES_ONLINE, loteOnlineEm } from './lotes-online.js'
+import { LOTES_PRESENCIAL, lotePresencialEm } from './lotes-presencial.js'
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { motion, useMotionValue, useTransform, animate } from 'motion/react'
 import chrisSorrindo from './images/chris-sorrindo.jpg'
@@ -20,24 +22,35 @@ import feedback11 from './images/feedback11.jpeg'
 // usado para: personalizar o diagnóstico do WhatsApp, decidir presencial vs
 // transmissão, e mostrar o preço certo no voucher.
 //
-// Ofertas: mesmo evento de 13/09, 10h às 14h — os MESMOS checkouts já usados
-// no site principal (nenhuma oferta nova criada na Cakto):
-//   Presencial   → R$120 → https://pay.cakto.com.br/cqmaji2
-//   Transmissão  → R$67  → https://pay.cakto.com.br/khbx2vk
-
-const CHECKOUT_PRESENCIAL = 'https://pay.cakto.com.br/cqmaji2'
-const CHECKOUT_TRANSMISSAO = 'https://pay.cakto.com.br/khbx2vk'
-
 const LOCAL_PRESENCIAL_NOME = 'Yandê Dança e Movimento'
 const LOCAL_PRESENCIAL_ENDERECO = 'R. Domingos Lopes, 61 - Campo Belo, São Paulo - SP, 04606-050'
-const DATA_EVENTO = '13 de setembro'
+const DATA_EVENTO = '18 de outubro'
 const HORARIO_EVENTO = '10h às 14h'
 
-// Desconto-âncora: o voucher (Tela7) libera o "-35%" sem mostrar valor, só
-// a Tela9 (oferta final) revela o preço com desconto de fato — a mesma
-// porcentagem alimenta as duas telas, pra nunca ficarem incoerentes entre si.
-const DESCONTO_PERCENTUAL = 35
-const precoOriginal = valorComDesconto => Math.round(valorComDesconto / (1 - DESCONTO_PERCENTUAL / 100))
+// Calendários compartilhados com a página principal.
+function useRelogioLotes() {
+  const [agora, setAgora] = useState(Date.now)
+  useEffect(() => {
+    const atualizar = () => setAgora(Date.now())
+    const timer = setInterval(atualizar, 1000)
+    window.addEventListener('focus', atualizar)
+    return () => { clearInterval(timer); window.removeEventListener('focus', atualizar) }
+  }, [])
+  return agora
+}
+
+function TimerLoteQuiz({ estado, agora }) {
+  if (!estado.ativo) return <p>{estado.encerrado ? 'Vendas encerradas' : 'Vendas em breve'}</p>
+  const segundos = Math.max(0, Math.ceil((Date.parse(estado.lote.fim) - agora) / 1000))
+  const partes = [[Math.floor(segundos / 86400), 'dias'], [Math.floor(segundos / 3600) % 24, 'horas'], [Math.floor(segundos / 60) % 60, 'min'], [segundos % 60, 'seg']]
+  const ultimo = estado.lote.fim === LOTES_ONLINE.at(-1).fim
+  return <div style={{ padding: '16px 0', fontFamily: fonteTexto }}>
+    <p style={{ margin: '0 0 12px', fontSize: 13 }}>{ultimo ? 'As inscrições encerram em' : 'O lote vira em'}</p>
+    <div role="timer" aria-live="off" aria-label={partes.map(([valor, unidade]) => `${valor} ${unidade}`).join(', ')} style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8, textAlign: 'center' }}>
+      {partes.map(([valor, unidade]) => <div key={unidade} aria-hidden="true"><strong style={{ display: 'block', fontSize: 27, fontVariantNumeric: 'tabular-nums' }}>{String(valor).padStart(2, '0')}</strong><span style={{ fontSize: 11 }}>{unidade}</span></div>)}
+    </div>
+  </div>
+}
 
 // Sem acento de propósito: o script de UTMs do site decora todo link <a> e
 // corrompe caracteres acentuados dentro de query string já url-encoded
@@ -94,7 +107,7 @@ function proximoId(atualId, respostas) {
 const perguntasQuiz = {
   'q-attendance': {
     campo: 'attendance',
-    pergunta: 'Você vai estar em São Paulo no dia 13 de setembro?',
+    pergunta: 'Você vai estar em São Paulo no dia 18 de outubro?',
     opcoes: [
       { valor: 'presencial', texto: 'Sim, quero ir presencialmente' },
       { valor: 'online', texto: 'Não, mas quero ver a transmissão ao vivo' },
@@ -1219,20 +1232,13 @@ function useVagasPresencial() {
 
 function Tela7Voucher({ oferta, avancar, voltar, mobile }) {
   const [resgatado, setResgatado] = useState(false)
-  const [restamSeg, setRestamSeg] = useState(15 * 60)
+  const agora = useRelogioLotes()
+  const estado = oferta === 'presencial' ? lotePresencialEm(agora) : loteOnlineEm(agora)
+  const desconto = Math.round((1 - estado.lote.preco / (oferta === 'presencial' ? 197 : 167)) * 100)
   const vagas = useVagasPresencial()
 
   const ehPresencial = oferta === 'presencial'
   const nomeOferta = ehPresencial ? 'Presencial' : 'Transmissão ao vivo'
-
-  useEffect(() => {
-    if (resgatado) return
-    const t = setInterval(() => setRestamSeg(s => Math.max(s - 1, 0)), 1000)
-    return () => clearInterval(t)
-  }, [resgatado])
-
-  const min = String(Math.floor(restamSeg / 60)).padStart(2, '0')
-  const seg = String(restamSeg % 60).padStart(2, '0')
 
   // Fundo liso (em vez do gradiente de antes) de propósito: as reentrâncias
   // do "bilhete" só enganam o olho se a cor da reentrância bater exatamente
@@ -1259,9 +1265,9 @@ function Tela7Voucher({ oferta, avancar, voltar, mobile }) {
         <div style={{
           fontFamily: fonteTexto, fontWeight: 700, fontSize: 12, letterSpacing: '1.5px',
           textTransform: 'uppercase', color: C.sageLight, marginBottom: 8,
-        }}>1º Lote · Vagas Limitadas</div>
+        }}>{estado.ativo ? `${estado.lote.nome} · Lote Atual` : estado.encerrado ? 'Vendas encerradas' : 'Em breve'}</div>
 
-        {vagas && !vagas.esgotado && (
+        {ehPresencial && vagas && !vagas.esgotado && (
           <p style={{ fontFamily: fonteTexto, fontWeight: 500, fontSize: 13.5, color: 'rgba(237,234,227,0.75)', marginBottom: 20 }}>
             {vagas.percentual}% das vagas já preenchidas
           </p>
@@ -1336,17 +1342,17 @@ function Tela7Voucher({ oferta, avancar, voltar, mobile }) {
                   }} />
                 ))}
                 <span style={{ fontFamily: fonteTexto, fontWeight: 700, fontSize: 13, color: C.sageDark }}>Voucher resgatado! 🎉</span>
-                <span style={{ fontFamily: fonteTexto, fontWeight: 500, fontSize: 13, color: C.brownMid, marginTop: 4 }}>{nomeOferta} · 1º lote</span>
+                <span style={{ fontFamily: fonteTexto, fontWeight: 500, fontSize: 13, color: C.brownMid, marginTop: 4 }}>{nomeOferta} · {estado.lote.nome}</span>
                 {/* de propósito sem preço aqui — só o desconto desbloqueado.
                     O valor exato só aparece na tela de oferta, na sequência. */}
                 <span style={{ fontFamily: fonteTexto, fontWeight: 800, fontSize: 46, color: C.vivo, lineHeight: 1, marginTop: 6 }}>
-                  -{DESCONTO_PERCENTUAL}%
+                  -{desconto}%
                 </span>
                 <span style={{
                   fontFamily: fonteTexto, fontWeight: 600, fontSize: 12.5, color: C.brownMid,
                   textAlign: 'center', lineHeight: 1.45, maxWidth: 190, marginTop: 6,
                 }}>
-                  Desconto garantido. O valor com desconto aparece na próxima etapa.
+                  Preço válido durante o lote atual. Confira o valor na próxima etapa.
                 </span>
               </div>
 
@@ -1364,12 +1370,13 @@ function Tela7Voucher({ oferta, avancar, voltar, mobile }) {
           </div>
         </div>
 
+
         {resgatado && (
           <div style={{
             display: 'flex', alignItems: 'center', gap: 8,
             fontFamily: fonteTexto, fontWeight: 600, fontSize: 13, color: C.vivo, marginBottom: 6,
           }}>
-            Garantido por mais {min}:{seg} min
+            <TimerLoteQuiz estado={estado} agora={agora} />
           </div>
         )}
       </div>
@@ -1494,7 +1501,12 @@ function Tela9Oferta({ ofertaInicial, voltar, mobile }) {
   // Já vem pré-selecionada com o que a pessoa decidiu no quiz — mas continua
   // trocável aqui, caso ela mude de ideia na última hora.
   const [escolha, setEscolha] = useState(ofertaInicial || 'presencial')
-  const url = escolha === 'presencial' ? CHECKOUT_PRESENCIAL : CHECKOUT_TRANSMISSAO
+  const agora = useRelogioLotes()
+  const presencial = lotePresencialEm(agora)
+  const online = loteOnlineEm(agora)
+  const estado = escolha === 'presencial' ? presencial : online
+  const lotes = escolha === 'presencial' ? LOTES_PRESENCIAL : LOTES_ONLINE
+  const url = estado.ativo ? estado.lote.checkout : null
 
   return (
     <TelaBase fundo={C.cream} mobile={mobile}>
@@ -1505,14 +1517,14 @@ function Tela9Oferta({ ofertaInicial, voltar, mobile }) {
           color: C.brown, lineHeight: 1.25, marginBottom: 6, textAlign: 'center',
         }}>Escolha como participar</h2>
         <p style={{ fontFamily: fonteTexto, fontSize: 13, color: C.brownMid, textAlign: 'center', marginBottom: 22 }}>
-          13 de setembro · 10h às 14h
+          18 de outubro · 10h às 14h
         </p>
 
         <p style={{
           fontFamily: fonteTexto, fontWeight: 700, fontSize: 12.5, color: C.vivo,
           textAlign: 'center', marginBottom: 16, letterSpacing: '0.2px',
         }}>
-          🎉 Seus {DESCONTO_PERCENTUAL}% de desconto do voucher já estão aplicados abaixo
+          Valores do lote atual · escolha como participar
         </p>
 
         {/* opção presencial */}
@@ -1526,9 +1538,9 @@ function Tela9Oferta({ ofertaInicial, voltar, mobile }) {
             <span style={{ fontFamily: fonteTexto, fontWeight: 700, fontSize: 15, color: C.brown }}>Presencial</span>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
               <span style={{ fontFamily: fonteTexto, fontWeight: 600, fontSize: 13, color: C.brownLight, textDecoration: 'line-through' }}>
-                R${precoOriginal(120)}
+                R$197
               </span>
-              <span style={{ fontFamily: fonteTexto, fontWeight: 800, fontSize: 19, color: C.brown }}>R$120</span>
+              <span style={{ fontFamily: fonteTexto, fontWeight: 800, fontSize: 19, color: C.brown }}>R${presencial.lote.preco}</span>
             </div>
           </div>
           <span style={{ fontFamily: fonteTexto, fontSize: 13, color: C.brownMid, lineHeight: 1.5 }}>
@@ -1547,9 +1559,9 @@ function Tela9Oferta({ ofertaInicial, voltar, mobile }) {
             <span style={{ fontFamily: fonteTexto, fontWeight: 700, fontSize: 15, color: C.brown }}>Transmissão ao vivo</span>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
               <span style={{ fontFamily: fonteTexto, fontWeight: 600, fontSize: 13, color: C.brownLight, textDecoration: 'line-through' }}>
-                R${precoOriginal(67)}
+                R$167
               </span>
-              <span style={{ fontFamily: fonteTexto, fontWeight: 800, fontSize: 19, color: C.brown }}>R$67</span>
+              <span style={{ fontFamily: fonteTexto, fontWeight: 800, fontSize: 19, color: C.brown }}>R${online.lote.preco}</span>
             </div>
           </div>
           <span style={{ fontFamily: fonteTexto, fontSize: 13, color: C.brownMid, lineHeight: 1.5 }}>
@@ -1557,9 +1569,25 @@ function Tela9Oferta({ ofertaInicial, voltar, mobile }) {
           </span>
         </button>
 
-        <a href={url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', display: 'block', marginBottom: 28 }}>
-          <BotaoContinuar onClick={() => {}}>Garantir minha vaga →</BotaoContinuar>
-        </a>
+        <div style={{ fontFamily: fonteTexto, color: C.brown, marginBottom: 24 }}>
+          <p style={{ fontSize: 13, fontWeight: 700 }}>Lotes por data · {escolha === 'presencial' ? 'Presencial' : 'Transmissão'}</p>
+          <div style={{ display: 'grid', gridTemplateColumns: `repeat(${lotes.length}, minmax(0, 1fr))`, gap: 6 }}>
+            {lotes.map((lote, i) => {
+              const atual = estado.ativo && i === estado.indice
+              return <div key={lote.nome} aria-current={atual ? 'step' : undefined} style={{ padding: '14px 5px', textAlign: 'center', borderRadius: 10, border: `1px solid ${C.sageLight}`, background: atual ? '#40594A' : C.white, color: atual ? C.white : C.brown }}>
+                <div style={{ fontSize: 12 }}>{lote.nome}</div>
+                <strong style={{ display: 'block', fontSize: 23, margin: '8px 0' }}>R$ {lote.preco}</strong>
+                <div style={{ fontSize: 13, fontWeight: 700 }}>{lote.periodo}</div>
+                <div style={{ fontSize: 10, marginTop: 10 }}>{atual ? '✓ Lote Atual' : agora >= Date.parse(lote.fim) ? 'Encerrado' : 'Em breve'}</div>
+              </div>
+            })}
+          </div>
+          <TimerLoteQuiz estado={estado} agora={agora} />
+          {estado.ativo && lotes[estado.indice + 1] && <p style={{ fontSize: 12 }}>Em {lotes[estado.indice + 1].periodo.split(' a ')[0]}, o ingresso passa para R$ {lotes[estado.indice + 1].preco}.</p>}
+        </div>
+        {url ? <a href={url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', display: 'block', marginBottom: 28, borderRadius: 100, background: C.sageDark, color: C.white, padding: '18px 20px', textAlign: 'center', fontFamily: fonteTexto, fontWeight: 700 }}>
+          Garantir minha vaga · {estado.lote.nome} →
+        </a> : <p style={{ textAlign: 'center', marginBottom: 28 }}>{estado.encerrado ? 'Vendas encerradas' : 'Vendas em breve'}</p>}
 
         {/* garantia */}
         <div style={{
