@@ -622,7 +622,6 @@ function ExpItem({ exp, index, delay }) {
 
 function VivenciaSection() {
   const [titleRef, titleInView] = useInView()
-  const [photoRef, photoInView] = useInView()
   const w = useWindowWidth()
   const mobile = w < 768
 
@@ -660,41 +659,7 @@ function VivenciaSection() {
           </p>
         </div>
 
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: mobile ? '1fr' : '0.8fr 1.2fr',
-          gap: mobile ? 40 : 64,
-          alignItems: 'center',
-        }}>
-          {/* foto da Chris, moldura tipo foto colada */}
-          <div ref={photoRef} style={{
-            display: 'flex', justifyContent: 'center',
-            transition: 'opacity 0.8s ease, transform 0.8s ease',
-            opacity: photoInView ? 1 : 0,
-            transform: photoInView ? 'translateY(0)' : 'translateY(24px)',
-          }}>
-            <div style={{
-              position: 'relative',
-              background: C.white,
-              padding: '10px 10px 34px',
-              borderRadius: 8,
-              boxShadow: '0 20px 46px rgba(61,53,48,0.22)',
-              transform: 'rotate(-1.5deg)',
-              maxWidth: 340, width: '100%',
-            }}>
-              <WashiTape color={C.sage} rotate={7} top={-15} left="24%" width={58} />
-              <div style={{ borderRadius: 4, overflow: 'hidden', aspectRatio: '4/5' }}>
-                <img src={chrisSorrindo} alt="Chris Busato"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-              </div>
-              <div style={{
-                position: 'absolute', bottom: 8, left: 0, right: 0, textAlign: 'center',
-                fontFamily: "'Playfair Display', serif", fontStyle: 'italic',
-                fontSize: 14, color: C.brownMid,
-              }}>Chris Busato</div>
-            </div>
-          </div>
-
+        <div style={{ maxWidth: 760, margin: '0 auto' }}>
           {/* lista editorial */}
           <div>
             {experiencias.map((exp, i) => (
