@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import BrincandoNaMusicaLP from '../BrincandoNaMusicaLP.jsx'
+import BrincandoNaMusicaOriginalLP from '../BrincandoNaMusicaOriginalLP.jsx'
 import CorpoMusicalPresencialLP from '../CorpoMusicalPresencialLP.jsx'
 import ErroAPossibilidadeLP from '../ErroAPossibilidadeLP.jsx'
 import AgradecimentoPresencialLP from '../AgradecimentoPresencialLP.jsx'
@@ -36,7 +37,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <PixelPageViews />
       <Routes>
         <Route path="/" element={<><BrincandoNaMusicaLP mostrarTimer={false} /><OfertaRodape /></>} />
-        <Route path="/2" element={<BrincandoNaMusicaLP mostrarTimer={false} />} />
+        <Route path="/2" element={<BrincandoNaMusicaOriginalLP mostrarTimer={false} />} />
         <Route path="/presencial" element={<CorpoMusicalPresencialLP />} />
         <Route path="/possibilidades" element={<ErroAPossibilidadeLP />} />
         <Route path="/ad1" element={<AgradecimentoPresencialLP />} />
