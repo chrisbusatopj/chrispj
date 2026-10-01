@@ -23,7 +23,7 @@ export default function BotaoWhatsApp() {
       style={{
         position: 'fixed',
         right: 20,
-        bottom: 20,
+        bottom: 'calc(20px + var(--oferta-altura, 0px))',
         zIndex: 999,
         width: 58,
         height: 58,

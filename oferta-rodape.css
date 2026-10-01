@@ -1,0 +1,20 @@
+.oferta-espaco { height: var(--oferta-altura, 150px); }
+.oferta-rodape { position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; background: #fafaf8; color: #3d3530; border-top: 1px solid #c4d0c5; box-shadow: 0 -6px 24px #3d353012; padding: 14px 24px calc(14px + env(safe-area-inset-bottom)); font-family: 'DM Sans', sans-serif; }
+.oferta-conteudo { max-width: 1100px; margin: auto; display: grid; grid-template-columns: 1.3fr 1fr 1.2fr auto; gap: 24px; align-items: center; }
+.oferta-modalidade label, .oferta-precos > span, .oferta-timer > span { display: block; font-size: 12px; line-height: 1.5; color: #6b5f58; }
+.oferta-modalidade select { background: transparent; color: #3d3530; border: 0; border-bottom: 1px solid #c4d0c5; padding: 5px 0; max-width: 100%; font: inherit; font-size: 15px; font-weight: 600; }
+.oferta-precos strong { font-size: 30px; letter-spacing: -1px; line-height: 1.2; }
+.oferta-precos small { font-size: 12px; font-weight: 400; letter-spacing: 0; }
+.oferta-timer strong { font-size: 18px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.oferta-comprar { background: #40594a; color: #fff; padding: 16px 22px; border-radius: 100px; text-align: center; font-size: 14px; font-weight: 600; text-decoration: none; transition: transform .2s; }
+.oferta-comprar:active { transform: scale(.98); }
+.oferta-rodape :focus-visible { outline: 2px solid #40594a; outline-offset: 4px; }
+@media (max-width: 767px) {
+  .oferta-rodape { padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); }
+  .oferta-conteudo { grid-template-columns: 1fr 1fr; gap: 10px 14px; }
+  .oferta-precos { text-align: right; }
+  .oferta-precos strong { font-size: 27px; }
+  .oferta-timer strong { font-size: 16px; }
+  .oferta-modalidade select { font-size: 13px; }
+  .oferta-comprar { padding: 13px 10px; font-size: 13px; }
+}

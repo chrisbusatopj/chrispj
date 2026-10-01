@@ -233,23 +233,8 @@ const dorCards = [
   },
   {
     n: '03',
-    title: 'Parece que nunca é suficiente',
-    text: 'Aprende um passo, quer mais. Aprende mais, ainda sente que falta algo. O repertório cresce, a sensação de limitação não passa.',
-  },
-  {
-    n: '04',
     title: 'Dança "no piloto automático"',
     text: 'A mesma sequência toda vez. Não porque quer, mas porque não sabe como sair dela sem perder o ritmo.',
-  },
-  {
-    n: '05',
-    title: 'Insegurança de não "acertar"',
-    text: 'A preocupação de errar o tempo toma mais espaço do que a dança em si. Você monitora mais do que dança.',
-  },
-  {
-    n: '06',
-    title: 'A música passa, você não brinca',
-    text: 'Às vezes você percebe uma frase musical incrível. O momento passa. O corpo não respondeu a tempo.',
   },
 ]
 
@@ -335,8 +320,8 @@ function DorSection() {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: mobile ? '1fr' : 'repeat(2, 1fr)',
-          columnGap: 56,
+          gridTemplateColumns: w < 1024 ? '1fr' : 'repeat(3, 1fr)',
+          columnGap: 32,
         }}>
           {dorCards.map((card, i) => (
             <DorCard key={i} card={card} delay={i * 70} mobile={mobile} />
@@ -657,7 +642,7 @@ function VivenciaSection() {
             fontFamily: "'DM Sans', sans-serif", fontWeight: 500,
             fontSize: 12, letterSpacing: '2.5px', color: C.sage,
             textTransform: 'uppercase', marginBottom: 20,
-          }}>O Que Acontece na Vivência</div>
+          }}>O que você vai experimentar nas 4 horas</div>
           <h2 style={{
             fontFamily: "'Playfair Display', serif",
             fontSize: 'clamp(30px, 4vw, 50px)',
@@ -724,186 +709,31 @@ function VivenciaSection() {
 
 // ─── Consciência Corporal & Relacional ────────────────────────────────────────
 
-const consciencia = [
-  {
-    sintoma: 'Corpo rígido',
-    sintomaDesc: 'tensão nos ombros, braços e quadril — o movimento não circula',
-    depois: 'Corpo solto',
-    depoisDesc: 'mais chão, respiração e disponibilidade pra se mover',
-  },
-  {
-    sintoma: 'Sem eixo',
-    sintomaDesc: 'desequilíbrio, pisada insegura, "não sei onde me apoiar"',
-    depois: 'Autonomia',
-    depoisDesc: 'sente o próprio centro e se organiza sozinho',
-  },
-  {
-    sintoma: 'Cabeça no comando',
-    sintomaDesc: '"qual passo? tá certo?" — corpo mecânico e atrasado',
-    depois: 'Escuta no comando',
-    depoisDesc: 'responde ao pulso, não à memória',
-  },
-  {
-    sintoma: 'Fronteira confusa',
-    sintomaDesc: 'puxa, pesa, antecipa ou desaparece no parceiro',
-    depois: 'Conexão real',
-    depoisDesc: 'sente limite, direção e resposta do outro',
-  },
-]
-
-function ConscienciaRow({ item, index, mobile }) {
-  const [ref, inView] = useInView()
-  const [hovered, setHovered] = useState(false)
-  return (
-    <div ref={ref}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        position: 'relative',
-        borderRadius: 16, overflow: 'hidden',
-        background: C.white,
-        border: `1px solid ${C.sageLight}`,
-        boxShadow: hovered ? '0 16px 38px rgba(61,53,48,0.12)' : '0 3px 12px rgba(61,53,48,0.05)',
-        transition: 'opacity 0.7s ease, transform 0.55s ease, box-shadow 0.3s ease',
-        transitionDelay: `${index * 80}ms`,
-        opacity: inView ? 1 : 0,
-        transform: inView ? (hovered ? 'translateY(-3px)' : 'translateY(0)') : 'translateY(20px)',
-      }}>
-      <div style={{
-        position: 'absolute', top: -12, right: 12,
-        fontFamily: "'Playfair Display', serif", fontStyle: 'italic',
-        fontSize: 76, color: C.sagePale, lineHeight: 1,
-        pointerEvents: 'none', userSelect: 'none', zIndex: 0,
-      }}>{String(index + 1).padStart(2, '0')}</div>
-
-      <div style={{
-        position: 'relative', zIndex: 1,
-        display: 'flex', flexDirection: mobile ? 'column' : 'row',
-      }}>
-        <div style={{ flex: 1, padding: mobile ? '20px 20px 16px' : '22px 24px' }}>
-          <div style={{
-            fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
-            fontSize: 15, color: C.brown, marginBottom: 5,
-          }}>{item.sintoma}</div>
-          <span style={{
-            fontFamily: "'DM Sans', sans-serif", fontWeight: 400,
-            fontSize: 13.5, color: C.brownLight, lineHeight: 1.5,
-          }}>{item.sintomaDesc}</span>
-        </div>
-
-        <div style={{
-          flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
-          padding: mobile ? 0 : '0 4px',
-        }}>
-          <div style={{
-            width: 32, height: 32, borderRadius: '50%',
-            background: `linear-gradient(150deg, ${C.sage} 0%, ${C.sageDark} 100%)`,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            boxShadow: '0 6px 14px rgba(107,127,109,0.35)',
-            transform: mobile ? 'rotate(90deg)' : 'none',
-            margin: mobile ? '-2px 0' : 0,
-          }}>
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M2 7h9M8 3.5L11.5 7 8 10.5" stroke={C.white} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </div>
-        </div>
-
-        <div style={{
-          flex: 1, padding: mobile ? '16px 20px 20px' : '22px 24px',
-          background: C.sagePale,
-        }}>
-          <div style={{
-            fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
-            fontSize: 15, color: C.sageDark, marginBottom: 5,
-          }}>{item.depois}</div>
-          <span style={{
-            fontFamily: "'DM Sans', sans-serif", fontWeight: 500,
-            fontSize: 13.5, color: C.brownMid, lineHeight: 1.5,
-          }}>{item.depoisDesc}</span>
-        </div>
-      </div>
-    </div>
-  )
-}
-
 function ConscienciaSection() {
-  const [titleRef, titleInView] = useInView()
-  const [quoteRef, quoteInView] = useInView()
-  const [closeRef, closeInView] = useInView()
-  const w = useWindowWidth()
-  const mobile = w < 768
+  const mobile = useWindowWidth() < 768
 
   return (
-    <section style={{
-      background: C.white,
-      padding: mobile ? '80px 24px' : '112px 40px',
-    }}>
-      <div style={{ maxWidth: 900, margin: '0 auto' }}>
-        <div ref={titleRef} style={{
-          textAlign: 'center', marginBottom: 40,
-          transition: 'opacity 0.7s ease, transform 0.7s ease',
-          opacity: titleInView ? 1 : 0,
-          transform: titleInView ? 'translateY(0)' : 'translateY(28px)',
+    <section style={{ background: C.white, padding: mobile ? '40px 24px' : '56px 40px' }}>
+      <div style={{ maxWidth: 760, margin: '0 auto', textAlign: 'center' }}>
+        <p style={{
+          fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 500,
+          letterSpacing: '1.5px', textTransform: 'uppercase', color: C.sageDark, marginBottom: 12,
+        }}>Consciência Corporal & Relacional</p>
+        <h2 style={{
+          fontFamily: "'Playfair Display', serif", fontSize: 'clamp(24px, 3vw, 32px)',
+          color: C.brown, lineHeight: 1.25, marginBottom: 16,
+        }}>Mais presença para dançar com autonomia.</h2>
+        <p style={{
+          fontFamily: "'DM Sans', sans-serif", fontSize: 16,
+          color: C.brownMid, lineHeight: 1.7,
         }}>
-          <div style={{
-            fontFamily: "'DM Sans', sans-serif", fontWeight: 500,
-            fontSize: 12, letterSpacing: '2.5px', color: C.sage,
-            textTransform: 'uppercase', marginBottom: 20,
-          }}>Consciência Corporal & Relacional</div>
-          <h2 style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: 'clamp(28px, 4vw, 46px)',
-            color: C.brown, lineHeight: 1.2, letterSpacing: '-0.5px',
-          }}>
-            O corpo trava antes da cabeça perceber.{' '}
-            <em style={{ color: C.sageDark, fontStyle: 'italic' }}>A consciência é o que muda isso.</em>
-          </h2>
-        </div>
-
-        <div ref={quoteRef} style={{
-          textAlign: 'center', maxWidth: 620, margin: '0 auto 56px',
-          transition: 'opacity 0.8s ease, transform 0.8s ease',
-          opacity: quoteInView ? 1 : 0,
-          transform: quoteInView ? 'translateY(0)' : 'translateY(20px)',
-        }}>
-          <p style={{
-            fontFamily: "'Playfair Display', serif", fontStyle: 'italic',
-            fontSize: mobile ? 17 : 20, color: C.brownMid, lineHeight: 1.6,
-          }}>
-            Quando falta consciência corporal, você não sente bem o próprio corpo.{' '}
-            Quando falta consciência relacional, você não sente bem o corpo do outro perto do seu.
-          </p>
-        </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginBottom: 64 }}>
-          {consciencia.map((item, i) => (
-            <ConscienciaRow key={i} item={item} index={i} mobile={mobile} />
-          ))}
-        </div>
-
-        {/* fechamento: ideia central + prova real */}
-        <div ref={closeRef} style={{
-          textAlign: 'center',
-          transition: 'opacity 0.8s ease, transform 0.8s ease',
-          opacity: closeInView ? 1 : 0,
-          transform: closeInView ? 'translateY(0)' : 'translateY(24px)',
-        }}>
-          <p style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: mobile ? 22 : 28, color: C.brown, lineHeight: 1.4,
-            letterSpacing: '-0.3px',
-            maxWidth: 680, margin: '0 auto',
-          }}>
-            A dança melhora quando o corpo deixa de só executar movimentos e passa a{' '}
-            <em style={{ color: C.sageDark, fontStyle: 'italic' }}>perceber: a si mesmo, a música, o outro e o espaço.</em>
-          </p>
-        </div>
+          Na prática, você também explora o apoio, a respiração e a conexão com o outro.
+          Tudo a serviço de escutar a música e escolher seus movimentos com mais liberdade.
+        </p>
       </div>
     </section>
   )
 }
-
 // ─── Transformação ───────────────────────────────────────────────────────────
 
 const antes = [
@@ -1057,8 +887,11 @@ function StatementStrip() {
           color: C.cream, lineHeight: 1.35,
           letterSpacing: '-0.5px',
         }}>
-          "O corpo que escuta{' '}
-          <span style={{ color: C.sageLight }}>dança diferente.</span>"
+          Não faltam passos.{' '}
+          <span style={{ color: C.sageLight }}>Falta referência musical.</span>
+        </p>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 17, color: C.sageLight, lineHeight: 1.7, maxWidth: 620, margin: '24px auto 0' }}>
+          Ao reconhecer o pulso, as frases e as mudanças da música, você ganha referências para escolher seus movimentos — e autonomia para sair da sequência decorada.
         </p>
       </div>
     </section>
@@ -1194,94 +1027,6 @@ function StatsStrip() {
         ))}
       </div>
     </section>
-  )
-}
-
-// ─── Para Quem ────────────────────────────────────────────────────────────────
-
-const paraQuemItens = [
-  {
-    frase: 'Você vai pro baile e repete as mesmas duas ou três coisas. Não porque quer, mas porque é o que aparece.',
-    detalhe: 'O corpo vai no automático.',
-  },
-  {
-    frase: 'A música muda. Você percebe. O corpo não vai junto.',
-    detalhe: 'Você vê o momento, só não sabe o que fazer nele.',
-  },
-  {
-    frase: 'Já aprendeu bastante. A sensação de limitação não foi embora com os passos.',
-    detalhe: 'Mais repertório não parece ser a resposta.',
-  },
-  {
-    frase: 'Às vezes você dança bem. Outras vezes trava. E você não entende por quê.',
-    detalhe: 'Não é inconsistência, é falta de mapa.',
-  },
-]
-
-function ParaQuemSection() {
-  const [titleRef, titleInView] = useInView()
-  const w = useWindowWidth()
-  const mobile = w < 768
-
-  return (
-    <section style={{
-      background: C.cream,
-      padding: mobile ? '80px 24px' : '112px 40px',
-    }}>
-      <div style={{ maxWidth: 680, margin: '0 auto' }}>
-        <div ref={titleRef} style={{
-          marginBottom: 56, textAlign: 'center',
-          transition: 'opacity 0.7s ease, transform 0.7s ease',
-          opacity: titleInView ? 1 : 0,
-          transform: titleInView ? 'translateY(0)' : 'translateY(28px)',
-        }}>
-          <h2 style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: 'clamp(28px, 4vw, 48px)',
-            color: C.brown, letterSpacing: '-0.5px', marginBottom: 16,
-          }}>
-            Isso soa familiar?
-          </h2>
-          <p style={{
-            fontFamily: "'DM Sans', sans-serif", fontWeight: 400,
-            fontSize: 17, color: C.brownMid, lineHeight: 1.7,
-          }}>
-            Se algum desses cenários parece com o que você vive, essa vivência foi feita para você.
-          </p>
-        </div>
-
-        <div>
-          {paraQuemItens.map((item, i) => (
-            <ParaQuemItem key={i} item={item} index={i} />
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function ParaQuemItem({ item, index }) {
-  const [ref, inView] = useInView()
-  return (
-    <div ref={ref} style={{
-      borderTop: `1px solid ${C.creamDark}`,
-      padding: '28px 0',
-      transition: 'opacity 0.6s ease, transform 0.6s ease',
-      transitionDelay: `${index * 80}ms`,
-      opacity: inView ? 1 : 0,
-      transform: inView ? 'translateY(0)' : 'translateY(20px)',
-    }}>
-      <p style={{
-        fontFamily: "'Playfair Display', serif",
-        fontStyle: 'italic',
-        fontSize: 'clamp(18px, 2.2vw, 22px)',
-        color: C.brown, lineHeight: 1.55, marginBottom: 10,
-      }}>{item.frase}</p>
-      <p style={{
-        fontFamily: "'DM Sans', sans-serif", fontWeight: 400,
-        fontSize: 15, color: C.brownMid, lineHeight: 1.5,
-      }}>{item.detalhe}</p>
-    </div>
   )
 }
 
@@ -2538,6 +2283,35 @@ function FaqSection() {
 
 // ─── Footer ──────────────────────────────────────────────────────────────────
 
+function SobreChrisSection() {
+  const mobile = useWindowWidth() < 768
+  return (
+    <section style={{ background: C.sagePale, padding: mobile ? '56px 24px' : '72px 40px' }}>
+      <div style={{ maxWidth: 900, margin: '0 auto', display: 'grid', gridTemplateColumns: mobile ? '1fr' : '240px 1fr', gap: 40, alignItems: 'center' }}>
+        <img src={chrisSorrindo} alt="Chris Busato" loading="lazy" style={{ width: '100%', maxWidth: 240, aspectRatio: '4/5', objectFit: 'cover', borderRadius: 8, margin: '0 auto' }} />
+        <div>
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px, 4vw, 40px)', color: C.brown, marginBottom: 20 }}>Com Chris Busato</h2>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, color: C.brownMid, lineHeight: 1.75, marginBottom: 16 }}>
+            Chris conduz a vivência Brincando na Música unindo escuta musical, consciência corporal e prática de dança.
+          </p>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, color: C.brownMid, lineHeight: 1.75 }}>
+            O método aproxima o sentir e o sustentar: perceber o que a música oferece e encontrar no corpo a estrutura para responder. Pulso, frases e contrastes se tornam referências para explorar movimentos e construir sua própria dança.
+          </p>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function CtaFinalSection() {
+  return (
+    <section style={{ background: C.sagePale, padding: '56px 24px', textAlign: 'center' }}>
+      <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px, 4vw, 40px)', color: C.brown, marginBottom: 24 }}>Seu próximo passo começa na música.</h2>
+      <a href="#inscricao" style={{ display: 'inline-block', padding: '18px 32px', borderRadius: 100, background: C.sageDark, color: C.white, fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 600, textDecoration: 'none' }}>Quero participar da vivência →</a>
+    </section>
+  )
+}
+
 function Footer() {
   return (
     <footer style={{
@@ -2652,15 +2426,15 @@ export default function BrincandoNaMusicaLP({ mostrarTimer = true, globalMode = 
       <div style={{ position: 'relative', zIndex: 2 }}>
         <DorSection />
         <StatementStrip />
-        <VivenciaSection />
-        <ConscienciaSection />
-        <MarqueeStrip />
-        <TransformacaoSection />
-        <ParaQuemSection />
         <VivenciasSection />
+        <VivenciaSection />
         <InscricaoSection mostrarTimer={mostrarTimer} />
+        <TransformacaoSection />
         <TestemunhosSection />
+        <ConscienciaSection />
+        <SobreChrisSection />
         <FaqSection />
+        <CtaFinalSection />
         <Footer />
       </div>
     </>

@@ -17,6 +17,7 @@ import QuizLP from '../QuizLP.jsx'
 import AdminLP from '../AdminLP.jsx'
 import PropostaLP from '../PropostaLP.jsx'
 import BotaoWhatsApp from '../BotaoWhatsApp.jsx'
+import OfertaRodape from '../OfertaRodape.jsx'
 
 function PixelPageViews() {
   const { pathname } = useLocation()
@@ -34,7 +35,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <PixelPageViews />
       <Routes>
-        <Route path="/" element={<BrincandoNaMusicaLP />} />
+        <Route path="/" element={<><BrincandoNaMusicaLP /><OfertaRodape /></>} />
         <Route path="/2" element={<BrincandoNaMusicaLP mostrarTimer={false} />} />
         <Route path="/presencial" element={<CorpoMusicalPresencialLP />} />
         <Route path="/possibilidades" element={<ErroAPossibilidadeLP />} />
