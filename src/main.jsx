@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import BrincandoNaMusicaLP from '../BrincandoNaMusicaLP.jsx'
-import BrincandoNaMusicaOriginalLP from '../BrincandoNaMusicaOriginalLP.jsx'
 import CorpoMusicalPresencialLP from '../CorpoMusicalPresencialLP.jsx'
 import ErroAPossibilidadeLP from '../ErroAPossibilidadeLP.jsx'
 import AgradecimentoPresencialLP from '../AgradecimentoPresencialLP.jsx'
@@ -19,6 +18,7 @@ import AdminLP from '../AdminLP.jsx'
 import PropostaLP from '../PropostaLP.jsx'
 import BotaoWhatsApp from '../BotaoWhatsApp.jsx'
 import OfertaRodape from '../OfertaRodape.jsx'
+import CaixaSecretaLP from '../CaixaSecretaLP.jsx'
 
 function PixelPageViews() {
   const { pathname } = useLocation()
@@ -36,8 +36,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <PixelPageViews />
       <Routes>
-        <Route path="/" element={<><BrincandoNaMusicaLP mostrarTimer={false} /><OfertaRodape /></>} />
-        <Route path="/2" element={<BrincandoNaMusicaOriginalLP mostrarTimer={false} />} />
+        <Route path="/" element={<BrincandoNaMusicaLP mostrarTimer />} />
+        <Route path="/2" element={<><BrincandoNaMusicaLP mostrarTimer={false} /><OfertaRodape /></>} />
+        <Route path="/3" element={<BrincandoNaMusicaLP mostrarTimer={false} />} />
+        <Route path="/up" element={<CaixaSecretaLP />} />
         <Route path="/presencial" element={<CorpoMusicalPresencialLP />} />
         <Route path="/possibilidades" element={<ErroAPossibilidadeLP />} />
         <Route path="/ad1" element={<AgradecimentoPresencialLP />} />

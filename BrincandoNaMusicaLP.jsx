@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, createContext, useContext } from 'react'
 import { LOTES_ONLINE, loteOnlineEm } from './lotes-online.js'
 import { LOTES_PRESENCIAL, lotePresencialEm } from './lotes-presencial.js'
+import { ocupacaoProjetadaEm } from './projecao-presencial.js'
 
 const GlobalModeCtx = createContext({ globalMode: false, highlightOnline: false, onlineUrl: 'https://pay.cakto.com.br/wp92bu4' })
 
@@ -191,7 +192,7 @@ function Hero() {
             onMouseEnter={e => { e.currentTarget.style.background = C.sageDark; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 10px 32px rgba(107,127,109,0.45)' }}
             onMouseLeave={e => { e.currentTarget.style.background = C.sage; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 6px 24px rgba(107,127,109,0.35)' }}
           >
-            Quero ver a Transmissão Ao Vivo dia 18 de Outubro (1º Lote)
+            Quero ver a Transmissão Ao Vivo dia 18 de Outubro (2º Lote)
           </a>}
           {/* Botão presencial */}
           {!globalMode && !PRESENCIAL_BLOQUEADO && <a href="#ingresso-presencial" style={{
@@ -1567,113 +1568,64 @@ function FaixaInterditada({ mobile }) {
   )
 }
 
-// Barra de vagas — alimentada por pedidos PAGOS na Cakto (/api/vagas-presencial).
-// Se a API não responder ou a capacidade não estiver configurada, não renderiza nada:
-// é melhor não mostrar barra do que mostrar um número que não é real.
+// Projeção diária de ocupação; não representa pedidos pagos nem bloqueia compras.
 function BarraVagas({ escuro = true }) {
-  const [dados, setDados] = useState(null)
+  const [percentual, setPercentual] = useState(() => ocupacaoProjetadaEm())
   const [animou, setAnimou] = useState(false)
 
   useEffect(() => {
+    let timer
     let ativo = true
-    const atualizar = () => fetch('/api/vagas-presencial')
-      .then(r => r.json())
-      .then(d => { if (ativo && d && !d.indisponivel) setDados(d) })
-      .catch(() => {})
+    const atualizar = () => {
+      if (!ativo) return
+      clearTimeout(timer)
+      setPercentual(ocupacaoProjetadaEm())
+      // Próxima meia-noite em Brasília (UTC-3), inclusive em abas abertas.
+      const diaMs = 86_400_000
+      const deslocamento = 3 * 60 * 60 * 1000
+      const agora = Date.now()
+      const proximaVirada = (Math.floor((agora - deslocamento) / diaMs) + 1) * diaMs + deslocamento
+      timer = setTimeout(atualizar, proximaVirada - agora + 50)
+    }
     atualizar()
-    const intervalo = setInterval(atualizar, 60_000)
-    return () => { ativo = false; clearInterval(intervalo) }
+    document.addEventListener('visibilitychange', atualizar)
+    const animacao = setTimeout(() => setAnimou(true), 120)
+    return () => {
+      ativo = false
+      clearTimeout(timer)
+      clearTimeout(animacao)
+      document.removeEventListener('visibilitychange', atualizar)
+    }
   }, [])
 
-  useEffect(() => {
-    if (!dados) return
-    const t = setTimeout(() => setAnimou(true), 120)
-    return () => clearTimeout(t)
-  }, [dados])
-
-  if (!dados) return null
-
-  // Os lotes agora mudam por data; a barra continua indicando ocupação.
-  const marcos = []
-  const quaseCheio = dados.percentual >= 80
+  const textoPercentual = percentual.toLocaleString('pt-BR', { maximumFractionDigits: 1 })
   const corTexto = escuro ? C.cream : C.brown
-  const corSuave = escuro ? 'rgba(237,234,227,0.72)' : C.brownMid
-  const trilha = escuro ? 'rgba(255,255,255,0.14)' : 'rgba(61,53,48,0.10)'
-  const preenchimento = quaseCheio
-    ? 'linear-gradient(90deg, #E8845A 0%, #E8534A 100%)'
-    : `linear-gradient(90deg, ${C.sageLight} 0%, ${C.sage} 100%)`
 
   return (
     <div style={{ marginBottom: 22, position: 'relative', zIndex: 1 }}>
-      <div style={{
-        display: 'flex', justifyContent: 'space-between', alignItems: 'baseline',
-        gap: 10, marginBottom: 8,
-      }}>
-        <span style={{
-          fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
-          fontSize: 13, color: corTexto,
-        }}>
-          {dados.esgotado
-            ? 'Vagas esgotadas'
-            : 'Vagas preenchidas'}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 10, marginBottom: 8 }}>
+        <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: 13, color: corTexto }}>
+          Vagas preenchidas
         </span>
-        <strong style={{ marginLeft: 'auto', fontFamily: "'DM Sans', sans-serif", fontSize: 24, fontWeight: 600, letterSpacing: '-1px', color: corTexto, fontVariantNumeric: 'tabular-nums' }}>{dados.percentual}<span style={{ fontSize: 13, marginLeft: 2 }}>%</span></strong>
-        {!dados.esgotado && quaseCheio && (
-          <span style={{
-            fontFamily: "'DM Sans', sans-serif", fontWeight: 600,
-            fontSize: 12, color: '#E8845A', whiteSpace: 'nowrap',
-          }}>
-            últimas vagas
-          </span>
-        )}
+        <strong style={{ marginLeft: 'auto', fontFamily: "'DM Sans', sans-serif", fontSize: 24, fontWeight: 600, letterSpacing: '-1px', color: corTexto, fontVariantNumeric: 'tabular-nums' }}>
+          {textoPercentual}<span style={{ fontSize: 13, marginLeft: 2 }}>%</span>
+        </strong>
       </div>
-
       <div
         role="progressbar"
-        aria-valuenow={dados.percentual}
+        aria-valuenow={percentual}
         aria-valuemin={0}
         aria-valuemax={100}
-        aria-label={`${dados.percentual}% das vagas preenchidas`}
-        style={{
-          height: 7, borderRadius: 100,
-          background: trilha, position: 'relative',
-        }}
+        aria-label={`${textoPercentual}% de ocupação projetada; estimativa por data`}
+        style={{ height: 7, borderRadius: 100, background: escuro ? 'rgba(255,255,255,0.14)' : 'rgba(61,53,48,0.10)' }}
       >
         <div style={{
-          width: '100%', transformOrigin: 'left', transform: `scaleX(${animou ? dados.percentual / 100 : 0})`,
+          width: '100%', transformOrigin: 'left', transform: `scaleX(${animou ? percentual / 100 : 0})`,
           height: '100%', borderRadius: 100,
-          background: preenchimento,
+          background: `linear-gradient(90deg, ${C.sageLight} 0%, ${C.sage} 100%)`,
           transition: 'transform 1.1s cubic-bezier(0.22, 1, 0.36, 1)',
         }} />
-
-        {/* marcos de virada de lote */}
-        {!dados.esgotado && marcos.map((m, i) => (
-          <span key={i} style={{
-            position: 'absolute', left: `${m.pct}%`, top: -3, bottom: -3,
-            width: 2, borderRadius: 2, transform: 'translateX(-1px)',
-            background: m.atingido
-              ? (escuro ? 'rgba(237,234,227,0.35)' : 'rgba(61,53,48,0.25)')
-              : (escuro ? C.cream : C.brown),
-            opacity: m.atingido ? 0.5 : 0.9,
-          }} />
-        ))}
       </div>
-
-      {/* rótulos dos marcos */}
-      {!dados.esgotado && marcos.length > 0 && (
-        <div style={{ position: 'relative', height: 15, marginTop: 6 }}>
-          {marcos.map((m, i) => (
-            <span key={i} style={{
-              position: 'absolute', left: `${m.pct}%`, transform: 'translateX(-50%)',
-              whiteSpace: 'nowrap',
-              fontFamily: "'DM Sans', sans-serif", fontWeight: 600,
-              fontSize: 9.5, letterSpacing: '0.4px', textTransform: 'uppercase',
-              color: m.atingido ? corSuave : (escuro ? 'rgba(237,234,227,0.6)' : C.brownLight),
-              textDecoration: m.atingido ? 'line-through' : 'none',
-            }}>{m.rotulo}</span>
-          ))}
-        </div>
-      )}
     </div>
   )
 }
