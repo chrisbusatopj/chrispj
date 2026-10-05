@@ -50,7 +50,7 @@ function CheckoutAssinatura({ planId }) {
   const support = linkWhatsApp(numeroDaRota('/online'), 'Olá! Quero saber mais sobre a assinatura Corpo Musical.')
   useEffect(() => {
     const previous = document.title
-    document.title = 'Assine o Corpo Musical | Chris Busato'
+    document.title = 'Assine a Comunidade Corpo Musical | Chris Busato'
     const controller = new AbortController()
     fingerprint.current = crypto.randomUUID()
     fetch('/api/assinatura', { signal: controller.signal }).then(response => response.ok ? response.json() : Promise.reject()).then(setConfig).catch(() => {})
@@ -102,11 +102,11 @@ function CheckoutAssinatura({ planId }) {
   }
   return <div className="subscription">
     <a className="sub-skip" href="#checkout-content">Ir para a assinatura</a>
-    <header className="sub-header"><a href="/online" className="sub-brand">Chris Busato<span>CORPO MUSICAL</span></a><a href={support} onClick={event => abrirWhatsApp(event, support)}>Precisa de ajuda? <span>↗</span></a></header>
+    <header className="sub-header"><a href="/online" className="sub-brand">Chris Busato<span>COMUNIDADE CORPO MUSICAL</span></a><a href={support} onClick={event => abrirWhatsApp(event, support)}>Precisa de ajuda? <span>↗</span></a></header>
     <main className="sub-layout" id="checkout-content">
       <div className="sub-checkout-column">
-      <img className="sub-checkout-banner" src={checkoutBanner} width="1916" height="821" alt="Clube Musical: seu próximo passo para dançar com mais liberdade. Aulas organizadas, conteúdos completos e comunidade ativa." />
-      <section className="sub-checkout" aria-label="Assinatura Corpo Musical">
+      <img className="sub-checkout-banner" src={checkoutBanner} width="1916" height="821" alt="Comunidade Corpo Musical: seu próximo passo para dançar com mais liberdade. Aulas organizadas, conteúdos completos e comunidade ativa." />
+      <section className="sub-checkout" aria-label="Assinatura Comunidade Corpo Musical">
         <nav className="sub-steps" aria-label="Etapas da assinatura">
           {['Dados', 'Pagamento'].map((label, index) => {
             const completed = index < step || (index === 1 && result?.status === 'paid')

@@ -23,16 +23,11 @@ import carol3 from './images/carol3.jpeg'
 import mark1 from './images/mark1.jpg'
 
 // ─── Planos ──────────────────────────────────────────────────────────────────
-// TODO: o valor do mensal e os links da Cakto ainda são ilustrativos — trocar
-// antes de publicar. O anual segue o Programa Online da /corpomusical.
+// Valores exibidos na oferta. O checkout permanece sujeito à configuração na Cakto.
 const PLANOS = {
-  mensal: { preco: 127, checkout: '/assinatura?plano=mensal' },
-  anual: { parcelas: 12, parcela: 97, avista: 997, checkout: '/assinatura?plano=anual' },
+  trimestral: { preco: 147, checkout: '/assinatura?plano=trimestral' },
+  anual: { parcelas: 12, parcela: 97, checkout: '/assinatura?plano=anual' },
 }
-
-// Economia e mensal equivalente são contra o anual à vista — é o que o card diz.
-const ECONOMIA_ANUAL = PLANOS.mensal.preco * 12 - PLANOS.anual.avista
-const MENSAL_EQUIVALENTE = Math.round(PLANOS.anual.avista / 12)
 
 const reais = (n) => n.toLocaleString('pt-BR')
 
@@ -121,24 +116,24 @@ const PUBLICOS = [
 
 const DENTRO = [
   {
-    titulo: 'Cursos completos',
-    desc: 'Musicalidade, Musicalização e Consciência Corporal, gravados para você estudar no seu ritmo, na ordem que quiser.',
+    titulo: 'Trilha completa do MAPA DA DANÇA',
+    desc: 'Exclusiva do Plano Anual Vida Musical: Musicalidade, Musicalização e Consciência Corporal para aprofundar sua dança no seu ritmo.',
     visual: { tipo: 'capas' },
   },
   {
-    titulo: '2 encontros ao vivo por semana',
-    desc: 'Segunda às 20h e quarta às 8h30: você dança junto com a Chris, com prática guiada e espaço para tirar dúvidas.',
-    visual: { tipo: 'imagem', src: encontrosAoVivo, fit: 'contain', fundo: '#F4E6D7', alt: 'Encontros ao vivo do Clube Musical' },
+    titulo: '1 encontro ao vivo por semana',
+    desc: 'Você dança junto com a Chris, com prática guiada, orientação e espaço para tirar dúvidas.',
+    visual: { tipo: 'imagem', src: encontrosAoVivo, fit: 'contain', fundo: '#F4E6D7', alt: 'Encontros ao vivo da Comunidade Corpo Musical' },
   },
   {
     titulo: 'Replays de todos os encontros',
-    desc: 'Não pôde ao vivo? Todos os encontros ficam gravados para você assistir quando e quantas vezes quiser.',
+    desc: 'Não pôde ao vivo? Os encontros ficam gravados para você assistir enquanto o plano estiver ativo.',
     visual: { tipo: 'capa', src: capaReplay, alt: 'Replays das aulas ao vivo' },
   },
   {
     titulo: 'Uma plataforma organizada',
     desc: 'Tudo fácil de encontrar, no celular ou no computador, com acesso a qualquer hora.',
-    visual: { tipo: 'imagem', src: bannerPlataforma, fit: 'cover', alt: 'A plataforma do Clube Musical por dentro' },
+    visual: { tipo: 'imagem', src: bannerPlataforma, fit: 'cover', alt: 'A plataforma da Comunidade Corpo Musical por dentro' },
   },
   {
     titulo: 'Transmissão do Master Move',
@@ -173,14 +168,19 @@ const FEEDBACK_COLUNAS = [
   [{ src: mark1, r: 1179 / 2556 }],
 ]
 
-// O mesmo conteúdo nos dois planos.
-const INCLUSO = [
-  'Cursos de Musicalidade, Musicalização e Consciência Corporal',
-  'Aulão A Vergonha na Dança',
-  '2 encontros ao vivo por semana com a Chris',
-  'Replays de todos os encontros ao vivo',
-  'Transmissão ao vivo do Master Move, 1x por mês',
-  'Comunidade no WhatsApp',
+const INCLUSO_TRIMESTRAL = [
+  '3 meses de acesso',
+  '1 encontro ao vivo por semana',
+  'Transmissões do Master Move',
+  'Comunidade de alunos no WhatsApp',
+  'Replay dos encontros ao vivo enquanto o plano estiver ativo',
+  'Orientação e acompanhamento ao vivo',
+]
+const INCLUSO_ANUAL = [
+  '12 meses de acesso',
+  ...INCLUSO_TRIMESTRAL.slice(1),
+  'Trilha completa do MAPA DA DANÇA',
+  'Vida Musical',
 ]
 
 const FAQ = [
@@ -189,8 +189,8 @@ const FAQ = [
     a: 'Assim que o pagamento é confirmado, você recebe o acesso à plataforma por e-mail e já pode começar a assistir todo o conteúdo imediatamente, de qualquer dispositivo.',
   },
   {
-    q: 'Qual a diferença entre o plano mensal e o anual?',
-    a: 'O conteúdo é o mesmo nos dois. No mensal você paga mês a mês. No anual você paga um valor menor pelo ano inteiro, em até 12x ou à vista. As formas de pagamento aparecem na hora do checkout.',
+    q: 'Qual a diferença entre o Plano Trimestral e o Plano Anual Vida Musical?',
+    a: 'O Plano Trimestral oferece 3 meses de acesso por R$ 147 por mês. O Plano Anual Vida Musical oferece 12 meses, em 12x de R$ 97. Os dois incluem um encontro ao vivo por semana, transmissões do Master Move, comunidade no WhatsApp, replays enquanto o plano estiver ativo e acompanhamento ao vivo. O anual também inclui a Trilha completa do MAPA DA DANÇA e Vida Musical.',
   },
   {
     q: 'O que acontece se eu cancelar?',
@@ -198,11 +198,11 @@ const FAQ = [
   },
   {
     q: 'Preciso ter experiência em dança?',
-    a: 'Não. O clube foi pensado para todos os níveis: de quem está começando do zero a professores que querem aprofundar a metodologia.',
+    a: 'Não. A comunidade foi pensada para todos os níveis: de quem está começando do zero a professores que querem aprofundar a metodologia.',
   },
   {
     q: 'Os encontros ao vivo ficam gravados?',
-    a: 'Sim. Todas as aulas ao vivo ficam disponíveis como replay dentro da plataforma. Se não puder participar ao vivo, assiste depois.',
+    a: 'Sim. Os replays ficam disponíveis dentro da plataforma enquanto o plano estiver ativo. Se não puder participar ao vivo, assiste depois.',
   },
   {
     q: 'E se eu não gostar?',
@@ -449,7 +449,7 @@ function Navbar({ isMobile }) {
           textDecoration: 'none',
           letterSpacing: '-0.01em',
         }}>
-          Clube <Ouro>Musical</Ouro>
+          <span style={{ display: 'block', fontSize: 11, letterSpacing: '0.08em', marginBottom: 3 }}>Comunidade</span><Ouro>Corpo Musical</Ouro>
         </a>
         <a href="#planos" style={{
           fontFamily: "'DM Sans', sans-serif",
@@ -495,7 +495,7 @@ function Hero({ isMobile }) {
 
       <div style={{ position: 'relative', maxWidth: 900, margin: '0 auto', textAlign: 'center' }}>
         <Reveal>
-          <Eyebrow>Clube Musical · com Chris Busato</Eyebrow>
+          <Eyebrow>Comunidade Corpo Musical · com Chris Busato</Eyebrow>
         </Reveal>
 
         <Reveal delay={0.1}>
@@ -523,7 +523,7 @@ function Hero({ isMobile }) {
             maxWidth: 620,
             margin: isMobile ? '24px auto 0' : '30px auto 0',
           }}>
-            O Clube Musical reúne tudo o que a Chris ensina: cursos completos, encontros
+            A Comunidade Corpo Musical reúne tudo o que a Chris ensina: cursos completos, encontros
             ao vivo toda semana e uma comunidade dançando junto com você.
           </p>
         </Reveal>
@@ -536,7 +536,7 @@ function Hero({ isMobile }) {
             justifyContent: 'center',
             marginTop: isMobile ? 34 : 42,
           }}>
-            <CtaButton href="#planos" full={isMobile} isMobile={isMobile}>Quero entrar no clube</CtaButton>
+            <CtaButton href="#planos" full={isMobile} isMobile={isMobile}>Quero entrar na comunidade</CtaButton>
             <CtaButton href="#dentro" variant="ghost" full={isMobile} isMobile={isMobile}>Ver o que tem dentro</CtaButton>
           </div>
         </Reveal>
@@ -589,7 +589,7 @@ function ManifestoSection({ isMobile }) {
           }}>
             <Riscado delay={0.2}>Nem aula avulsa,</Riscado><br />
             <Riscado delay={0.55}>nem passo decorado.</Riscado><br />
-            É o Clube <Ouro>Musical.</Ouro>
+            É a Comunidade <Ouro>Corpo Musical.</Ouro>
           </h2>
         </Reveal>
 
@@ -813,7 +813,7 @@ function VisualDentro({ visual }) {
             </span>
             <span style={{ display: 'flex', flexDirection: 'column' }}>
               <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 600, color: C.white }}>
-                Clube Musical
+                Comunidade Corpo Musical
               </span>
               <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, color: 'rgba(255,253,250,0.5)' }}>
                 Comunidade
@@ -891,7 +891,7 @@ function DentroSection({ isMobile, reduzir }) {
 
   const cabecalho = (
     <Reveal>
-      <Eyebrow color={C.goldLight}>Por dentro do clube</Eyebrow>
+      <Eyebrow color={C.goldLight}>Por dentro da comunidade</Eyebrow>
       <Titulo isMobile={isMobile} escuro style={{ marginTop: 16 }}>
         Tudo que a Chris ensina, <Ouro escuro>num só lugar.</Ouro>
       </Titulo>
@@ -1128,7 +1128,7 @@ function PlataformaSection({ isMobile, reduzir }) {
         </Reveal>
         <Reveal delay={0.08}>
           <Titulo isMobile={isMobile} style={{ marginTop: 18 }}>
-            O clube inteiro numa <Ouro>plataforma só.</Ouro>
+            Toda a comunidade numa <Ouro>plataforma só.</Ouro>
           </Titulo>
         </Reveal>
         <Reveal delay={0.14}>
@@ -1198,7 +1198,7 @@ function PlataformaSection({ isMobile, reduzir }) {
             </div>
             <img
               src={webappImg}
-              alt="Tela da plataforma do Clube Musical"
+              alt="Tela da plataforma da Comunidade Corpo Musical"
               loading="lazy"
               style={{ width: '100%', display: 'block' }}
             />
@@ -1341,7 +1341,7 @@ function TransformacaoSection({ isMobile }) {
                     textTransform: 'uppercase',
                     color: C.goldDark,
                   }}>
-                    No clube
+                    Na comunidade
                   </div>
                   <p style={{
                     fontFamily: "'DM Sans', sans-serif",
@@ -1619,9 +1619,7 @@ function ListaPlano({ itens, destaqueUltimo = false, grande = false, isMobile })
 }
 
 function PlanosSection({ isMobile }) {
-  const { mensal, anual } = PLANOS
-  // Quantas mensalidades cabem na economia do anual à vista (R$ 527 ÷ R$ 127 = 4).
-  const mesesDeEconomia = Math.floor(ECONOMIA_ANUAL / mensal.preco)
+  const { trimestral, anual } = PLANOS
 
   const rotuloPlano = (tamanho) => ({
     fontFamily: FONTE_DISPLAY,
@@ -1679,7 +1677,7 @@ function PlanosSection({ isMobile }) {
         </Reveal>
         <Reveal delay={0.08}>
           <Titulo isMobile={isMobile} escuro style={{ marginTop: 18 }}>
-            Escolha como quer <Ouro escuro>entrar no clube.</Ouro>
+            Escolha como quer <Ouro escuro>entrar na comunidade.</Ouro>
           </Titulo>
         </Reveal>
         <Reveal delay={0.14}>
@@ -1693,7 +1691,7 @@ function PlanosSection({ isMobile }) {
             maxWidth: 520,
             margin: '20px auto 0',
           }}>
-            O conteúdo é o mesmo nos dois planos. Muda só a forma de pagar.
+            Experimente por 3 meses ou viva a jornada completa com o Plano Anual Vida Musical.
           </p>
         </Reveal>
 
@@ -1704,7 +1702,7 @@ function PlanosSection({ isMobile }) {
           alignItems: 'center',
           marginTop: isMobile ? 48 : 72,
         }}>
-          {/* Mensal — no celular vem depois do anual */}
+          {/* Trimestral — no celular vem depois do anual */}
           <Reveal delay={0.1} style={{ order: isMobile ? 2 : 1 }}>
             <div style={{
               position: 'relative',
@@ -1716,22 +1714,23 @@ function PlanosSection({ isMobile }) {
               padding: isMobile ? '30px 24px 28px' : '40px 38px 36px',
             }}>
               <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
-                <div style={rotuloPlano(isMobile ? 28 : 34)}>Mensal</div>
+                <div style={rotuloPlano(isMobile ? 28 : 34)}>Plano Trimestral</div>
                 <Medalha size={isMobile ? 46 : 54} />
               </div>
 
               <div style={{ display: 'flex', alignItems: 'flex-end', marginTop: isMobile ? 30 : 42 }}>
                 <span style={moeda}>R$</span>
-                <span style={numero}>{reais(mensal.preco)}</span>
+                <span style={numero}>{reais(trimestral.preco)}</span>
                 <span style={unidade}>/mês</span>
               </div>
 
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, lineHeight: 1.6, color: 'rgba(255,253,250,0.66)', marginTop: 18 }}>Para experimentar o Corpo Musical durante 3 meses.</p>
               <div style={{ marginTop: isMobile ? 26 : 32 }}>
-                <ListaPlano itens={INCLUSO} isMobile={isMobile} />
+                <ListaPlano itens={INCLUSO_TRIMESTRAL} isMobile={isMobile} />
               </div>
 
               <div style={{ marginTop: isMobile ? 28 : 34 }}>
-                <CtaPlano href={mensal.checkout} isMobile={isMobile}>Assinar mensal</CtaPlano>
+                <CtaPlano href={trimestral.checkout} isMobile={isMobile}>Assinar trimestral</CtaPlano>
               </div>
             </div>
           </Reveal>
@@ -1773,12 +1772,12 @@ function PlanosSection({ isMobile }) {
                 <Medalha destaque size={isMobile ? 50 : 60} />
               </div>
 
-              <div style={{ ...rotuloPlano(isMobile ? 30 : 38), marginTop: isMobile ? 22 : 26 }}>Anual</div>
+              <div style={{ ...rotuloPlano(isMobile ? 30 : 38), marginTop: isMobile ? 22 : 26 }}>Plano Anual Vida Musical</div>
 
               <div style={{ display: 'flex', alignItems: 'flex-end', marginTop: isMobile ? 26 : 32 }}>
-                <span style={moeda}>R$</span>
-                <span style={numero}>{reais(anual.avista)}</span>
-                <span style={unidade}>/ano</span>
+                <span style={moeda}>{anual.parcelas}x R$</span>
+                <span style={numero}>{reais(anual.parcela)}</span>
+                <span style={unidade}>/mês</span>
               </div>
               <div style={{
                 fontFamily: "'DM Sans', sans-serif",
@@ -1786,66 +1785,11 @@ function PlanosSection({ isMobile }) {
                 color: 'rgba(255,253,250,0.66)',
                 marginTop: 14,
               }}>
-                à vista · ou {anual.parcelas}x de R$ {reais(anual.parcela)}
+                12 meses para viver a jornada completa e fazer da dança um estilo de vida.
               </div>
 
-              {ECONOMIA_ANUAL > 0 && (
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: '0.9fr 1.1fr',
-                  height: isMobile ? 46 : 52,
-                  marginTop: 20,
-                  borderRadius: 14,
-                  overflow: 'hidden',
-                  border: '1.5px solid rgba(232,196,138,0.7)',
-                  background: 'rgba(20,14,10,0.7)',
-                }}>
-                  <span style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontFamily: FONTE_DISPLAY,
-                    fontWeight: 700,
-                    fontSize: isMobile ? 13 : 15,
-                    letterSpacing: '0.02em',
-                    color: C.white,
-                    whiteSpace: 'nowrap',
-                  }}>
-                    ≈ R$ {reais(MENSAL_EQUIVALENTE)}/mês
-                  </span>
-                  {/* Corte diagonal entre as duas metades, como na pílula do Sharkz */}
-                  <span style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginLeft: '-6%',
-                    paddingLeft: '10%',
-                    backgroundImage: 'linear-gradient(100deg, #C6A87A 0%, #E8C48A 100%)',
-                    clipPath: 'polygon(12% 0, 100% 0, 100% 100%, 0 100%)',
-                    fontFamily: FONTE_DISPLAY,
-                    fontWeight: 800,
-                    fontSize: isMobile ? 14 : 17,
-                    letterSpacing: '0.01em',
-                    textTransform: 'uppercase',
-                    color: C.brown,
-                    whiteSpace: 'nowrap',
-                  }}>
-                    Economize R$ {reais(ECONOMIA_ANUAL)}
-                  </span>
-                </div>
-              )}
-
               <div style={{ marginTop: isMobile ? 22 : 26 }}>
-                <ListaPlano
-                  itens={[
-                    'Tudo do plano mensal',
-                    '12 meses de acesso',
-                    ...(mesesDeEconomia >= 1 ? [`${mesesDeEconomia} meses de economia`] : []),
-                  ]}
-                  destaqueUltimo={mesesDeEconomia >= 1}
-                  grande
-                  isMobile={isMobile}
-                />
+                <ListaPlano itens={INCLUSO_ANUAL} destaqueUltimo isMobile={isMobile} />
               </div>
 
               <div style={{ marginTop: isMobile ? 28 : 40 }}>
@@ -1912,7 +1856,7 @@ function ChrisSection({ isMobile }) {
         </Reveal>
 
         <Reveal delay={0.12}>
-          <Eyebrow align={isMobile ? 'center' : 'left'}>Quem conduz o clube</Eyebrow>
+          <Eyebrow align={isMobile ? 'center' : 'left'}>Quem conduz a comunidade</Eyebrow>
           <h3 style={{
             fontFamily: "'Playfair Display', serif",
             fontWeight: 500,
@@ -1935,7 +1879,7 @@ function ChrisSection({ isMobile }) {
           }}>
             Educadora de dança e criadora do método Corpo Musical. Há mais de dez anos, Chris
             ajuda pessoas a dançarem com mais liberdade, presença e musicalidade. Toda a sua
-            metodologia, antes espalhada em aulas e turmas, agora reunida no Clube Musical.
+            metodologia, antes espalhada em aulas e turmas, agora reunida na Comunidade Corpo Musical.
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 24 }}>
             {[
@@ -2121,7 +2065,7 @@ function Rodape({ isMobile }) {
           letterSpacing: '-0.03em',
           color: C.white,
         }}>
-          Clube <Ouro escuro>Musical</Ouro>
+          Comunidade <Ouro escuro>Corpo Musical</Ouro>
         </div>
       </Reveal>
       <Reveal delay={0.08}>
@@ -2139,7 +2083,7 @@ function Rodape({ isMobile }) {
       </Reveal>
       <Reveal delay={0.16}>
         <div style={{ marginTop: 36 }}>
-          <CtaButton href="#planos" isMobile={isMobile}>Quero entrar no clube</CtaButton>
+          <CtaButton href="#planos" isMobile={isMobile}>Quero entrar na comunidade</CtaButton>
         </div>
       </Reveal>
 
@@ -2166,7 +2110,7 @@ export default function ClubeMusicalLP() {
   const reduzir = useMenosMovimento()
 
   useEffect(() => {
-    document.title = 'Clube Musical | Chris Busato'
+    document.title = 'Comunidade Corpo Musical | Chris Busato'
   }, [])
 
   return (
