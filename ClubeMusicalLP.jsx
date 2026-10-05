@@ -3,7 +3,6 @@ import { useState, useEffect, useRef } from 'react'
 import fundoHero from './images/fundo-primeira-dobra.jpg'
 import chrisSorrindo from './images/chris-sorrindo.jpg'
 import bannerPlataforma from './images/banner-plataforma.jpg'
-import webappImg from './images/plataforma-webapp.jpg'
 import encontrosAoVivo from './images/encontrosaovivo.png'
 import capaMusicalidade from './images/Capa-Musicalidade.png'
 import capaMusicalizacao from './images/Capa-Musicalizacao.png'
@@ -414,13 +413,39 @@ function ListaCheck({ itens, escuro = false, destaqueUltimo = false, isMobile })
 
 function Navbar({ isMobile }) {
   const [rolou, setRolou] = useState(false)
+  const [tema, setTema] = useState({ fundo: C.cream, escuro: false })
 
   useEffect(() => {
-    const onScroll = () => setRolou(window.scrollY > 40)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+    let frame = 0
+    const atualizar = () => {
+      frame = 0
+      setRolou(window.scrollY > 40)
+      const linha = (isMobile ? 60 : 72) / 2
+      const secoes = document.querySelectorAll('main > section, footer')
+      for (const secao of secoes) {
+        const rect = secao.getBoundingClientRect()
+        if (rect.top > linha || rect.bottom <= linha) continue
+        const fundo = secao.dataset.headerColor || getComputedStyle(secao).backgroundColor
+        const rgb = fundo.startsWith('#')
+          ? fundo.slice(1).match(/.{2}/g).map(n => parseInt(n, 16))
+          : (fundo.match(/[\d.]+/g) || []).slice(0, 3).map(Number)
+        const escuro = rgb.length === 3 && (rgb[0] * .2126 + rgb[1] * .7152 + rgb[2] * .0722) < 140
+        setTema(anterior => anterior.fundo === fundo && anterior.escuro === escuro ? anterior : { fundo, escuro })
+        break
+      }
+    }
+    const agendar = () => { if (!frame) frame = requestAnimationFrame(atualizar) }
+    atualizar()
+    window.addEventListener('scroll', agendar, { passive: true })
+    window.addEventListener('resize', agendar)
+    window.addEventListener('load', agendar)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', agendar)
+      window.removeEventListener('resize', agendar)
+      window.removeEventListener('load', agendar)
+    }
+  }, [isMobile])
 
   return (
     <nav style={{
@@ -429,8 +454,8 @@ function Navbar({ isMobile }) {
       left: 0,
       right: 0,
       zIndex: 100,
-      background: rolou ? 'rgba(241,235,226,0.97)' : 'transparent',
-      borderBottom: `1px solid ${rolou ? C.line : 'transparent'}`,
+      background: tema.fundo,
+      borderBottom: `1px solid ${rolou ? (tema.escuro ? 'rgba(255,253,250,0.12)' : C.line) : 'transparent'}`,
       transition: 'background 0.35s ease, border-color 0.35s ease',
     }}>
       <div style={{
@@ -445,11 +470,11 @@ function Navbar({ isMobile }) {
         <a href="#topo" style={{
           fontFamily: "'Playfair Display', serif",
           fontSize: isMobile ? 21 : 24,
-          color: C.brown,
+          color: tema.escuro ? C.white : C.brown,
           textDecoration: 'none',
           letterSpacing: '-0.01em',
         }}>
-          <span style={{ display: 'block', fontSize: 11, letterSpacing: '0.08em', marginBottom: 3 }}>Comunidade</span><Ouro>Corpo Musical</Ouro>
+          <span style={{ display: 'block', fontSize: 11, letterSpacing: '0.08em', marginBottom: 3 }}>Comunidade</span><Ouro escuro={tema.escuro}>Corpo Musical</Ouro>
         </a>
         <a href="#planos" style={{
           fontFamily: "'DM Sans', sans-serif",
@@ -457,11 +482,11 @@ function Navbar({ isMobile }) {
           fontWeight: 600,
           letterSpacing: '0.14em',
           textTransform: 'uppercase',
-          color: C.goldDark,
+          color: tema.escuro ? C.goldLight : C.goldDark,
           textDecoration: 'none',
           padding: isMobile ? '9px 16px' : '10px 20px',
           borderRadius: 999,
-          border: `1.5px solid ${C.gold}`,
+          border: `1.5px solid ${tema.escuro ? C.goldLight : C.gold}`,
         }}>
           Ver planos
         </a>
@@ -776,9 +801,11 @@ function VisualDentro({ visual }) {
     return (
       <div style={{ ...PALCO, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div style={{
-          width: '42%',
+          width: '56%',
+          maxWidth: 260,
           minWidth: 168,
           height: '86%',
+          boxSizing: 'border-box',
           borderRadius: 24,
           background: '#120D09',
           border: '1px solid rgba(198,168,122,0.3)',
@@ -793,12 +820,14 @@ function VisualDentro({ visual }) {
             display: 'flex',
             alignItems: 'center',
             gap: 9,
+            flexShrink: 0,
             paddingBottom: 10,
             borderBottom: '1px solid rgba(198,168,122,0.16)',
           }}>
             <span style={{
               width: 28,
               height: 28,
+              flexShrink: 0,
               borderRadius: '50%',
               background: `linear-gradient(140deg, ${C.gold}, ${C.goldDark})`,
               display: 'flex',
@@ -811,7 +840,7 @@ function VisualDentro({ visual }) {
             }}>
               CM
             </span>
-            <span style={{ display: 'flex', flexDirection: 'column' }}>
+            <span style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
               <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 600, color: C.white }}>
                 Comunidade Corpo Musical
               </span>
@@ -820,16 +849,19 @@ function VisualDentro({ visual }) {
               </span>
             </span>
           </div>
+          <div aria-hidden="true" style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0, gap: 7 }}>
           {BOLHAS.map((b, i) => (
             <span key={i} style={{
               alignSelf: b.lado === 'dir' ? 'flex-end' : 'flex-start',
               width: b.largura,
-              height: 24,
+              flex: '1 1 0',
+              minHeight: 0,
+              maxHeight: 24,
               borderRadius: 12,
-              flexShrink: 0,
               background: b.lado === 'dir' ? 'rgba(198,168,122,0.3)' : 'rgba(255,253,250,0.09)',
             }} />
           ))}
+          </div>
         </div>
       </div>
     )
@@ -1197,7 +1229,7 @@ function PlataformaSection({ isMobile, reduzir }) {
               </span>
             </div>
             <img
-              src={webappImg}
+              src={bannerPlataforma}
               alt="Tela da plataforma da Comunidade Corpo Musical"
               loading="lazy"
               style={{ width: '100%', display: 'block' }}
@@ -1653,7 +1685,7 @@ function PlanosSection({ isMobile }) {
   }
 
   return (
-    <section id="planos" style={{
+    <section id="planos" data-header-color={C.brown} style={{
       position: 'relative',
       overflow: 'hidden',
       background: `radial-gradient(90% 60% at 50% 30%, rgba(138,106,59,0.18) 0%, transparent 70%), linear-gradient(180deg, ${C.brown} 0%, ${C.ink} 100%)`,
@@ -1772,21 +1804,34 @@ function PlanosSection({ isMobile }) {
                 <Medalha destaque size={isMobile ? 50 : 60} />
               </div>
 
-              <div style={{ ...rotuloPlano(isMobile ? 30 : 38), marginTop: isMobile ? 22 : 26 }}>Plano Anual Vida Musical</div>
+              <div style={{ textAlign: 'center', marginTop: isMobile ? 26 : 30 }}>
+                <div style={{ ...rotuloPlano(isMobile ? 16 : 18), color: C.goldLight, letterSpacing: '0.12em' }}>Plano Anual</div>
+                <div style={{ ...rotuloPlano(isMobile ? 30 : 38), marginTop: 10, lineHeight: 1.1 }}>Vida Musical</div>
+              </div>
 
-              <div style={{ display: 'flex', alignItems: 'flex-end', marginTop: isMobile ? 26 : 32 }}>
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'baseline', marginTop: isMobile ? 26 : 32 }}>
                 <span style={moeda}>{anual.parcelas}x R$</span>
                 <span style={numero}>{reais(anual.parcela)}</span>
                 <span style={unidade}>/mês</span>
               </div>
+
               <div style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontSize: isMobile ? 13.5 : 14.5,
-                color: 'rgba(255,253,250,0.66)',
-                marginTop: 14,
+                display: 'grid', gridTemplateColumns: '1fr 1fr', marginTop: 22,
+                borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(232,196,138,0.7)',
+                background: 'rgba(20,14,10,0.7)', textAlign: 'center', fontFamily: FONTE_DISPLAY,
               }}>
-                12 meses para viver a jornada completa e fazer da dança um estilo de vida.
+                <span style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 5, padding: '14px 8px', color: C.white }}>
+                  <span style={{ fontSize: 12 }}>Economize</span>
+                  <strong style={{ fontSize: isMobile ? 20 : 24 }}>R$ {reais(trimestral.preco - anual.parcela)}/mês</strong>
+                </span>
+                <span style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 5, padding: '14px 8px', background: 'linear-gradient(100deg, #C6A87A 0%, #E8C48A 100%)', color: C.brown }}>
+                  <strong style={{ fontSize: isMobile ? 20 : 24 }}>R$ {reais((trimestral.preco - anual.parcela) * anual.parcelas)}</strong>
+                  <span style={{ fontSize: 12 }}>de economia em 12 meses</span>
+                </span>
               </div>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, lineHeight: 1.5, color: 'rgba(255,253,250,0.6)', textAlign: 'center', margin: '9px 0 0' }}>
+                Comparado a 12 meses pelo valor mensal do plano trimestral.
+              </p>
 
               <div style={{ marginTop: isMobile ? 22 : 26 }}>
                 <ListaPlano itens={INCLUSO_ANUAL} destaqueUltimo isMobile={isMobile} />
