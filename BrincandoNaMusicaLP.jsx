@@ -1976,26 +1976,7 @@ function InscricaoSection({ mostrarTimer = true }) {
             </div>
 
             <div style={{ marginTop: 'auto' }}>
-            <div aria-label="Calendário de lotes do ingresso presencial" style={{ marginBottom: 24, fontFamily: "'DM Sans', sans-serif" }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8, marginBottom: 12, fontSize: 12, color: highlightOnline ? C.sageDark : C.sageLight }}>
-                <strong>Lotes por data</strong>
-                <span>{lotePresencial.encerrado ? 'Vendas encerradas' : lotePresencial.ativo ? `Lote Atual · ${lotePresencial.lote.nome}` : 'A partir de 24/09'}</span>
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 6 }}>
-                {LOTES_PRESENCIAL.map((lote, index) => {
-                  const atual = lotePresencial.ativo && index === lotePresencial.indice
-                  const passou = relogioLotes >= Date.parse(lote.fim)
-                  return <div key={lote.nome} aria-current={atual ? 'step' : undefined} style={{ minWidth: 0, border: `1px solid ${atual ? C.sageDark : C.sageLight}`, borderTopWidth: 5, borderRadius: 10, padding: '12px 4px', textAlign: 'center', background: atual ? '#40594A' : 'rgba(138,158,140,0.06)', color: atual ? C.white : highlightOnline ? C.brownMid : C.cream, boxShadow: atual ? '0 6px 18px rgba(64,89,74,0.18)' : 'none' }}>
-                    <div style={{ fontSize: 11 }}>{lote.nome}</div>
-                    <strong style={{ display: 'block', fontSize: 21, color: atual ? C.white : highlightOnline ? C.brown : C.cream, margin: '5px 0' }}>R$ {lote.preco}</strong>
-                    <div style={{ fontSize: 14, fontWeight: 700, lineHeight: 1.5, color: atual ? C.white : highlightOnline ? C.brown : C.cream, background: atual ? 'rgba(255,255,255,0.09)' : 'transparent', borderRadius: 8, padding: '8px 3px', marginTop: 8 }}>
-                      <span style={{ display: 'block' }}>{lote.periodo.split(' a ')[0]}</span>
-                      <span style={{ display: 'block' }}>a {lote.periodo.split(' a ')[1]}</span>
-                    </div>
-                    <div style={{ display: 'inline-block', fontSize: 10, fontWeight: atual ? 700 : 500, color: atual ? '#40594A' : highlightOnline ? C.sageDark : C.sageLight, background: atual ? C.white : 'transparent', borderRadius: 100, padding: '4px 7px', marginTop: 8 }}>{atual ? '✓ Lote Atual' : passou ? 'Encerrado' : 'Em breve'}</div>
-                  </div>
-                })}
-              </div>
+            <div style={{ marginBottom: mostrarTimer && lotePresencial.ativo ? 24 : 0, fontFamily: "'DM Sans', sans-serif" }}>
               {mostrarTimer && lotePresencial.ativo && <div style={{ marginTop: 20, paddingTop: 16, borderTop: `1px solid ${C.sageLight}`, color: highlightOnline ? C.sageDark : C.sageLight }}>
                 <p style={{ fontSize: 12, fontWeight: 600, margin: '0 0 12px' }}>{proximoLotePresencial ? 'O lote vira em' : 'As inscrições encerram em'}</p>
                 <div role="timer" aria-live="off" aria-label={`${contagemLotePresencial[0][0]} dias, ${contagemLotePresencial[1][0]} horas, ${contagemLotePresencial[2][0]} minutos e ${contagemLotePresencial[3][0]} segundos ${proximoLotePresencial ? 'para a virada de lote' : 'para o encerramento'}`} style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 8 }}>
