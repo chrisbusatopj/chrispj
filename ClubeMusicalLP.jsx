@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { CHECKOUTS_TEMPORARIOS } from './checkout/links-temporarios.js'
 
 import fundoHero from './images/fundo-primeira-dobra.jpg'
 import chrisSorrindo from './images/chris-sorrindo.jpg'
@@ -22,10 +23,10 @@ import carol3 from './images/carol3.jpeg'
 import mark1 from './images/mark1.jpg'
 
 // ─── Planos ──────────────────────────────────────────────────────────────────
-// Valores exibidos na oferta. O checkout permanece sujeito à configuração na Cakto.
+// Compra temporariamente realizada nos checkouts hospedados da Cakto.
 const PLANOS = {
-  trimestral: { preco: 147, checkout: '/assinatura?plano=trimestral' },
-  anual: { parcelas: 12, parcela: 97, checkout: '/assinatura?plano=anual' },
+  trimestral: { preco: 147, checkout: CHECKOUTS_TEMPORARIOS.trimestral },
+  anual: { parcelas: 12, parcela: 97, checkout: CHECKOUTS_TEMPORARIOS.anual },
 }
 
 const reais = (n) => n.toLocaleString('pt-BR')
@@ -189,7 +190,7 @@ const FAQ = [
   },
   {
     q: 'Qual a diferença entre o Plano Trimestral e o Plano Anual Vida Musical?',
-    a: 'O Plano Trimestral oferece 3 meses de acesso por R$ 147 por mês. O Plano Anual Vida Musical oferece 12 meses, em 12x de R$ 97. Os dois incluem um encontro ao vivo por semana, transmissões do Master Move, comunidade no WhatsApp, replays enquanto o plano estiver ativo e acompanhamento ao vivo. O anual também inclui a Trilha completa do MAPA DA DANÇA e Vida Musical.',
+    a: 'O Plano Trimestral oferece 3 meses de acesso por R$ 147 por mês. O Plano Anual Vida Musical oferece 12 meses, por R$ 97 por mês. Os dois incluem um encontro ao vivo por semana, transmissões do Master Move, comunidade no WhatsApp, replays enquanto o plano estiver ativo e acompanhamento ao vivo. O anual também inclui a Trilha completa do MAPA DA DANÇA e Vida Musical.',
   },
   {
     q: 'O que acontece se eu cancelar?',
@@ -1810,7 +1811,7 @@ function PlanosSection({ isMobile }) {
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'baseline', marginTop: isMobile ? 26 : 32 }}>
-                <span style={moeda}>{anual.parcelas}x R$</span>
+                <span style={moeda}>R$</span>
                 <span style={numero}>{reais(anual.parcela)}</span>
                 <span style={unidade}>/mês</span>
               </div>

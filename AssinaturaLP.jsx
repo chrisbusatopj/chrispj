@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Navigate, useSearchParams } from 'react-router-dom'
 import { plans, bumps, money, validateCustomer } from './checkout/catalog.js'
+import { CHECKOUTS_TEMPORARIOS } from './checkout/links-temporarios.js'
 import { getSdk } from './checkout/cakto-sdk.js'
 import checkoutBanner from './images/CorpoMusicalBanner.png'
 import { abrirWhatsApp, linkWhatsApp, numeroDaRota } from './whatsapp.js'
@@ -22,7 +23,18 @@ export default function AssinaturaLP() {
   const [params] = useSearchParams()
   const planId = params.get('plano')
   if (!plans.some(plan => plan.id === planId)) return <Navigate to="/online#planos" replace />
+  if (CHECKOUTS_TEMPORARIOS[planId]) return <CheckoutTemporario url={CHECKOUTS_TEMPORARIOS[planId]} params={params} />
   return <CheckoutAssinatura key={planId} planId={planId} />
+}
+function CheckoutTemporario({ url, params }) {
+  const destino = new URL(url)
+  for (const chave of ['utm_source', 'utm_campaign', 'utm_medium', 'utm_content', 'utm_term']) {
+    const valor = params.get(chave)
+    if (valor) destino.searchParams.set(chave, valor)
+  }
+  const href = destino.toString()
+  useEffect(() => { window.location.replace(href) }, [href])
+  return <p style={{ padding: 24, textAlign: 'center' }}>Abrindo o pagamento seguro… <a href={href}>Continuar na Cakto</a></p>
 }
 function CheckoutAssinatura({ planId }) {
   const [step, setStep] = useState(0)

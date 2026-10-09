@@ -1,7 +1,7 @@
 // Valores de prévia herdados de /online. Ative vendas somente após conferir as ofertas.
 export const plans = [
   { id: 'trimestral', name: 'Trimestral', price: 14700, period: '/mês', description: '3 meses para experimentar o Corpo Musical. R$ 147 por mês.' },
-  { id: 'anual', name: 'Anual Vida Musical', price: 9700, period: '/mês', description: '12x de R$ 97. Inclui a Trilha completa do MAPA DA DANÇA e Vida Musical.', badge: 'Jornada completa' },
+  { id: 'anual', name: 'Anual Vida Musical', price: 9700, period: '/mês', description: 'Inclui a Trilha completa do MAPA DA DANÇA e Vida Musical.', badge: 'Jornada completa' },
 ]
 // Exemplos visuais, nunca vendidos pela API. Substituir pelos produtos aprovados.
 export const bumps = [
