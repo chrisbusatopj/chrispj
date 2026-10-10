@@ -27,6 +27,8 @@ export default function EscolhaPagamento({ plano, onClose }) {
 
   async function enviar(event) {
     event.preventDefault()
+    // Intercepta antes dos listeners de pixels no form que chamam form.submit().
+    event.stopPropagation()
     if (enviando.current) return
     const dados = new FormData(event.currentTarget)
     const nome = String(dados.get('nome') || '').trim().replace(/\s+/g, ' ')
@@ -72,7 +74,7 @@ export default function EscolhaPagamento({ plano, onClose }) {
     <p className="cm-pagamento-plano">{plano === 'anual' ? 'Plano Anual Vida Musical' : 'Plano Trimestral'}</p>
     <h2 id="cm-pagamento-titulo">Vamos começar?</h2>
     <p className="cm-pagamento-intro">Deixe seus dados para seguir ao pagamento.</p>
-    <form onSubmit={enviar} className="cm-lead-form" aria-busy={ocupado}>
+    <form onSubmitCapture={enviar} className="cm-lead-form" aria-busy={ocupado}>
       <label htmlFor="cm-lead-nome">Nome</label>
       <input id="cm-lead-nome" name="nome" autoComplete="name" required minLength={2} maxLength={100} disabled={ocupado} />
       <label htmlFor="cm-lead-telefone">Telefone com DDD</label>
