@@ -1,1 +1,1 @@
-{"rewrites":[{"source":"/api/leads-assinatura","destination":"/api/assinatura?action=lead"},{"source":"/(.*)","destination":"/index.html"}]}
+{"functions":{"api/assinatura.js":{"maxDuration":60}},"rewrites":[{"source":"/api/leads-assinatura","destination":"/api/assinatura?action=lead"},{"source":"/(.*)","destination":"/index.html"}]}

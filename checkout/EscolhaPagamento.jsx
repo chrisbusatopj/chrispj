@@ -49,7 +49,7 @@ export default function EscolhaPagamento({ plano, onClose }) {
       const resposta = await fetch('/api/leads-assinatura', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: leadId.current, nome, telefone, plano }),
-        signal: AbortSignal.timeout(25000),
+        signal: AbortSignal.timeout(40000),
       })
       const resultado = await resposta.json()
       if (!resposta.ok || resultado.ok !== true) throw new Error('envio')

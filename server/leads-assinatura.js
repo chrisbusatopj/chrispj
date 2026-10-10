@@ -17,14 +17,23 @@ export default async function handler(req, res) {
   }
   const url = process.env.LEADS_GOOGLE_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbwZ0uCufwqIp7ZdTAFlAzS4T_EPqm1nTVWQb7UcpmmgDDV9vpKqpT4WWC9W-i2UFl9d5g/exec'
   if (!/^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/.test(url || '')) return res.status(503).json({ ok: false })
-  try {
-    const response = await fetch(url, {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id: body.id, nome, telefone, plano: body.plano }),
-      signal: AbortSignal.timeout(18000),
-    })
-    const data = await response.json()
-    if (!response.ok || data.ok !== true) throw new Error('save')
-    return res.status(200).json({ ok: true })
-  } catch { return res.status(502).json({ ok: false }) }
+  for (let tentativa = 0; tentativa < 2; tentativa++) {
+    try {
+      let response = await fetch(url, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: body.id, nome, telefone, plano: body.plano }),
+        redirect: 'manual', signal: AbortSignal.timeout(8000),
+      })
+      // ContentService responde em outro domínio. Faça o GET sem os headers do POST.
+      if ([301, 302, 303].includes(response.status)) {
+        const destination = new URL(response.headers.get('location'))
+        if (destination.protocol !== 'https:' || destination.hostname !== 'script.googleusercontent.com') throw new Error('redirect')
+        response = await fetch(destination, { signal: AbortSignal.timeout(8000) })
+      }
+      const data = await response.json()
+      if (!response.ok || data.ok !== true) throw new Error('save')
+      return res.status(200).json({ ok: true })
+    } catch { /* Mesmo ID: repetir confirma o registro sem duplicá-lo. */ }
+  }
+  return res.status(502).json({ ok: false })
 }
