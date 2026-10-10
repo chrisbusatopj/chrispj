@@ -1,4 +1,5 @@
 import { plans, bumps, validateCustomer } from '../checkout/catalog.js'
+import leadsHandler from '../server/leads-assinatura.js'
 
 // Hosted URLs are explicitly mapped by plan + sorted extras, never fabricated
 // query parameters. Configure the corresponding basket in Cakto first.
@@ -24,6 +25,7 @@ async function token() {
   return cachedToken.value
 }
 export default async function handler(req, res) {
+  if (req.query?.action === 'lead' || req.url?.split('?')[0] === '/api/leads-assinatura') return leadsHandler(req, res)
   res.setHeader('Cache-Control', 'no-store')
   const config = settings()
   if (req.method === 'GET') return res.status(200).json({

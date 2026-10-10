@@ -31,7 +31,7 @@ Autorize com a conta proprietária da planilha e copie a URL terminada em `/exec
 
 ## 4. Conectar à Vercel
 
-A URL validada já está configurada no servidor em `api/leads-assinatura.js`; não é obrigatório cadastrar variável na Vercel. Para substituir essa URL futuramente, abra **Settings → Environment Variables** e cadastre:
+A URL validada já está configurada no servidor em `server/leads-assinatura.js`; não é obrigatório cadastrar variável na Vercel. A rota `/api/leads-assinatura` compartilha a função de assinatura para manter o projeto em 12 funções. Para substituir essa URL futuramente, abra **Settings → Environment Variables** e cadastre:
 
 | Variável | Valor |
 | --- | --- |
