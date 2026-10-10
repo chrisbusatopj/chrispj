@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { CHECKOUTS_TEMPORARIOS } from './links-temporarios.js'
+import { formatarTelefone, normalizarTelefone, telefoneValido } from './telefone.js'
 import './escolha-pagamento.css'
 
 export default function EscolhaPagamento({ plano, onClose }) {
@@ -8,6 +9,9 @@ export default function EscolhaPagamento({ plano, onClose }) {
   const enviando = useRef(false)
   const [ocupado, setOcupado] = useState(false)
   const [erro, setErro] = useState('')
+  const [telefoneDigitado, setTelefoneDigitado] = useState('')
+  const [telefoneTocado, setTelefoneTocado] = useState(false)
+  const telefoneInvalido = telefoneTocado && !telefoneValido(telefoneDigitado)
   useEffect(() => {
     const elemento = dialog.current
     const anterior = document.activeElement
@@ -26,9 +30,14 @@ export default function EscolhaPagamento({ plano, onClose }) {
     if (enviando.current) return
     const dados = new FormData(event.currentTarget)
     const nome = String(dados.get('nome') || '').trim().replace(/\s+/g, ' ')
-    const telefone = String(dados.get('telefone') || '').replace(/\D/g, '')
-    if (nome.length < 2 || !/^(?:55)?\d{10,11}$/.test(telefone)) {
-      setErro('Confira seu nome e telefone com DDD.')
+    const telefone = normalizarTelefone(dados.get('telefone'))
+    setTelefoneTocado(true)
+    if (!telefoneValido(telefone)) {
+      event.currentTarget.elements.telefone.focus()
+      return
+    }
+    if (nome.length < 2) {
+      setErro('Confira seu nome.')
       return
     }
     enviando.current = true
@@ -67,7 +76,10 @@ export default function EscolhaPagamento({ plano, onClose }) {
       <label htmlFor="cm-lead-nome">Nome</label>
       <input id="cm-lead-nome" name="nome" autoComplete="name" required minLength={2} maxLength={100} disabled={ocupado} />
       <label htmlFor="cm-lead-telefone">Telefone com DDD</label>
-      <input id="cm-lead-telefone" name="telefone" type="tel" autoComplete="tel" inputMode="tel" placeholder="(11) 99999-9999" required maxLength={22} disabled={ocupado} />
+      <input id="cm-lead-telefone" name="telefone" type="tel" autoComplete="tel" inputMode="tel" placeholder="(11) 99999-9999" required disabled={ocupado}
+        value={telefoneDigitado} onChange={event => setTelefoneDigitado(formatarTelefone(event.target.value))}
+        onBlur={() => setTelefoneTocado(true)} aria-invalid={telefoneInvalido} aria-describedby={telefoneInvalido ? 'cm-telefone-erro' : undefined} />
+      {telefoneInvalido && <p id="cm-telefone-erro" className="cm-lead-erro" role="alert">Informe um DDD válido e o número completo. Celular: 9 dígitos começando com 9; fixo: 8 dígitos.</p>}
       <p className="cm-lead-nota">Nossa equipe poderá entrar em contato por telefone ou WhatsApp sobre sua assinatura.</p>
       {erro && <p className="cm-lead-erro" role="alert">{erro}</p>}
       <button className="cm-lead-enviar" type="submit" disabled={ocupado}>{ocupado ? 'Enviando…' : 'Continuar para o pagamento →'}</button>

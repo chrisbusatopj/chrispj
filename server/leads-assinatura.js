@@ -1,3 +1,5 @@
+import { normalizarTelefone, telefoneValido } from '../checkout/telefone.js'
+
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store')
   if (req.method !== 'POST') {
@@ -8,9 +10,9 @@ export default async function handler(req, res) {
   let body
   try { body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body } catch { return res.status(400).json({ ok: false }) }
   const nome = typeof body?.nome === 'string' ? body.nome.trim().replace(/\s+/g, ' ') : ''
-  const telefone = typeof body?.telefone === 'string' ? body.telefone.replace(/\D/g, '') : ''
+  const telefone = typeof body?.telefone === 'string' ? normalizarTelefone(body.telefone) : ''
   if (!/^[\da-f-]{36}$/i.test(body?.id || '') || nome.length < 2 || nome.length > 100 ||
-    !/^(?:55)?\d{10,11}$/.test(telefone) || !['anual', 'trimestral'].includes(body?.plano)) {
+    !telefoneValido(telefone) || !['anual', 'trimestral'].includes(body?.plano)) {
     return res.status(400).json({ ok: false })
   }
   const url = process.env.LEADS_GOOGLE_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbwZ0uCufwqIp7ZdTAFlAzS4T_EPqm1nTVWQb7UcpmmgDDV9vpKqpT4WWC9W-i2UFl9d5g/exec'
