@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { CHECKOUTS_TEMPORARIOS } from './checkout/links-temporarios.js'
+import EscolhaPagamento from './checkout/EscolhaPagamento.jsx'
 
 import fundoHero from './images/fundo-primeira-dobra.jpg'
 import chrisSorrindo from './images/chris-sorrindo.jpg'
@@ -1555,13 +1556,14 @@ function Medalha({ destaque = false, size = 54 }) {
   )
 }
 
-function CtaPlano({ children, href, destaque = false, isMobile }) {
+function CtaPlano({ children, href, destaque = false, isMobile, onClick }) {
   const [hover, setHover] = useState(false)
   const isAnchor = href.charAt(0) === '#'
 
   return (
     <a
       href={href}
+      onClick={onClick}
       {...(isAnchor || href.startsWith('/') ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
@@ -1653,6 +1655,7 @@ function ListaPlano({ itens, destaqueUltimo = false, grande = false, isMobile })
 
 function PlanosSection({ isMobile }) {
   const { trimestral, anual } = PLANOS
+  const [escolhendoPagamento, setEscolhendoPagamento] = useState(false)
 
   const rotuloPlano = (tamanho) => ({
     fontFamily: FONTE_DISPLAY,
@@ -1763,7 +1766,7 @@ function PlanosSection({ isMobile }) {
               </div>
 
               <div style={{ marginTop: isMobile ? 28 : 34 }}>
-                <CtaPlano href={trimestral.checkout} isMobile={isMobile}>Assinar trimestral</CtaPlano>
+                <CtaPlano href={trimestral.checkout} isMobile={isMobile} onClick={event => { event.preventDefault(); setEscolhendoPagamento('trimestral') }}>Assinar trimestral</CtaPlano>
               </div>
             </div>
           </Reveal>
@@ -1839,12 +1842,13 @@ function PlanosSection({ isMobile }) {
               </div>
 
               <div style={{ marginTop: isMobile ? 28 : 40 }}>
-                <CtaPlano href={anual.checkout} destaque isMobile={isMobile}>Assinar anual</CtaPlano>
+                <CtaPlano href={anual.checkout} destaque isMobile={isMobile} onClick={event => { event.preventDefault(); setEscolhendoPagamento('anual') }}>Assinar anual</CtaPlano>
               </div>
             </div>
           </Reveal>
         </div>
 
+        {escolhendoPagamento && <EscolhaPagamento plano={escolhendoPagamento} onClose={() => setEscolhendoPagamento(false)} />}
         <Reveal delay={0.1}>
           <p style={{
             fontFamily: "'DM Sans', sans-serif",

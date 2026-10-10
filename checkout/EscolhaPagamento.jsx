@@ -1,0 +1,77 @@
+import { useEffect, useRef, useState } from 'react'
+import { CHECKOUTS_TEMPORARIOS } from './links-temporarios.js'
+import './escolha-pagamento.css'
+
+export default function EscolhaPagamento({ plano, onClose }) {
+  const dialog = useRef(null)
+  const leadId = useRef(crypto.randomUUID())
+  const enviando = useRef(false)
+  const [ocupado, setOcupado] = useState(false)
+  const [erro, setErro] = useState('')
+  useEffect(() => {
+    const elemento = dialog.current
+    const anterior = document.activeElement
+    const overflow = document.body.style.overflow
+    elemento.showModal()
+    document.body.style.overflow = 'hidden'
+    return () => {
+      elemento.close()
+      document.body.style.overflow = overflow
+      anterior?.focus()
+    }
+  }, [])
+
+  async function enviar(event) {
+    event.preventDefault()
+    if (enviando.current) return
+    const dados = new FormData(event.currentTarget)
+    const nome = String(dados.get('nome') || '').trim().replace(/\s+/g, ' ')
+    const telefone = String(dados.get('telefone') || '').replace(/\D/g, '')
+    if (nome.length < 2 || !/^(?:55)?\d{10,11}$/.test(telefone)) {
+      setErro('Confira seu nome e telefone com DDD.')
+      return
+    }
+    enviando.current = true
+    setOcupado(true)
+    setErro('')
+    try {
+      const resposta = await fetch('/api/leads-assinatura', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: leadId.current, nome, telefone, plano }),
+        signal: AbortSignal.timeout(25000),
+      })
+      const resultado = await resposta.json()
+      if (!resposta.ok || resultado.ok !== true) throw new Error('envio')
+      const destino = new URL(CHECKOUTS_TEMPORARIOS[plano])
+      const params = new URLSearchParams(window.location.search)
+      for (const campo of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term']) {
+        if (params.get(campo)) destino.searchParams.set(campo, params.get(campo))
+      }
+      window.location.assign(destino.href)
+    } catch {
+      setErro('Não conseguimos confirmar o envio. Tente novamente em instantes.')
+      enviando.current = false
+      setOcupado(false)
+    }
+  }
+
+  return <dialog ref={dialog} className="cm-pagamento" aria-labelledby="cm-pagamento-titulo" onCancel={event => {
+    if (ocupado) event.preventDefault()
+    else onClose()
+  }}>
+    <button type="button" className="cm-pagamento-fechar" aria-label="Fechar" onClick={onClose} disabled={ocupado}>×</button>
+    <p className="cm-pagamento-plano">{plano === 'anual' ? 'Plano Anual Vida Musical' : 'Plano Trimestral'}</p>
+    <h2 id="cm-pagamento-titulo">Vamos começar?</h2>
+    <p className="cm-pagamento-intro">Deixe seus dados para seguir ao pagamento.</p>
+    <form onSubmit={enviar} className="cm-lead-form" aria-busy={ocupado}>
+      <label htmlFor="cm-lead-nome">Nome</label>
+      <input id="cm-lead-nome" name="nome" autoComplete="name" required minLength={2} maxLength={100} disabled={ocupado} />
+      <label htmlFor="cm-lead-telefone">Telefone com DDD</label>
+      <input id="cm-lead-telefone" name="telefone" type="tel" autoComplete="tel" inputMode="tel" placeholder="(11) 99999-9999" required maxLength={22} disabled={ocupado} />
+      <p className="cm-lead-nota">Nossa equipe poderá entrar em contato por telefone ou WhatsApp sobre sua assinatura.</p>
+      {erro && <p className="cm-lead-erro" role="alert">{erro}</p>}
+      <button className="cm-lead-enviar" type="submit" disabled={ocupado}>{ocupado ? 'Enviando…' : 'Continuar para o pagamento →'}</button>
+      <p className="cm-lead-nota">Você será direcionado ao pagamento seguro da Cakto.</p>
+    </form>
+  </dialog>
+}

@@ -1,0 +1,22 @@
+.cm-pagamento { box-sizing: border-box; width: min(460px, calc(100% - 32px)); max-height: calc(100dvh - 32px); margin: auto; padding: 36px 28px 28px; border: 1px solid #c6a87a; border-radius: 24px; background: #f1ebe2; color: #2a1d14; font-family: 'DM Sans', sans-serif; box-shadow: 0 24px 80px #0005; }
+.cm-pagamento::backdrop { background: #160e09b3; }
+.cm-pagamento-fechar { position: absolute; top: 8px; right: 8px; width: 44px; height: 44px; border: 0; border-radius: 50%; background: transparent; color: #5e4e41; font-size: 28px; cursor: pointer; }
+.cm-pagamento-plano { margin: 0 20px 12px 0; color: #6e5230; font-size: 12px; font-weight: 600; }
+.cm-pagamento h2 { margin: 0; font: 400 30px/1.2 'Playfair Display', serif; }
+.cm-pagamento-intro { margin: 12px 0 24px; font-size: 14px; color: #5e4e41; }
+.cm-pagamento-opcao { box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; margin-top: 12px; padding: 18px; border: 1px solid #b9a68b; border-radius: 14px; background: #fffdfa; color: #2a1d14; text-decoration: none; font-family: inherit; text-align: left; }
+.cm-pagamento-opcao strong { display: block; font-size: 16px; }
+.cm-pagamento-opcao small { display: block; margin-top: 6px; font-size: 12px; line-height: 1.5; }
+.cm-pagamento-opcao:disabled { opacity: .55; cursor: not-allowed; }
+.cm-pagamento-opcao[href]:hover { background: #eadfc9; }
+.cm-pagamento :focus-visible { outline: 2px solid #8a6a3b; outline-offset: 3px; }
+@media (max-width: 380px) { .cm-pagamento { padding: 36px 20px 24px; } .cm-pagamento h2 { font-size: 26px; } }
+.cm-lead-form { display: grid; gap: 10px; }
+.cm-lead-form > label { font-size: 14px; font-weight: 600; }
+.cm-lead-form > input { box-sizing: border-box; width: 100%; min-height: 48px; padding: 12px; margin-bottom: 8px; border: 1px solid #b9a68b; border-radius: 10px; background: #fffdfa; color: #2a1d14; font: inherit; font-size: 16px; }
+.cm-lead-form .cm-lead-consentimento { display: flex; align-items: flex-start; gap: 10px; font-size: 12px; font-weight: 400; line-height: 1.5; }
+.cm-lead-consentimento input { flex: 0 0 18px; width: 18px; height: 18px; accent-color: #795c31; }
+.cm-lead-enviar { min-height: 48px; margin-top: 12px; padding: 14px 18px; border: 0; border-radius: 999px; background: #795c31; color: white; font: inherit; font-weight: 600; cursor: pointer; }
+.cm-lead-enviar:disabled { opacity: .65; cursor: wait; }
+.cm-lead-nota { margin: 4px 0 0; font-size: 12px; line-height: 1.5; text-align: center; color: #5e4e41; }
+.cm-lead-erro { margin: 0; color: #942a24; font-size: 14px; line-height: 1.5; }
