@@ -36,7 +36,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <PixelPageViews />
       <Routes>
-        <Route path="/" element={<BrincandoNaMusicaLP mostrarTimer />} />
+        <Route path="/" element={<BrincandoNaMusicaLP semLotes />} />
         <Route path="/2" element={<><BrincandoNaMusicaLP mostrarTimer={false} /><OfertaRodape /></>} />
         <Route path="/3" element={<BrincandoNaMusicaLP mostrarTimer={false} />} />
         <Route path="/up" element={<CaixaSecretaLP />} />

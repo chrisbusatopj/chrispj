@@ -112,7 +112,7 @@ function Navbar() {
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
-function Hero() {
+function Hero({ semLotes = false }) {
   const w = useWindowWidth()
   const mobile = w < 768
   const { globalMode } = useContext(GlobalModeCtx)
@@ -192,7 +192,7 @@ function Hero() {
             onMouseEnter={e => { e.currentTarget.style.background = C.sageDark; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 10px 32px rgba(107,127,109,0.45)' }}
             onMouseLeave={e => { e.currentTarget.style.background = C.sage; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 6px 24px rgba(107,127,109,0.35)' }}
           >
-            Quero ver a Transmissão Ao Vivo dia 18 de Outubro (2º Lote)
+            Quero ver a Transmissão Ao Vivo dia 18 de Outubro{!semLotes && ' (2º Lote)'}
           </a>}
           {/* Botão presencial */}
           {!globalMode && !PRESENCIAL_BLOQUEADO && <a href="#ingresso-presencial" style={{
@@ -209,7 +209,7 @@ function Hero() {
             onMouseEnter={e => { e.currentTarget.style.background = C.sage; e.currentTarget.style.color = C.white; e.currentTarget.style.transform = 'translateY(-2px)' }}
             onMouseLeave={e => { e.currentTarget.style.background = highlightOnline ? C.sagePale : C.sage; e.currentTarget.style.color = highlightOnline ? C.sageDark : C.white; e.currentTarget.style.transform = 'translateY(0)' }}
           >
-            Quero ir Presencialmente domingo 18 de Outubro (1º Lote)
+            Quero ir Presencialmente domingo 18 de Outubro{!semLotes && ' (1º Lote)'}
           </a>}
 
         </div>
@@ -1630,7 +1630,7 @@ function BarraVagas({ escuro = true }) {
   )
 }
 
-function InscricaoSection({ mostrarTimer = true }) {
+function InscricaoSection({ mostrarTimer = true, semLotes = false }) {
   const [ref, inView] = useInView()
   const w = useWindowWidth()
   const mobile = w < 768
@@ -1638,10 +1638,10 @@ function InscricaoSection({ mostrarTimer = true }) {
   const [relogioLotes, setRelogioLotes] = useState(Date.now)
   useEffect(() => {
     const atualizar = () => setRelogioLotes(Date.now())
-    const timer = setInterval(atualizar, 1000)
+    const timer = setInterval(atualizar, semLotes ? 60000 : 1000)
     window.addEventListener('focus', atualizar)
     return () => { clearInterval(timer); window.removeEventListener('focus', atualizar) }
-  }, [])
+  }, [semLotes])
   const loteOnline = loteOnlineEm(relogioLotes)
   const proximoLote = LOTES_ONLINE[loteOnline.indice + 1]
   const segundosRestantes = Math.max(0, Math.ceil((Date.parse(loteOnline.lote.fim) - relogioLotes) / 1000))
@@ -1815,7 +1815,7 @@ function InscricaoSection({ mostrarTimer = true }) {
               ? <FaixaStatus tipo="aberto" selo="ABERTO" texto="Inscrições abertas" />
               : <FaixaStatus tipo="breve" selo={loteOnline.encerrado ? 'ENCERRADO' : 'EM BREVE'} texto={loteOnline.encerrado ? 'Vendas encerradas' : loteOnline.ativo ? 'Inscrições disponíveis em breve' : 'Inscrições abrem em 22/09'} />}
 
-            <div aria-label="Calendário de lotes do ingresso online" style={{ marginBottom: 24, fontFamily: "'DM Sans', sans-serif" }}>
+            {!semLotes && <div aria-label="Calendário de lotes do ingresso online" style={{ marginBottom: 24, fontFamily: "'DM Sans', sans-serif" }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8, marginBottom: 12, fontSize: 12, color: C.sageDark }}>
                 <strong>Lotes por data</strong>
                 <span>{loteOnline.encerrado ? 'Vendas encerradas' : loteOnline.ativo ? `Lote Atual · ${loteOnline.lote.nome}` : 'A partir de 22/09'}</span>
@@ -1845,7 +1845,7 @@ function InscricaoSection({ mostrarTimer = true }) {
                 </div>
                 {proximoLote && <p style={{ fontSize: 12, lineHeight: 1.6, margin: '12px 0 0' }}>Em {proximoLote.periodo.split(' a ')[0]}, o ingresso passa para <strong>R$ {proximoLote.preco}</strong>.</p>}
               </div>}
-            </div>
+            </div>}
             {checkoutOnline ? (
               <a href={checkoutOnline} target="_blank" rel="noopener noreferrer" style={{
                 display: 'block', width: '100%',
@@ -2257,7 +2257,7 @@ function Footer() {
 
 // ─── Root ────────────────────────────────────────────────────────────────────
 
-export default function BrincandoNaMusicaLP({ mostrarTimer = true, globalMode = false, highlightOnline = false, onlineUrl = 'https://pay.cakto.com.br/wp92bu4' }) {
+export default function BrincandoNaMusicaLP({ mostrarTimer = true, semLotes = false, globalMode = false, highlightOnline = false, onlineUrl = 'https://pay.cakto.com.br/wp92bu4' }) {
   useEffect(() => {
     const link = document.createElement('link')
     link.href = 'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap'
@@ -2319,14 +2319,14 @@ export default function BrincandoNaMusicaLP({ mostrarTimer = true, globalMode = 
         body { overflow-x: hidden; }
       `}</style>
       <Navbar />
-      <Hero />
+      <Hero semLotes={semLotes} />
       {/* conteúdo desliza por cima do hero sticky */}
       <div style={{ position: 'relative', zIndex: 2 }}>
         <DorSection />
         <StatementStrip />
         <VivenciasSection />
         <VivenciaSection />
-        <InscricaoSection mostrarTimer={mostrarTimer} />
+        <InscricaoSection mostrarTimer={mostrarTimer && !semLotes} semLotes={semLotes} />
         <TransformacaoSection />
         <TestemunhosSection />
         <ConscienciaSection />
