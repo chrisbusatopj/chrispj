@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { numeroDaRota, linkWhatsApp, abrirWhatsApp } from './whatsapp.js'
 import fundoHero from './images/fundo-primeira-dobra.jpg'
 
@@ -1765,13 +1765,53 @@ function Fechamento({ isMobile }) {
 
 // ─── Página ──────────────────────────────────────────────────────────────────
 
-export default function PropostaLP({ semPrecos = false, somenteParcelas = false }) {
+function EscolhaModalidade({ isMobile }) {
+  const { pathname, search } = useLocation()
+  const caminhos = [
+    { titulo: 'Comunidade Online', descricao: 'Desenvolva suas habilidades com continuidade, acompanhamento e profundidade.', acao: 'Quero fazer parte', destino: `/online${search}`, fundo: '#F5E9DF' },
+    { titulo: 'MasterMove Presencial', descricao: 'Aprofunde sua dança com prática, direção e aplicação ao vivo.', acao: 'Quero saber mais', destino: `${pathname}${search}#presencial`, fundo: '#E9E9DE' },
+  ]
+
+  return (
+    <main style={{ minHeight: '100dvh', display: 'flex', alignItems: 'center', background: C.card, padding: isMobile ? '64px 22px 100px' : '90px 48px' }}>
+      <div style={{ maxWidth: 1180, width: '100%', margin: '0 auto' }}>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase', color: C.goldDark, marginBottom: 24 }}>Corpo Musical</p>
+        <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: isMobile ? 42 : 'clamp(48px, 5.4vw, 76px)', fontWeight: 500, lineHeight: 1.1, letterSpacing: '-0.025em', color: C.brown }}>Sua jornada pode continuar.</h1>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: isMobile ? 18 : 24, lineHeight: 1.55, color: C.brownMid, maxWidth: 880, marginTop: 24 }}>
+          Se essa forma de aprender faz sentido para você, escolha o caminho que combina com o seu momento.
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, minmax(0, 1fr))', gap: 24, marginTop: isMobile ? 36 : 48 }}>
+          {caminhos.map(caminho => (
+            <section key={caminho.titulo} style={{ display: 'flex', flexDirection: 'column', padding: isMobile ? 26 : 40, background: caminho.fundo, borderRadius: 18, border: `1px solid ${C.line}` }}>
+              <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: isMobile ? 30 : 38, fontWeight: 500, lineHeight: 1.2, color: C.brown }}>{caminho.titulo}</h2>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: isMobile ? 17 : 20, lineHeight: 1.5, color: C.brownMid, margin: '20px 0 30px' }}>{caminho.descricao}</p>
+              <Link className="cm-escolha-caminho" to={caminho.destino} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, marginTop: 'auto', padding: '18px 24px', borderRadius: 100, background: C.goldDark, color: C.white, fontFamily: "'DM Sans', sans-serif", fontSize: 15, fontWeight: 600, textDecoration: 'none' }}>
+                {caminho.acao}<span aria-hidden="true">→</span>
+              </Link>
+            </section>
+          ))}
+        </div>
+      </div>
+    </main>
+  )
+}
+
+export default function PropostaLP({ semPrecos = false, somenteParcelas = false, escolherModalidade = false }) {
   const width = useWindowWidth()
   const isMobile = width < 768
+  const { hash } = useLocation()
 
   useEffect(() => {
     document.title = 'Proposta | O Corpo Musical'
   }, [])
+
+  if (escolherModalidade && !hash) {
+    return <><style>{globalStyles}{`
+      .cm-escolha-caminho:hover { filter: brightness(1.1); }
+      .cm-escolha-caminho:active { transform: translateY(1px); }
+      .cm-escolha-caminho:focus-visible { outline: 3px solid ${C.brown}; outline-offset: 4px; }
+    `}</style><EscolhaModalidade isMobile={isMobile} /></>
+  }
 
   return (
     <>
