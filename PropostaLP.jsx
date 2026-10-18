@@ -52,7 +52,7 @@ const C = {
 }
 
 const globalStyles = `
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&family=League+Spartan:wght@700;800&display=swap');
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -1508,7 +1508,13 @@ function OfertaMasterMove({ isMobile, semPrecos, somenteParcelas, somentePresenc
               <>
                 <Eyebrow color={C.goldLight}>Investimento</Eyebrow>
                 <div style={{ marginTop: isMobile ? 22 : 26 }}>
-                  <Preco parcela="145" precoAnterior={somenteParcelas ? "1.497,00" : null} parcelasAbaixo={somenteParcelas} avista={somenteParcelas ? null : "1.497"} dark isMobile={isMobile} />
+                  {somentePresencial ? (
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'baseline', marginTop: 32 }}>
+                      <span style={{ fontFamily: "'League Spartan', 'DM Sans', sans-serif", fontWeight: 700, fontSize: isMobile ? 22 : 26, color: 'rgba(255,253,250,0.62)', marginRight: 6 }}>R$</span>
+                      <span style={{ fontFamily: "'League Spartan', 'DM Sans', sans-serif", fontWeight: 800, fontSize: isMobile ? 84 : 112, lineHeight: 0.8, letterSpacing: '-0.035em', color: C.white }}>97</span>
+                      <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: isMobile ? 15 : 17, color: 'rgba(255,253,250,0.62)', marginLeft: 12 }}>/mês</span>
+                    </div>
+                  ) : <Preco parcela="145" precoAnterior={somenteParcelas ? "1.497,00" : null} parcelasAbaixo={somenteParcelas} avista={somenteParcelas ? null : "1.497"} dark isMobile={isMobile} />}
                 </div>
               </>
             )}
