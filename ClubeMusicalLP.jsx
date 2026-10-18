@@ -136,8 +136,8 @@ const DENTRO = [
     visual: { tipo: 'imagem', src: bannerPlataforma, fit: 'cover', alt: 'A plataforma da Comunidade Corpo Musical por dentro' },
   },
   {
-    titulo: 'Master Move: aulas presenciais transmitidas ao vivo',
-    desc: 'Uma vez por mês você acompanha pela internet as aulas presenciais do Master Move, realizadas em São Paulo, sem precisar estar no local.',
+    titulo: 'Transmissão ao vivo dos encontros presenciais MasterMove',
+    desc: 'Uma vez por mês você acompanha pela internet os encontros presenciais do MasterMove, realizados em São Paulo, sem precisar estar no local.',
     visual: { tipo: 'imagem', src: fundoHero, fit: 'cover', posicao: 'center 38%', alt: 'Chris Busato dançando' },
   },
   {
@@ -171,7 +171,7 @@ const FEEDBACK_COLUNAS = [
 const INCLUSO_TRIMESTRAL = [
   '3 meses de acesso',
   '1 encontro ao vivo por semana',
-  'Transmissões ao vivo das aulas presenciais do Master Move',
+  'Transmissão ao vivo dos encontros presenciais MasterMove',
   'Comunidade de alunos no WhatsApp',
   'Replay dos encontros ao vivo enquanto o plano estiver ativo',
   'Orientação e acompanhamento ao vivo',
@@ -190,7 +190,7 @@ const FAQ = [
   },
   {
     q: 'Qual a diferença entre o Plano Trimestral e o Plano Anual Aprofunde?',
-    a: 'O Plano Trimestral oferece 3 meses de acesso por R$ 147 por mês. O Plano Anual Aprofunde oferece 12 meses por R$ 97 por mês. Os dois incluem 1 encontro ao vivo por semana, transmissões ao vivo das aulas presenciais do Master Move, comunidade no WhatsApp, replays enquanto o plano estiver ativo e acompanhamento ao vivo. As aulas presenciais do Master Move acontecem em São Paulo e você acompanha pela internet. O anual também inclui a Trilha completa do MAPA DA DANÇA.',
+    a: 'O Plano Trimestral oferece 3 meses de acesso por R$ 147 por mês. O Plano Anual Aprofunde oferece 12 meses por R$ 97 por mês. Os dois incluem 1 encontro ao vivo por semana, transmissão ao vivo dos encontros presenciais MasterMove, comunidade no WhatsApp, replays enquanto o plano estiver ativo e acompanhamento ao vivo. Os encontros presenciais do MasterMove acontecem em São Paulo e você acompanha pela internet. O anual também inclui a Trilha completa do MAPA DA DANÇA.',
   },
   {
     q: 'O que acontece se eu cancelar?',
@@ -573,26 +573,16 @@ function Hero({ isMobile }) {
 
 // ─── Manifesto ───────────────────────────────────────────────────────────────
 
-// O risco se desenha quando a frase entra na tela — a versão calma do
-// "nem bandido, nem trouxa" do Sharkz.
-function Riscado({ children, delay = 0 }) {
-  const [ref, inView] = useInView({ threshold: 0.6 })
+// O traço nativo acompanha cada linha quando a frase quebra no celular.
+function Riscado({ children }) {
   return (
-    <span ref={ref} style={{ position: 'relative', display: 'inline-block', color: C.brownLight }}>
+    <span style={{
+      color: C.brownLight,
+      textDecorationLine: 'line-through',
+      textDecorationColor: C.goldDark,
+      textDecorationThickness: '0.075em',
+    }}>
       {children}
-      <span aria-hidden="true" style={{
-        position: 'absolute',
-        left: '-3%',
-        right: '-3%',
-        top: '52%',
-        height: '0.075em',
-        minHeight: 3,
-        borderRadius: 4,
-        background: C.goldDark,
-        transformOrigin: 'left center',
-        transform: inView ? 'scaleX(1)' : 'scaleX(0)',
-        transition: `transform 0.9s cubic-bezier(0.65,0,0.35,1) ${delay}s`,
-      }} />
     </span>
   )
 }
@@ -622,8 +612,8 @@ function ManifestoSection({ isMobile }) {
             letterSpacing: '-0.03em',
             color: C.brown,
           }}>
-            <Riscado delay={0.2}>Nem aula avulsa,</Riscado><br />
-            <Riscado delay={0.55}>nem passo decorado.</Riscado><br />
+            <Riscado>Nem aula avulsa,</Riscado><br />
+            <Riscado>nem passo decorado.</Riscado><br />
             É a Comunidade <Ouro>Corpo Musical.</Ouro>
           </h2>
         </Reveal>

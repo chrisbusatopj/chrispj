@@ -20,3 +20,11 @@
 .cm-lead-enviar:disabled { opacity: .65; cursor: wait; }
 .cm-lead-nota { margin: 4px 0 0; font-size: 12px; line-height: 1.5; text-align: center; color: #5e4e41; }
 .cm-lead-erro { margin: 0; color: #942a24; font-size: 14px; line-height: 1.5; }
+.cm-lead-carregando { padding: 32px 0 24px; text-align: center; }
+.cm-lead-carregando p { margin: 20px 0 0; color: #5e4e41; font-size: 14px; line-height: 1.6; }
+.cm-lead-pontos { display: flex; justify-content: center; align-items: center; gap: 10px; height: 32px; }
+.cm-lead-pontos span { width: 9px; height: 9px; border-radius: 50%; background: #795c31; animation: cm-ponto-sobe 1.2s ease-in-out infinite; }
+.cm-lead-pontos span:nth-child(2) { animation-delay: .16s; }
+.cm-lead-pontos span:nth-child(3) { animation-delay: .32s; }
+@keyframes cm-ponto-sobe { 0%, 60%, 100% { transform: translateY(0); opacity: .45; } 30% { transform: translateY(-9px); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .cm-lead-pontos span { animation: none; } }

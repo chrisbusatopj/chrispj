@@ -4,6 +4,7 @@ import EscolhaPagamento from './checkout/EscolhaPagamento.jsx'
 import { CHECKOUTS_TEMPORARIOS } from './checkout/links-temporarios.js'
 import { numeroDaRota, linkWhatsApp, abrirWhatsApp } from './whatsapp.js'
 import fundoHero from './images/fundo-primeira-dobra.jpg'
+import bannerPlataforma from './images/banner-plataforma.jpg'
 
 // Capas dos módulos e arte dos encontros — os mesmos assets usados no
 // ProgramaOnlineLP / PlataformaCursosLP.
@@ -1186,6 +1187,46 @@ function OfertaOnline({ isMobile, semPrecos, somenteParcelas }) {
   )
 }
 
+const BONUS_ONLINE_MASTERMOVE = [
+  { titulo: 'Trilha Completa do Corpo Musical — Mapa da Dança', descricao: 'Da percepção musical e corporal à expressão e à conexão com o outro, com uma trilha de aprendizagem estruturada.' },
+  { titulo: '1 encontro ao vivo por semana', descricao: 'Prática guiada com a Chris, orientação e espaço para tirar dúvidas entre os encontros presenciais.' },
+  { titulo: 'Gravações dos encontros ao vivo', descricao: 'Assista novamente e retome as práticas no seu ritmo durante os 12 meses de acesso.' },
+  { titulo: 'Comunidade no WhatsApp', descricao: 'Um espaço de troca com outros alunos: vídeos, mensagens, perguntas e apoio contínuo.' },
+  { titulo: 'Transmissão ao vivo dos encontros presenciais MasterMove', descricao: 'Acompanhe pela internet os encontros mensais realizados em São Paulo, quando não puder estar no local.' },
+]
+
+function BonusOnlineMasterMove({ isMobile }) {
+  return (
+    <section aria-labelledby="bonus-online-titulo" style={{ marginTop: isMobile ? 56 : 80, paddingTop: isMobile ? 40 : 56, borderTop: '1px solid rgba(198,168,122,0.3)' }}>
+      <Reveal>
+        <Eyebrow color={C.goldLight}>Bônus do MasterMove</Eyebrow>
+        <h3 id="bonus-online-titulo" style={{ fontFamily: "'Playfair Display', serif", fontSize: isMobile ? 32 : 46, fontWeight: 500, lineHeight: 1.2, color: C.white, textAlign: 'center', maxWidth: 740, margin: '18px auto 0' }}>
+          Também está incluso durante <span style={{ color: C.goldLight }}>12 meses todo o online:</span>
+        </h3>
+        <figure style={{ margin: isMobile ? '30px 0 0' : '40px 0 0' }}>
+          <img src={bannerPlataforma} alt="Plataforma da Comunidade Corpo Musical com os conteúdos online" loading="lazy" style={{ display: 'block', width: '100%', height: 'auto', borderRadius: isMobile ? 12 : 20, border: '1px solid rgba(198,168,122,0.3)' }} />
+          <figcaption style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, lineHeight: 1.6, color: 'rgba(255,253,250,0.7)', textAlign: 'center', marginTop: 14 }}>
+            Uma plataforma organizada para acessar os conteúdos pelo celular ou computador.
+          </figcaption>
+        </figure>
+      </Reveal>
+      <div style={{ marginTop: isMobile ? 30 : 40 }}>
+        {BONUS_ONLINE_MASTERMOVE.map((item, i) => (
+          <Reveal key={item.titulo}>
+            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '28px 1fr' : '48px 1fr', gap: isMobile ? 14 : 24, padding: isMobile ? '24px 0' : '28px 0', borderTop: '1px solid rgba(198,168,122,0.2)' }}>
+              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: C.goldLight, paddingTop: 6 }}>{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: isMobile ? 23 : 28, fontWeight: 500, lineHeight: 1.25, color: C.white }}>{item.titulo}</h4>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: isMobile ? 15 : 17, lineHeight: 1.65, color: 'rgba(255,253,250,0.7)', marginTop: 10, maxWidth: 730 }}>{item.descricao}</p>
+              </div>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  )
+}
+
 function OfertaMasterMove({ isMobile, semPrecos, somenteParcelas, somentePresencial = false }) {
   return (
     <section id="mastermove" style={{
@@ -1333,7 +1374,7 @@ function OfertaMasterMove({ isMobile, semPrecos, somenteParcelas, somentePresenc
                 color: 'rgba(255,253,250,0.66)',
                 marginTop: 10,
               }}>
-                {somentePresencial ? 'Ao entrar no Master Move, você também recebe o Programa Online como bônus: conteúdos gravados por fases e encontros ao vivo para continuar seu desenvolvimento entre as aulas presenciais.' : <>Todo o conhecimento do Corpo Musical, com conteúdos gravados por fases
+                {somentePresencial ? 'Ao entrar no Master Move, você também recebe o Programa Online como bônus: conteúdos gravados por fases e encontros ao vivo para continuar seu desenvolvimento entre os encontros presenciais.' : <>Todo o conhecimento do Corpo Musical, com conteúdos gravados por fases
                 e encontros ao vivo para aprofundar o processo. Você não escolhe entre
                 um e outro — o online vem junto.</>}
               </p>
@@ -1471,6 +1512,8 @@ function OfertaMasterMove({ isMobile, semPrecos, somenteParcelas, somentePresenc
             </Reveal>
           ))}
         </div>
+
+        {somentePresencial && <BonusOnlineMasterMove isMobile={isMobile} />}
 
         {/* Investimento */}
         <Reveal delay={0.1}>

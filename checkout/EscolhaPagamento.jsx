@@ -80,9 +80,13 @@ export default function EscolhaPagamento({ plano, onClose, destinoPagina }) {
   }}>
     <button type="button" className="cm-pagamento-fechar" aria-label="Fechar" onClick={onClose} disabled={ocupado}>×</button>
     <p className="cm-pagamento-plano">{plano === 'online' ? 'Comunidade Online' : plano === 'mastermove' ? 'MasterMove Presencial (São Paulo)' : plano === 'anual' ? 'Plano Anual Aprofunde' : 'Plano Trimestral Experimente'}</p>
-    <h2 id="cm-pagamento-titulo">Vamos começar?</h2>
-    <p className="cm-pagamento-intro">{destinoPagina ? 'Deixe seus dados para conhecer a proposta.' : 'Deixe seus dados para seguir ao pagamento.'}</p>
-    <form onSubmitCapture={enviar} className="cm-lead-form" aria-busy={ocupado}>
+    <h2 id="cm-pagamento-titulo">{ocupado ? 'Carregando' : 'Vamos começar?'}</h2>
+    {ocupado && <div className="cm-lead-carregando" role="status" aria-live="polite">
+      <div className="cm-lead-pontos" aria-hidden="true"><span /><span /><span /></div>
+      <p>Não saia ainda, você será redirecionado.</p>
+    </div>}
+    {!ocupado && <p className="cm-pagamento-intro">{destinoPagina ? 'Deixe seus dados para conhecer a proposta.' : 'Deixe seus dados para seguir ao pagamento.'}</p>}
+    <form onSubmitCapture={enviar} className="cm-lead-form" aria-busy={ocupado} style={ocupado ? { display: 'none' } : undefined}>
       <label htmlFor="cm-lead-nome">Nome</label>
       <input id="cm-lead-nome" name="nome" autoComplete="name" required minLength={2} maxLength={100} disabled={ocupado} />
       <label htmlFor="cm-lead-telefone">Telefone com DDD</label>
