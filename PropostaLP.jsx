@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import EscolhaPagamento from './checkout/EscolhaPagamento.jsx'
+import { CHECKOUTS_TEMPORARIOS } from './checkout/links-temporarios.js'
 import { numeroDaRota, linkWhatsApp, abrirWhatsApp } from './whatsapp.js'
 import fundoHero from './images/fundo-primeira-dobra.jpg'
 
@@ -14,7 +16,7 @@ import encontrosAoVivo from './images/encontrosaovivo.png'
 
 // ─── Links de checkout (Cakto) ───────────────────────────────────────────────
 const CHECKOUT_ONLINE = 'https://pay.cakto.com.br/iewzemj'      // Programa Online — 12x R$97 / R$997 à vista
-const CHECKOUT_MASTERMOVE = 'https://pay.cakto.com.br/93w4xfe'  // Master Move — 12x R$145 / R$1497 à vista
+const CHECKOUT_MASTERMOVE = CHECKOUTS_TEMPORARIOS.mastermove  // Master Move — 12x R$167 / R$1717 à vista
 
 
 // Na /corpomusical1 (sem preços) os botões finais abrem o WhatsApp da rota em
@@ -1509,12 +1511,14 @@ function OfertaMasterMove({ isMobile, semPrecos, somenteParcelas, somentePresenc
                 <Eyebrow color={C.goldLight}>Investimento</Eyebrow>
                 <div style={{ marginTop: isMobile ? 22 : 26 }}>
                   {somentePresencial ? (
+                    <>
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'baseline', marginTop: 32 }}>
-                      <span style={{ fontFamily: "'League Spartan', 'DM Sans', sans-serif", fontWeight: 700, fontSize: isMobile ? 22 : 26, color: 'rgba(255,253,250,0.62)', marginRight: 6 }}>R$</span>
-                      <span style={{ fontFamily: "'League Spartan', 'DM Sans', sans-serif", fontWeight: 800, fontSize: isMobile ? 84 : 112, lineHeight: 0.8, letterSpacing: '-0.035em', color: C.white }}>97</span>
-                      <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: isMobile ? 15 : 17, color: 'rgba(255,253,250,0.62)', marginLeft: 12 }}>/mês</span>
+                      <span style={{ fontFamily: "'League Spartan', 'DM Sans', sans-serif", fontWeight: 700, fontSize: isMobile ? 22 : 26, color: 'rgba(255,253,250,0.62)', marginRight: 6 }}>12x de R$</span>
+                      <span style={{ fontFamily: "'League Spartan', 'DM Sans', sans-serif", fontWeight: 800, fontSize: isMobile ? 84 : 112, lineHeight: 0.8, letterSpacing: '-0.035em', color: C.white }}>167</span>
                     </div>
-                  ) : <Preco parcela="145" precoAnterior={somenteParcelas ? "1.497,00" : null} parcelasAbaixo={somenteParcelas} avista={somenteParcelas ? null : "1.497"} dark isMobile={isMobile} />}
+                    <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: isMobile ? 17 : 19, color: C.goldLight, marginTop: 22 }}>ou R$ 1.717 à vista</p>
+                    </>
+                  ) : <Preco parcela="167" precoAnterior={somenteParcelas ? "1.717,00" : null} parcelasAbaixo={somenteParcelas} avista={somenteParcelas ? null : "1.717"} dark isMobile={isMobile} />}
                 </div>
               </>
             )}
@@ -1676,7 +1680,7 @@ function Comparativo({ isMobile, semPrecos, somenteParcelas }) {
               }}>
                 {!isMobile && <div />}
                 <PrecoMini parcela="97" avista={somenteParcelas ? null : "997"} label="Online" isMobile={isMobile} />
-                <PrecoMini parcela="145" avista={somenteParcelas ? null : "1.497"} label="Master Move" destaque isMobile={isMobile} />
+                <PrecoMini parcela="167" avista={somenteParcelas ? null : "1.717"} label="Master Move" destaque isMobile={isMobile} />
               </div>
             )}
           </div>
@@ -1773,9 +1777,10 @@ function Fechamento({ isMobile, somentePresencial = false }) {
 
 function EscolhaModalidade({ isMobile }) {
   const { pathname, search } = useLocation()
+  const [contato, setContato] = useState(null)
   const caminhos = [
-    { titulo: 'Comunidade Online', descricao: 'Desenvolva suas habilidades com continuidade, acompanhamento e profundidade.', acao: 'Quero fazer parte', destino: `/online${search}`, fundo: '#F5E9DF' },
-    { titulo: 'MasterMove Presencial (São Paulo)', descricao: 'Aprofunde sua dança com prática, direção e aplicação ao vivo.', acao: 'Quero saber mais', destino: `${pathname}${search}#presencial`, fundo: '#E9E9DE' },
+    { plano: 'online', titulo: 'Comunidade Online', descricao: 'Desenvolva suas habilidades com continuidade, acompanhamento e profundidade.', acao: 'Quero fazer parte', destino: `/online${search}`, fundo: '#F5E9DF' },
+    { plano: 'mastermove', titulo: 'MasterMove Presencial (São Paulo)', descricao: 'Aprofunde sua dança com prática, direção e aplicação ao vivo.', acao: 'Quero saber mais', destino: `${pathname}${search}#presencial`, fundo: '#E9E9DE' },
   ]
 
   return (
@@ -1791,13 +1796,14 @@ function EscolhaModalidade({ isMobile }) {
             <section key={caminho.titulo} style={{ display: 'flex', flexDirection: 'column', padding: isMobile ? 26 : 40, background: caminho.fundo, borderRadius: 18, border: `1px solid ${C.line}` }}>
               <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: isMobile ? 30 : 38, fontWeight: 500, lineHeight: 1.2, color: C.brown }}>{caminho.titulo}</h2>
               <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: isMobile ? 17 : 20, lineHeight: 1.5, color: C.brownMid, margin: '20px 0 30px' }}>{caminho.descricao}</p>
-              <Link className="cm-escolha-caminho" to={caminho.destino} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, marginTop: 'auto', padding: '18px 24px', borderRadius: 100, background: C.goldDark, color: C.white, fontFamily: "'DM Sans', sans-serif", fontSize: 15, fontWeight: 600, textDecoration: 'none' }}>
+              <Link className="cm-escolha-caminho" to={caminho.destino} onClick={event => { event.preventDefault(); setContato(caminho) }} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, marginTop: 'auto', padding: '18px 24px', borderRadius: 100, background: C.goldDark, color: C.white, fontFamily: "'DM Sans', sans-serif", fontSize: 15, fontWeight: 600, textDecoration: 'none' }}>
                 {caminho.acao}<span aria-hidden="true">→</span>
               </Link>
             </section>
           ))}
         </div>
       </div>
+      {contato && <EscolhaPagamento plano={contato.plano} destinoPagina={contato.destino} onClose={() => setContato(null)} />}
     </main>
   )
 }

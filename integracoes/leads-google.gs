@@ -10,7 +10,7 @@ function doPost(e) {
     if (!/^[\da-f-]{36}$/i.test(dados.id || '') ||
         typeof dados.nome !== 'string' || dados.nome.trim().length < 2 || dados.nome.length > 100 ||
         !/^(?:55)?\d{10,11}$/.test(dados.telefone || '') ||
-        ['anual', 'trimestral'].indexOf(dados.plano) === -1) return resposta(false, 'DADOS_INVALIDOS');
+        ['anual', 'trimestral', 'mastermove', 'online'].indexOf(dados.plano) === -1) return resposta(false, 'DADOS_INVALIDOS');
     var planilhaId = PropertiesService.getScriptProperties().getProperty('PLANILHA_ID');
     if (!planilhaId || !planilhaId.trim()) return resposta(false, 'PLANILHA_ID_AUSENTE');
     lock.waitLock(10000);
@@ -22,12 +22,17 @@ function doPost(e) {
       aba.appendRow(['ID', 'Data', 'Nome', 'Telefone', 'Plano', 'Já entrou em contato?']);
       aba.setFrozenRows(1);
     }
-    if (aba.getLastRow() > 1 && aba.getRange(2, 1, aba.getLastRow() - 1, 1)
-      .createTextFinder(dados.id).matchEntireCell(true).findNext()) return resposta(true);
-    var ids = aba.getRange(1, 1, aba.getLastRow(), 1).getValues();
-    var ultimaLinha = 1;
-    for (var i = 1; i < ids.length; i++) if (ids[i][0]) ultimaLinha = i + 1;
-    var linha = ultimaLinha + 1;
+    var registros = aba.getLastRow() > 1
+      ? aba.getRange(2, 1, aba.getLastRow() - 1, 6).getValues() : [];
+    var linha = 0;
+    for (var i = 0; i < registros.length; i++) {
+      var registro = registros[i];
+      // Nome, telefone e plano vazios: contato apagado, mesmo com ID oculto ou checkbox.
+      var vazio = registro.slice(2, 5).every(function(valor) { return String(valor).trim() === ''; });
+      if (!vazio && registro[0] === dados.id) return resposta(true);
+      if (vazio && !linha) linha = i + 2;
+    }
+    if (!linha) linha = registros.length + 2;
     if (linha > aba.getMaxRows()) aba.insertRowsAfter(aba.getMaxRows(), 100);
     aba.getRange(linha, 3, 1, 2).setNumberFormat('@');
     aba.getRange(linha, 1, 1, 6).setValues([[

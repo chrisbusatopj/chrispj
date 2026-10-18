@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   const nome = typeof body?.nome === 'string' ? body.nome.trim().replace(/\s+/g, ' ') : ''
   const telefone = typeof body?.telefone === 'string' ? normalizarTelefone(body.telefone) : ''
   if (!/^[\da-f-]{36}$/i.test(body?.id || '') || nome.length < 2 || nome.length > 100 ||
-    !telefoneValido(telefone) || !['anual', 'trimestral'].includes(body?.plano)) {
+    !telefoneValido(telefone) || !['anual', 'trimestral', 'mastermove', 'online'].includes(body?.plano)) {
     return res.status(400).json({ ok: false })
   }
   const url = process.env.LEADS_GOOGLE_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbwZ0uCufwqIp7ZdTAFlAzS4T_EPqm1nTVWQb7UcpmmgDDV9vpKqpT4WWC9W-i2UFl9d5g/exec'
