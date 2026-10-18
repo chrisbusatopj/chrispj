@@ -71,7 +71,7 @@ export default function EscolhaPagamento({ plano, onClose }) {
     else onClose()
   }}>
     <button type="button" className="cm-pagamento-fechar" aria-label="Fechar" onClick={onClose} disabled={ocupado}>×</button>
-    <p className="cm-pagamento-plano">{plano === 'anual' ? 'Plano Anual Vida Musical' : 'Plano Trimestral'}</p>
+    <p className="cm-pagamento-plano">{plano === 'anual' ? 'Plano Anual Aprofunde' : 'Plano Trimestral Experimente'}</p>
     <h2 id="cm-pagamento-titulo">Vamos começar?</h2>
     <p className="cm-pagamento-intro">Deixe seus dados para seguir ao pagamento.</p>
     <form onSubmitCapture={enviar} className="cm-lead-form" aria-busy={ocupado}>

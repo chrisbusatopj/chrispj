@@ -54,7 +54,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/aovivo" element={<AoVivoLP />} />
         <Route path="/quiz" element={<QuizLP />} />
         <Route path="/admin" element={<AdminLP />} />
-        <Route path="/corpomusical" element={<PropostaLP />} />
+        <Route path="/corpomusical" element={<PropostaLP escolherModalidade />} />
         <Route path="/corpomusical3" element={<PropostaLP somenteParcelas />} />
         <Route path="/corpomusical1" element={<PropostaLP semPrecos />} />
         <Route path="/corpomusical2" element={<PropostaLP />} />

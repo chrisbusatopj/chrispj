@@ -117,13 +117,13 @@ const PUBLICOS = [
 
 const DENTRO = [
   {
-    titulo: 'Trilha completa do MAPA DA DANÇA',
-    desc: 'Exclusiva do Plano Anual Vida Musical: Musicalidade, Musicalização e Consciência Corporal para aprofundar sua dança no seu ritmo.',
+    titulo: 'Trilha Completa do Corpo Musical - Mapa da Dança',
+    desc: 'Da percepção musical e corporal, à expressão e à conexão com o outro, com uma trilha de aprendizagem estruturada.',
     visual: { tipo: 'capas' },
   },
   {
     titulo: '1 encontro ao vivo por semana',
-    desc: 'Você dança junto com a Chris, com prática guiada, orientação e espaço para tirar dúvidas.',
+    desc: 'Nos dois planos, você dança junto com a Chris, com prática guiada, orientação e espaço para tirar dúvidas.',
     visual: { tipo: 'imagem', src: encontrosAoVivo, fit: 'contain', fundo: '#F4E6D7', alt: 'Encontros ao vivo da Comunidade Corpo Musical' },
   },
   {
@@ -137,8 +137,8 @@ const DENTRO = [
     visual: { tipo: 'imagem', src: bannerPlataforma, fit: 'cover', alt: 'A plataforma da Comunidade Corpo Musical por dentro' },
   },
   {
-    titulo: 'Transmissão do Master Move',
-    desc: 'Uma vez por mês você acompanha, ao vivo, a imersão presencial que acontece em São Paulo.',
+    titulo: 'Master Move: aulas presenciais transmitidas ao vivo',
+    desc: 'Uma vez por mês você acompanha pela internet as aulas presenciais do Master Move, realizadas em São Paulo, sem precisar estar no local.',
     visual: { tipo: 'imagem', src: fundoHero, fit: 'cover', posicao: 'center 38%', alt: 'Chris Busato dançando' },
   },
   {
@@ -149,7 +149,7 @@ const DENTRO = [
 ]
 
 const TRANSFORMACOES = [
-  { antes: 'Dança contando os passos na cabeça, sem sentir a música', depois: 'Ouve a música e o corpo responde com naturalidade' },
+  { antes: 'Dança contando os passos na cabeça, sem sentir a música', depois: 'Ouve a música, compreende sua estrutura e responde com naturalidade.' },
   { antes: 'Trava quando alguém olha ou quando precisa improvisar', depois: 'Dança com presença, mesmo sem decorar coreografia' },
   { antes: 'Junta aulas soltas sem um caminho que faça sentido', depois: 'Segue uma formação organizada, do básico ao avançado' },
   { antes: 'Sente que o corpo é "duro" e não responde do jeito que queria', depois: 'Tem consciência do próprio corpo e dança com liberdade' },
@@ -172,16 +172,16 @@ const FEEDBACK_COLUNAS = [
 const INCLUSO_TRIMESTRAL = [
   '3 meses de acesso',
   '1 encontro ao vivo por semana',
-  'Transmissões do Master Move',
+  'Transmissões ao vivo das aulas presenciais do Master Move',
   'Comunidade de alunos no WhatsApp',
   'Replay dos encontros ao vivo enquanto o plano estiver ativo',
   'Orientação e acompanhamento ao vivo',
 ]
 const INCLUSO_ANUAL = [
   '12 meses de acesso',
-  ...INCLUSO_TRIMESTRAL.slice(1),
+  '1 encontro ao vivo por semana',
+  ...INCLUSO_TRIMESTRAL.slice(2),
   'Trilha completa do MAPA DA DANÇA',
-  'Vida Musical',
 ]
 
 const FAQ = [
@@ -190,8 +190,8 @@ const FAQ = [
     a: 'Assim que o pagamento é confirmado, você recebe o acesso à plataforma por e-mail e já pode começar a assistir todo o conteúdo imediatamente, de qualquer dispositivo.',
   },
   {
-    q: 'Qual a diferença entre o Plano Trimestral e o Plano Anual Vida Musical?',
-    a: 'O Plano Trimestral oferece 3 meses de acesso por R$ 147 por mês. O Plano Anual Vida Musical oferece 12 meses, por R$ 97 por mês. Os dois incluem um encontro ao vivo por semana, transmissões do Master Move, comunidade no WhatsApp, replays enquanto o plano estiver ativo e acompanhamento ao vivo. O anual também inclui a Trilha completa do MAPA DA DANÇA e Vida Musical.',
+    q: 'Qual a diferença entre o Plano Trimestral e o Plano Anual Aprofunde?',
+    a: 'O Plano Trimestral oferece 3 meses de acesso por R$ 147 por mês. O Plano Anual Aprofunde oferece 12 meses por R$ 97 por mês. Os dois incluem 1 encontro ao vivo por semana, transmissões ao vivo das aulas presenciais do Master Move, comunidade no WhatsApp, replays enquanto o plano estiver ativo e acompanhamento ao vivo. As aulas presenciais do Master Move acontecem em São Paulo e você acompanha pela internet. O anual também inclui a Trilha completa do MAPA DA DANÇA.',
   },
   {
     q: 'O que acontece se eu cancelar?',
@@ -598,6 +598,15 @@ function Riscado({ children, delay = 0 }) {
   )
 }
 
+const PILARES = [
+  { nome: 'Música', papel: 'A linguagem', descricao: 'Usar a música e sua estrutura como principal referência para dançar.' },
+  { nome: 'Corpo', papel: 'O instrumento', descricao: 'Desenvolver a percepção corporal e descobrir os recursos e possibilidades do próprio corpo.' },
+  { nome: 'Movimento', papel: 'A voz (expressão)', descricao: 'Transformar movimentos em expressão, desenvolvendo uma linguagem própria na dança.' },
+  { nome: 'O Outro', papel: 'O diálogo', descricao: 'Aprender a se relacionar através da dança, desenvolvendo escuta, comunicação e construção compartilhada.' },
+  { nome: 'Flow Musical', papel: 'A integração', descricao: 'Integrar música, corpo, movimento e relação em uma experiência mais fluida, presente e espontânea.' },
+  { nome: 'Vida Musical', papel: 'A incorporação', descricao: 'Levar os princípios desenvolvidos na dança para outras experiências da vida.' },
+]
+
 function ManifestoSection({ isMobile }) {
   return (
     <section style={{
@@ -630,9 +639,9 @@ function ManifestoSection({ isMobile }) {
             maxWidth: 640,
             margin: isMobile ? '28px auto 0' : '36px auto 0',
           }}>
-            Tudo o que a Chris ensina, reunido num só lugar: os cursos de Musicalidade,
-            Musicalização e Consciência Corporal, os encontros ao vivo e os replays para
-            você revisitar quantas vezes quiser.
+            Tudo o que a Chris ensina, em uma única jornada: da percepção musical e corporal
+            à expressão e à conexão com o outro, com uma trilha de aprendizagem estruturada,
+            encontros semanais ao vivo, gravações e uma comunidade para evoluir junto.
           </p>
         </Reveal>
 
@@ -648,6 +657,32 @@ function ManifestoSection({ isMobile }) {
             Você não coleciona aulas. Você dança toda semana.
           </p>
         </Reveal>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, minmax(0, 1fr))',
+          gap: isMobile ? 36 : '48px 36px',
+          borderTop: '1px solid rgba(42,29,20,0.16)',
+          borderBottom: '1px solid rgba(42,29,20,0.16)',
+          marginTop: isMobile ? 40 : 56,
+          padding: isMobile ? '36px 0' : '48px 0',
+        }}>
+          {PILARES.map((pilar, i) => (
+            <Reveal key={pilar.nome} delay={(i % 3) * 0.08}>
+              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, letterSpacing: '0.12em', color: C.brownLight }}>
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 26, fontWeight: 500, lineHeight: 1.25, color: C.brown, margin: '12px 0 8px' }}>
+                {pilar.nome}
+              </h3>
+              <p style={{ fontFamily: "'Playfair Display', serif", fontSize: 17, fontStyle: 'italic', color: C.goldDark, margin: '0 0 12px' }}>
+                {pilar.papel}
+              </p>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, lineHeight: 1.65, color: C.brownMid, maxWidth: 320, margin: '0 auto' }}>
+                {pilar.descricao}
+              </p>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   )
@@ -929,6 +964,16 @@ function DentroSection({ isMobile, reduzir }) {
       <Titulo isMobile={isMobile} escuro style={{ marginTop: 16 }}>
         Tudo que a Chris ensina, <Ouro escuro>num só lugar.</Ouro>
       </Titulo>
+      <p style={{
+        fontFamily: "'DM Sans', sans-serif",
+        fontSize: isMobile ? 16 : 18,
+        lineHeight: 1.6,
+        color: 'rgba(255,253,250,0.72)',
+        textAlign: 'center',
+        margin: '18px auto 0',
+      }}>
+        Acesso aos conteúdos conforme o plano escolhido.
+      </p>
     </Reveal>
   )
 
@@ -1713,7 +1758,7 @@ function PlanosSection({ isMobile }) {
         </Reveal>
         <Reveal delay={0.08}>
           <Titulo isMobile={isMobile} escuro style={{ marginTop: 18 }}>
-            Escolha como quer <Ouro escuro>entrar na comunidade.</Ouro>
+            Escolha como começar <Ouro escuro>sua jornada.</Ouro>
           </Titulo>
         </Reveal>
         <Reveal delay={0.14}>
@@ -1727,7 +1772,7 @@ function PlanosSection({ isMobile }) {
             maxWidth: 520,
             margin: '20px auto 0',
           }}>
-            Experimente por 3 meses ou viva a jornada completa com o Plano Anual Vida Musical.
+            Experimente por 3 meses ou aprofunde sua jornada com o plano anual.
           </p>
         </Reveal>
 
@@ -1750,7 +1795,10 @@ function PlanosSection({ isMobile }) {
               padding: isMobile ? '30px 24px 28px' : '40px 38px 36px',
             }}>
               <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
-                <div style={rotuloPlano(isMobile ? 28 : 34)}>Plano Trimestral</div>
+                <div>
+                  <div style={{ ...rotuloPlano(isMobile ? 16 : 18), color: C.goldLight, letterSpacing: '0.12em' }}>Plano Trimestral</div>
+                  <div style={{ ...rotuloPlano(isMobile ? 30 : 38), marginTop: 10, lineHeight: 1.1 }}>Experimente</div>
+                </div>
                 <Medalha size={isMobile ? 46 : 54} />
               </div>
 
@@ -1810,7 +1858,7 @@ function PlanosSection({ isMobile }) {
 
               <div style={{ textAlign: 'center', marginTop: isMobile ? 26 : 30 }}>
                 <div style={{ ...rotuloPlano(isMobile ? 16 : 18), color: C.goldLight, letterSpacing: '0.12em' }}>Plano Anual</div>
-                <div style={{ ...rotuloPlano(isMobile ? 30 : 38), marginTop: 10, lineHeight: 1.1 }}>Vida Musical</div>
+                <div style={{ ...rotuloPlano(isMobile ? 30 : 38), marginTop: 10, lineHeight: 1.1 }}>Aprofunde</div>
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'baseline', marginTop: isMobile ? 26 : 32 }}>
