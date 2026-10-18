@@ -15,7 +15,7 @@ export default async function handler(req, res) {
     !telefoneValido(telefone) || !['anual', 'trimestral', 'mastermove', 'online'].includes(body?.plano)) {
     return res.status(400).json({ ok: false })
   }
-  const url = process.env.LEADS_GOOGLE_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbwZ0uCufwqIp7ZdTAFlAzS4T_EPqm1nTVWQb7UcpmmgDDV9vpKqpT4WWC9W-i2UFl9d5g/exec'
+  const url = process.env.LEADS_GOOGLE_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbx2oLefu-GsknCsgYz5BqHxu_AZXR6fayQIzFegw7Fxa6XewkLQLDEazvt8FxTen-WLLQ/exec'
   if (!/^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/.test(url || '')) return res.status(503).json({ ok: false })
   for (let tentativa = 0; tentativa < 2; tentativa++) {
     try {
