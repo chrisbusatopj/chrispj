@@ -1775,7 +1775,7 @@ function EscolhaModalidade({ isMobile }) {
   const { pathname, search } = useLocation()
   const caminhos = [
     { titulo: 'Comunidade Online', descricao: 'Desenvolva suas habilidades com continuidade, acompanhamento e profundidade.', acao: 'Quero fazer parte', destino: `/online${search}`, fundo: '#F5E9DF' },
-    { titulo: 'MasterMove Presencial', descricao: 'Aprofunde sua dança com prática, direção e aplicação ao vivo.', acao: 'Quero saber mais', destino: `${pathname}${search}#presencial`, fundo: '#E9E9DE' },
+    { titulo: 'MasterMove Presencial (São Paulo)', descricao: 'Aprofunde sua dança com prática, direção e aplicação ao vivo.', acao: 'Quero saber mais', destino: `${pathname}${search}#presencial`, fundo: '#E9E9DE' },
   ]
 
   return (
