@@ -760,7 +760,7 @@ function ListaVantagens({ itens, isMobile, semDivisor = false, claro = false }) 
 
 // ─── Seções ──────────────────────────────────────────────────────────────────
 
-function Hero({ isMobile, vslPlayerId, mostrarMasterMove = false }) {
+function Hero({ isMobile, vslPlayerId, mostrarMasterMove = false, somentePresencial = false }) {
   return (
     <section style={{
       position: 'relative',
@@ -801,16 +801,16 @@ function Hero({ isMobile, vslPlayerId, mostrarMasterMove = false }) {
             letterSpacing: '-0.02em',
             color: C.brown,
           }}>
-            Conheça Programa O Corpo Musical:{' '}
+            {somentePresencial ? 'Conheça o Master Move presencial:' : 'Conheça Programa O Corpo Musical:'}{' '}
             <span style={{ fontStyle: 'italic', fontWeight: 400, color: C.goldDark }}>
               uma nova base para dançar com mais musicalidade, fluidez e liberdade
             </span>
           </h1>
         </Reveal>
 
-        <Reveal delay={0.16}>
+        {!somentePresencial && <Reveal delay={0.16}>
           <Vsl playerId={vslPlayerId} isMobile={isMobile} />
-        </Reveal>
+        </Reveal>}
 
         <Reveal delay={0.22}>
           <div style={{
@@ -821,7 +821,7 @@ function Hero({ isMobile, vslPlayerId, mostrarMasterMove = false }) {
             flexWrap: 'wrap',
             gap: 16,
           }}>
-            <CtaButton href="#online" full={isMobile}>Conhecer o programa online</CtaButton>
+            {!somentePresencial && <CtaButton href="#online" full={isMobile}>Conhecer o programa online</CtaButton>}
             {mostrarMasterMove && (
               <CtaButton href="#mastermove" variant="ghost" full={isMobile}>Conhecer o Master Move</CtaButton>
             )}
@@ -1184,7 +1184,7 @@ function OfertaOnline({ isMobile, semPrecos, somenteParcelas }) {
   )
 }
 
-function OfertaMasterMove({ isMobile, semPrecos, somenteParcelas }) {
+function OfertaMasterMove({ isMobile, semPrecos, somenteParcelas, somentePresencial = false }) {
   return (
     <section id="mastermove" style={{
       background: `linear-gradient(180deg, ${C.brown} 0%, #3A291D 55%, #241A12 100%)`,
@@ -1207,7 +1207,7 @@ function OfertaMasterMove({ isMobile, semPrecos, somenteParcelas }) {
               letterSpacing: '0.16em',
               textTransform: 'uppercase',
             }}>
-              Opção 2 — a proposta completa
+              {somentePresencial ? 'Sua jornada presencial' : 'Opção 2 — a proposta completa'}
             </span>
 
             <h2 style={{
@@ -1250,7 +1250,7 @@ function OfertaMasterMove({ isMobile, semPrecos, somenteParcelas }) {
               maxWidth: 620,
               margin: '30px auto 0',
             }}>
-              O online traz o conhecimento.<br />
+              {!somentePresencial && <>O online traz o conhecimento.<br /></>}
               O Master Move traz a <span style={{ fontStyle: 'italic', color: C.goldLight }}>aplicação presencial</span>.
             </p>
 
@@ -1276,12 +1276,12 @@ function OfertaMasterMove({ isMobile, semPrecos, somenteParcelas }) {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : '1fr auto 1fr',
+          gridTemplateColumns: isMobile ? '1fr' : somentePresencial ? '1.15fr auto 1fr' : '1fr auto 1fr',
           alignItems: 'stretch',
           gap: isMobile ? 14 : 18,
           margin: '20px 0 0',
         }}>
-          <Reveal delay={0.1} style={{ display: 'flex' }}>
+          <Reveal delay={0.1} style={{ display: 'flex', order: somentePresencial ? 3 : 1 }}>
             <div style={{
               flex: 1,
               position: 'relative',
@@ -1305,7 +1305,7 @@ function OfertaMasterMove({ isMobile, semPrecos, somenteParcelas }) {
                 letterSpacing: '0.14em',
                 textTransform: 'uppercase',
               }}>
-                Incluso
+                {somentePresencial ? 'Bônus incluso' : 'Incluso'}
               </div>
               <div style={{
                 width: 52, height: 52, borderRadius: '50%',
@@ -1331,14 +1331,14 @@ function OfertaMasterMove({ isMobile, semPrecos, somenteParcelas }) {
                 color: 'rgba(255,253,250,0.66)',
                 marginTop: 10,
               }}>
-                Todo o conhecimento do Corpo Musical, com conteúdos gravados por fases
+                {somentePresencial ? 'Ao entrar no Master Move, você também recebe o Programa Online como bônus: conteúdos gravados por fases e encontros ao vivo para continuar seu desenvolvimento entre as aulas presenciais.' : <>Todo o conhecimento do Corpo Musical, com conteúdos gravados por fases
                 e encontros ao vivo para aprofundar o processo. Você não escolhe entre
-                um e outro — o online vem junto.
+                um e outro — o online vem junto.</>}
               </p>
             </div>
           </Reveal>
 
-          <Reveal delay={0.16} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <Reveal delay={0.16} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', order: 2 }}>
             <div style={{
               fontFamily: "'Playfair Display', serif",
               fontSize: isMobile ? 30 : 42,
@@ -1349,7 +1349,7 @@ function OfertaMasterMove({ isMobile, semPrecos, somenteParcelas }) {
             </div>
           </Reveal>
 
-          <Reveal delay={0.22} style={{ display: 'flex' }}>
+          <Reveal delay={0.22} style={{ display: 'flex', order: somentePresencial ? 1 : 3 }}>
             <div style={{
               flex: 1,
               background: 'linear-gradient(165deg, rgba(255,253,250,0.1) 0%, rgba(255,253,250,0.035) 100%)',
@@ -1404,7 +1404,7 @@ function OfertaMasterMove({ isMobile, semPrecos, somenteParcelas }) {
             textTransform: 'uppercase',
             color: C.goldLight,
           }}>
-            Conhecimento + aplicação presencial
+            {somentePresencial ? 'Master Move presencial + Programa Online de bônus' : 'Conhecimento + aplicação presencial'}
           </div>
         </Reveal>
 
@@ -1513,7 +1513,7 @@ function OfertaMasterMove({ isMobile, semPrecos, somenteParcelas }) {
               </>
             )}
 
-            <ListaVantagens itens={VANTAGENS_MASTERMOVE} isMobile={isMobile} semDivisor={semPrecos} />
+            <ListaVantagens itens={somentePresencial ? [...VANTAGENS_MASTERMOVE.slice(1), 'Bônus: Programa Online do Corpo Musical incluso'] : VANTAGENS_MASTERMOVE} isMobile={isMobile} semDivisor={semPrecos} />
 
             <div style={{ marginTop: 28, maxWidth: 460, marginLeft: 'auto', marginRight: 'auto' }}>
               <CtaFinal semPrecos={semPrecos} checkout={CHECKOUT_MASTERMOVE} mensagem={MENSAGEM_MASTERMOVE} full>
@@ -1697,7 +1697,7 @@ function Comparativo({ isMobile, semPrecos, somenteParcelas }) {
   )
 }
 
-function Fechamento({ isMobile }) {
+function Fechamento({ isMobile, somentePresencial = false }) {
   return (
     <section style={{
       background: C.creamDeep,
@@ -1724,8 +1724,8 @@ function Fechamento({ isMobile }) {
             color: C.brownMid,
             marginTop: 20,
           }}>
-            Se ficou alguma dúvida sobre qual formato é o seu, fale com a gente pelo
-            botão do WhatsApp aqui na tela. A gente te ajuda a escolher.
+            {somentePresencial ? 'Se ficou alguma dúvida sobre o Master Move, fale com a gente pelo' : 'Se ficou alguma dúvida sobre qual formato é o seu, fale com a gente pelo'}{' '}
+            botão do WhatsApp aqui na tela. {somentePresencial ? 'Nossa equipe te ajuda.' : 'A gente te ajuda a escolher.'}
           </p>
         </Reveal>
 
@@ -1817,12 +1817,12 @@ export default function PropostaLP({ semPrecos = false, somenteParcelas = false,
     <>
       <style>{globalStyles}</style>
       <main style={{ background: C.cream }}>
-        <Hero isMobile={isMobile} mostrarMasterMove vslPlayerId={semPrecos ? VSL_PLAYER.semPrecos : VSL_PLAYER.comPrecos} />
-        <Ponte isMobile={isMobile} />
-        <OfertaOnline isMobile={isMobile} semPrecos={semPrecos} somenteParcelas={somenteParcelas} />
-        <OfertaMasterMove isMobile={isMobile} semPrecos={semPrecos} somenteParcelas={somenteParcelas} />
-        <Comparativo isMobile={isMobile} semPrecos={semPrecos} somenteParcelas={somenteParcelas} />
-        <Fechamento isMobile={isMobile} />
+        <Hero isMobile={isMobile} mostrarMasterMove somentePresencial={escolherModalidade} vslPlayerId={semPrecos ? VSL_PLAYER.semPrecos : VSL_PLAYER.comPrecos} />
+        {!escolherModalidade && <Ponte isMobile={isMobile} />}
+        {!escolherModalidade && <OfertaOnline isMobile={isMobile} semPrecos={semPrecos} somenteParcelas={somenteParcelas} />}
+        <OfertaMasterMove isMobile={isMobile} semPrecos={semPrecos} somenteParcelas={somenteParcelas} somentePresencial={escolherModalidade} />
+        {!escolherModalidade && <Comparativo isMobile={isMobile} semPrecos={semPrecos} somenteParcelas={somenteParcelas} />}
+        <Fechamento isMobile={isMobile} somentePresencial={escolherModalidade} />
       </main>
     </>
   )
