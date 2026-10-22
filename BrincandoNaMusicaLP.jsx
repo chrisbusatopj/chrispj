@@ -3,7 +3,7 @@ import { LOTES_ONLINE, loteOnlineEm } from './lotes-online.js'
 import { LOTES_PRESENCIAL, lotePresencialEm } from './lotes-presencial.js'
 import { ocupacaoProjetadaEm } from './projecao-presencial.js'
 
-const GlobalModeCtx = createContext({ globalMode: false, highlightOnline: false, onlineUrl: 'https://pay.cakto.com.br/wp92bu4' })
+const GlobalModeCtx = createContext({ gravacao: false, globalMode: false, highlightOnline: false, onlineUrl: 'https://pay.cakto.com.br/wp92bu4' })
 
 // Preços e checkouts presenciais definidos por data em lotes-presencial.js.
 
@@ -115,7 +115,7 @@ function Navbar() {
 function Hero({ semLotes = false }) {
   const w = useWindowWidth()
   const mobile = w < 768
-  const { globalMode } = useContext(GlobalModeCtx)
+  const { globalMode, gravacao } = useContext(GlobalModeCtx)
   // A transmissão é a ação principal do topo.
   const highlightOnline = true
 
@@ -192,10 +192,10 @@ function Hero({ semLotes = false }) {
             onMouseEnter={e => { e.currentTarget.style.background = C.sageDark; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 10px 32px rgba(107,127,109,0.45)' }}
             onMouseLeave={e => { e.currentTarget.style.background = C.sage; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 6px 24px rgba(107,127,109,0.35)' }}
           >
-            Quero ver a Transmissão Ao Vivo dia 18 de Outubro{!semLotes && ' (2º Lote)'}
+            {gravacao ? 'Quero acessar a gravação por R$ 67 →' : <>Quero ver a Transmissão Ao Vivo dia 18 de Outubro{!semLotes && ' (2º Lote)'}</>}
           </a>}
           {/* Botão presencial */}
-          {!globalMode && !PRESENCIAL_BLOQUEADO && <a href="#ingresso-presencial" style={{
+          {!gravacao && !globalMode && !PRESENCIAL_BLOQUEADO && <a href="#ingresso-presencial" style={{
             display: 'inline-block',
             background: highlightOnline ? C.sagePale : C.sage,
             color: highlightOnline ? C.sageDark : C.white,
@@ -1460,6 +1460,11 @@ const inclusosOnline = [
   '6 meses de acesso à gravação para rever e praticar',
 ]
 
+const inclusosGravacao = [
+  'Gravação da vivência de 4 horas em música e movimento',
+  ...inclusosOnline.slice(2),
+]
+
 const inclusosPresencial = [
   '4 horas de imersão presencial em música e movimento',
   'Tudo que você vivencia na transmissão ao vivo',
@@ -1634,14 +1639,15 @@ function InscricaoSection({ mostrarTimer = true, semLotes = false }) {
   const [ref, inView] = useInView()
   const w = useWindowWidth()
   const mobile = w < 768
-  const { globalMode, highlightOnline: destaqueOnline, onlineUrl } = useContext(GlobalModeCtx)
+  const { globalMode, gravacao, highlightOnline: destaqueOnline, onlineUrl } = useContext(GlobalModeCtx)
   const [relogioLotes, setRelogioLotes] = useState(Date.now)
   useEffect(() => {
+    if (gravacao) return
     const atualizar = () => setRelogioLotes(Date.now())
     const timer = setInterval(atualizar, semLotes ? 60000 : 1000)
     window.addEventListener('focus', atualizar)
     return () => { clearInterval(timer); window.removeEventListener('focus', atualizar) }
-  }, [semLotes])
+  }, [semLotes, gravacao])
   const loteOnline = loteOnlineEm(relogioLotes)
   const proximoLote = LOTES_ONLINE[loteOnline.indice + 1]
   const segundosRestantes = Math.max(0, Math.ceil((Date.parse(loteOnline.lote.fim) - relogioLotes) / 1000))
@@ -1661,7 +1667,8 @@ function InscricaoSection({ mostrarTimer = true, semLotes = false }) {
     [segundosRestantesPresencial % 60, 'seg'],
   ]
   const checkoutPresencial = lotePresencial.ativo ? lotePresencial.lote.checkout : ''
-  const checkoutOnline = loteOnline.ativo ? (loteOnline.lote.checkout ?? onlineUrl) : ''
+  const checkoutOnline = gravacao ? onlineUrl : loteOnline.ativo ? (loteOnline.lote.checkout ?? onlineUrl) : ''
+  const precoOnline = gravacao ? 67 : loteOnline.lote.preco
   // Bloqueado, o card presencial usa a versão clara para não disputar atenção
   // com o card da transmissão, que é o único à venda.
   const highlightOnline = destaqueOnline || PRESENCIAL_BLOQUEADO
@@ -1693,10 +1700,10 @@ function InscricaoSection({ mostrarTimer = true, semLotes = false }) {
         {/* dois cards */}
         <div ref={ref} style={{
           display: 'grid',
-          gridTemplateColumns: mobile ? '1fr' : '1fr 1fr',
+          gridTemplateColumns: mobile || gravacao ? '1fr' : '1fr 1fr',
           columnGap: 24,
           rowGap: mobile ? 24 : 0,
-          maxWidth: 900, margin: '0 auto',
+          maxWidth: gravacao ? 600 : 900, margin: '0 auto',
           alignItems: 'start',
           transition: 'opacity 0.7s ease, transform 0.7s ease',
           opacity: inView ? 1 : 0,
@@ -1729,7 +1736,7 @@ function InscricaoSection({ mostrarTimer = true, semLotes = false }) {
               position: 'relative', zIndex: 1,
             }}>
               Brincando na Música{' '}
-              <em style={{ color: C.sageDark, fontStyle: 'italic', display: 'block' }}>ao vivo</em>
+              <em style={{ color: C.sageDark, fontStyle: 'italic', display: 'block' }}>{gravacao ? 'vivência gravada' : 'ao vivo'}</em>
             </div>
 
             {/* data em destaque */}
@@ -1738,22 +1745,22 @@ function InscricaoSection({ mostrarTimer = true, semLotes = false }) {
               borderRadius: 12,
               padding: '14px 18px',
               marginBottom: 20,
-              minHeight: mobile ? undefined : 144,
+              minHeight: mobile || gravacao ? undefined : 144,
               position: 'relative', zIndex: 1,
             }}>
               <div style={{
                 fontFamily: "'DM Sans', sans-serif", fontWeight: 800,
                 fontSize: 19, color: C.white,
                 letterSpacing: '-0.3px', marginBottom: 4,
-              }}>📅 18 de Outubro · domingo</div>
+              }}>{gravacao ? 'Assista no seu ritmo' : '📅 18 de Outubro · domingo'}</div>
               <div style={{
                 fontFamily: "'DM Sans', sans-serif", fontWeight: 500,
                 fontSize: 13, color: 'rgba(255,255,255,0.9)',
-              }}>🕙 das 10h às 14h · transmissão ao vivo</div>
+              }}>{gravacao ? 'Gravação completa · 6 meses de acesso' : '🕙 das 10h às 14h · transmissão ao vivo'}</div>
             </div>
 
             {/* preço */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6, position: 'relative', zIndex: 1 }}>
+            {!gravacao && <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6, position: 'relative', zIndex: 1 }}>
               <div style={{
                 fontFamily: "'DM Sans', sans-serif", fontWeight: 400,
                 fontSize: 18, color: C.brownLight,
@@ -1765,18 +1772,18 @@ function InscricaoSection({ mostrarTimer = true, semLotes = false }) {
                 fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
                 fontSize: 11, letterSpacing: '0.5px',
               }}>{Math.round((1 - loteOnline.lote.preco / 167) * 100)}% OFF</div>
-            </div>
+            </div>}
             <div style={{
               fontFamily: "'DM Sans', sans-serif", fontWeight: 800,
               fontSize: 'clamp(48px, 5vw, 66px)',
               color: C.brown, lineHeight: 1, marginBottom: 6,
               letterSpacing: '-2.5px', position: 'relative', zIndex: 1,
               textShadow: '0 4px 30px rgba(138,158,140,0.25)',
-            }}>R$ {loteOnline.lote.preco}</div>
+            }}>R$ {precoOnline}</div>
             <div style={{
               fontFamily: "'DM Sans', sans-serif", fontWeight: 400,
               fontSize: 13, color: C.brownMid, marginBottom: 22, position: 'relative', zIndex: 1,
-            }}>pagamento único · participe ao vivo de onde estiver</div>
+            }}>{gravacao ? 'pagamento único · assista de onde estiver' : 'pagamento único · participe ao vivo de onde estiver'}</div>
 
             {/* Acesso à gravação — nota editorial integrada ao ingresso. */}
             <div style={{
@@ -1797,7 +1804,7 @@ function InscricaoSection({ mostrarTimer = true, semLotes = false }) {
             <div style={{ height: 1, background: 'rgba(138,158,140,0.2)', marginBottom: 24, position: 'relative', zIndex: 1 }} />
 
             <div style={{ marginBottom: 30, position: 'relative', zIndex: 1 }}>
-              {inclusosOnline.map((item, i) => <CheckItem key={i} text={item} light={false} />)}
+              {(gravacao ? inclusosGravacao : inclusosOnline).map((item, i) => <CheckItem key={i} text={item} light={false} />)}
             </div>
 
             <div style={{ marginTop: 'auto' }}>
@@ -1809,13 +1816,13 @@ function InscricaoSection({ mostrarTimer = true, semLotes = false }) {
               fontFamily: "'DM Sans', sans-serif", fontWeight: 600,
               fontSize: 11, letterSpacing: '1.5px', textTransform: 'uppercase',
               marginBottom: 18,
-            }}>Online · Transmissão ao vivo</div>
+            }}>{gravacao ? 'Online · Vivência gravada' : 'Online · Transmissão ao vivo'}</div>
 
             {checkoutOnline
-              ? <FaixaStatus tipo="aberto" selo="ABERTO" texto="Inscrições abertas" />
+              ? <FaixaStatus tipo="aberto" selo={gravacao ? "DISPONÍVEL" : "ABERTO"} texto={gravacao ? "Gravação disponível" : "Inscrições abertas"} />
               : <FaixaStatus tipo="breve" selo={loteOnline.encerrado ? 'ENCERRADO' : 'EM BREVE'} texto={loteOnline.encerrado ? 'Vendas encerradas' : loteOnline.ativo ? 'Inscrições disponíveis em breve' : 'Inscrições abrem em 22/09'} />}
 
-            {!semLotes && <div aria-label="Calendário de lotes do ingresso online" style={{ marginBottom: 24, fontFamily: "'DM Sans', sans-serif" }}>
+            {!gravacao && !semLotes && <div aria-label="Calendário de lotes do ingresso online" style={{ marginBottom: 24, fontFamily: "'DM Sans', sans-serif" }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8, marginBottom: 12, fontSize: 12, color: C.sageDark }}>
                 <strong>Lotes por data</strong>
                 <span>{loteOnline.encerrado ? 'Vendas encerradas' : loteOnline.ativo ? `Lote Atual · ${loteOnline.lote.nome}` : 'A partir de 22/09'}</span>
@@ -1863,7 +1870,7 @@ function InscricaoSection({ mostrarTimer = true, semLotes = false }) {
                 onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 36px rgba(138,158,140,0.45)' }}
                 onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 8px 28px rgba(138,158,140,0.35)' }}
               >
-                {mobile ? 'Quero ver a transmissão →' : 'Quero ver a transmissão dia 18/10 →'}
+                {gravacao ? 'Quero acessar a gravação →' : mobile ? 'Quero ver a transmissão →' : 'Quero ver a transmissão dia 18/10 →'}
               </a>
             ) : (
               <div style={{
@@ -1890,7 +1897,7 @@ function InscricaoSection({ mostrarTimer = true, semLotes = false }) {
           </div>
 
           {/* ── CARD PRESENCIAL ── */}
-          {!globalMode && <div id="ingresso-presencial" style={{
+          {!gravacao && !globalMode && <div id="ingresso-presencial" style={{
             background: highlightOnline ? C.creamCard : C.brown,
             border: `1px solid ${highlightOnline ? C.sageLight : 'transparent'}`,
             borderRadius: 20,
@@ -2118,6 +2125,12 @@ function FaqItem({ faq, index, open, onToggle }) {
 }
 
 function FaqSection() {
+  const { gravacao } = useContext(GlobalModeCtx)
+  const perguntas = gravacao ? faqs.map((faq, index) => {
+    if (index === 0) return { ...faq, a: 'Após a confirmação do pagamento, você recebe por e-mail as orientações para acessar a gravação da vivência Brincando na Música.' }
+    if (index === 3) return { q: 'Estou comprando um ingresso para a próxima vivência?', a: 'Não. Esta oferta de R$ 67 é para a gravação da vivência já realizada, com acesso por 6 meses. A próxima data ainda será definida; os ingressos serão vendidos separadamente quando uma nova edição for anunciada.' }
+    return faq
+  }) : faqs
   const [open, setOpen] = useState(null)
   const [titleRef, titleInView] = useInView()
   const w = useWindowWidth()
@@ -2150,7 +2163,7 @@ function FaqSection() {
           </h2>
         </div>
 
-        {faqs.map((faq, i) => (
+        {perguntas.map((faq, i) => (
           <FaqItem key={i} faq={faq} index={i} open={open === i} onToggle={() => setOpen(open === i ? null : i)} />
         ))}
 
@@ -2202,10 +2215,11 @@ function SobreChrisSection() {
 }
 
 function CtaFinalSection() {
+  const { gravacao } = useContext(GlobalModeCtx)
   return (
     <section style={{ background: C.sagePale, padding: '56px 24px', textAlign: 'center' }}>
       <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px, 4vw, 40px)', color: C.brown, marginBottom: 24 }}>Seu próximo passo começa na música.</h2>
-      <a href="#inscricao" style={{ display: 'inline-block', padding: '18px 32px', borderRadius: 100, background: C.sageDark, color: C.white, fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 600, textDecoration: 'none' }}>Quero participar da vivência →</a>
+      <a href="#inscricao" style={{ display: 'inline-block', padding: '18px 32px', borderRadius: 100, background: C.sageDark, color: C.white, fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 600, textDecoration: 'none' }}>{gravacao ? 'Quero acessar a gravação →' : 'Quero participar da vivência →'}</a>
     </section>
   )
 }
@@ -2257,7 +2271,7 @@ function Footer() {
 
 // ─── Root ────────────────────────────────────────────────────────────────────
 
-export default function BrincandoNaMusicaLP({ mostrarTimer = true, semLotes = false, globalMode = false, highlightOnline = false, onlineUrl = 'https://pay.cakto.com.br/wp92bu4' }) {
+export default function BrincandoNaMusicaLP({ gravacao = false, mostrarTimer = true, semLotes = false, globalMode = false, highlightOnline = false, onlineUrl = 'https://pay.cakto.com.br/wp92bu4' }) {
   useEffect(() => {
     const link = document.createElement('link')
     link.href = 'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap'
@@ -2267,7 +2281,7 @@ export default function BrincandoNaMusicaLP({ mostrarTimer = true, semLotes = fa
   }, [])
 
   return (
-    <GlobalModeCtx.Provider value={{ globalMode, highlightOnline, onlineUrl }}>
+    <GlobalModeCtx.Provider value={{ gravacao, globalMode, highlightOnline, onlineUrl }}>
     <>
       <style>{`
         @keyframes fadeUp {
