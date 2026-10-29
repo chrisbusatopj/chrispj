@@ -1,0 +1,54 @@
+.bm-page { --bm-ink:#532d20; --bm-accent:#984b2d; background:#f4e7d6; color:var(--bm-ink); min-height:100dvh; font-family:'DM Sans',sans-serif; }
+.bm-page * { box-sizing:border-box; }
+.bm-layout { display:grid; grid-template-columns:1fr 1fr; max-width:1440px; min-height:100dvh; margin:auto; }
+.bm-photo { position:relative; overflow:hidden; min-height:760px; }
+.bm-photo img { width:100%; height:100%; position:absolute; inset:0; object-fit:cover; object-position:50% 67%; }
+.bm-photo::after { content:''; position:absolute; inset:0; background:linear-gradient(0deg,rgba(74,39,23,.4),transparent 38%); pointer-events:none; }
+.bm-photo-caption { position:absolute; bottom:40px; left:40px; right:30px; color:#fff4e5; z-index:1; font-size:14px; letter-spacing:.04em; }
+.bm-content { padding:48px clamp(28px,5vw,80px) 30px; align-self:center; }
+.bm-brand { font:500 24px 'Playfair Display',serif; letter-spacing:.015em; margin-bottom:56px; }
+.bm-brand span { display:block; font:400 11px 'DM Sans',sans-serif; letter-spacing:.12em; margin-top:8px; text-transform:uppercase; }
+.bm-eyebrow { font-size:10px; text-transform:uppercase; letter-spacing:.19em; margin:0 0 16px; }
+.bm-content h1 { font:500 clamp(64px,6.8vw,98px)/.98 'Playfair Display',serif; letter-spacing:-.055em; margin:0 0 26px; }
+.bm-content h1 em { display:block; font-weight:500; color:var(--bm-accent); }
+.bm-intro { font-size:18px; line-height:1.55; max-width:360px; margin:0 0 30px; }
+.bm-countdown-caption { font-size:12px; letter-spacing:.03em; margin:0 0 14px; }
+.bm-countdown { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; max-width:420px; }
+.bm-countdown>div { border:1px solid #bb967b; border-radius:12px; padding:14px 4px 12px; text-align:center; }
+.bm-countdown strong { font-size:clamp(28px,3vw,42px); line-height:1; font-weight:700; font-variant-numeric:tabular-nums; display:block; }
+.bm-countdown span { font-size:10px; text-transform:uppercase; letter-spacing:.13em; display:block; margin-top:8px; }
+.bm-action-area { margin-top:28px; max-width:420px; }
+.bm-step { font-size:13px; margin:0 0 12px; }
+.bm-button { display:flex; align-items:center; justify-content:space-between; gap:14px; width:100%; border:0; border-radius:999px; background:var(--bm-accent); color:#fff5e6; padding:19px 26px; font:600 16px 'DM Sans',sans-serif; text-decoration:none; cursor:pointer; transition:background .2s,transform .2s; }
+.bm-button span { font-size:24px; font-weight:400; line-height:1; }
+.bm-button:hover { background:#793820; }
+.bm-button:active { transform:scale(.98); }
+.bm-button:disabled { cursor:default; opacity:.65; }
+.bm-button:focus-visible,.bm-text-button:focus-visible { outline:3px solid var(--bm-ink); outline-offset:4px; }
+.bm-helper { font-size:11px; line-height:1.6; margin:12px 0 0; color:#795743; }
+.bm-instructions { border-top:1px solid #cdb29a; margin-top:20px; padding-top:20px; font-size:13px; line-height:1.6; }
+.bm-instructions p { margin:8px 0; }
+.bm-text-button { border:0; background:none; color:var(--bm-ink); text-decoration:underline; padding:10px 12px 10px 0; cursor:pointer; font:inherit; }
+.bm-instructions input { width:100%; padding:10px; border:1px solid #bb967b; background:#fff8ef; color:var(--bm-ink); border-radius:6px; }
+.bm-footer { display:flex; align-items:center; gap:12px; font-size:11px; margin-top:38px; color:#795743; }
+.bm-footer span { width:28px; height:1px; background:#b68b6c; }
+@media(max-width:767px) {
+  .bm-layout { grid-template-columns:1fr; }
+  .bm-photo { min-height:0; height:360px; }
+  .bm-photo img { object-position:50% 58%; }
+  .bm-photo::after { background:linear-gradient(0deg,#f4e7d6,transparent 32%); }
+  .bm-photo-caption { display:none; }
+  .bm-content { position:relative; margin-top:-45px; padding:0 26px 30px; text-align:center; }
+  .bm-brand { font-size:18px; margin-bottom:26px; }
+  .bm-brand span { font-size:9px; }
+  .bm-eyebrow { font-size:9px; margin-bottom:12px; }
+  .bm-content h1 { font-size:68px; margin-bottom:20px; }
+  .bm-intro { font-size:16px; margin:0 auto 24px; max-width:310px; }
+  .bm-countdown,.bm-action-area { max-width:400px; margin-left:auto; margin-right:auto; }
+  .bm-countdown { gap:8px; }
+  .bm-countdown strong { font-size:34px; }
+  .bm-button { font-size:15px; padding:18px 22px; }
+  .bm-instructions { text-align:left; }
+  .bm-footer { justify-content:center; margin-top:28px; }
+}
+@media(prefers-reduced-motion:reduce) { .bm-button { transition:none; } }
