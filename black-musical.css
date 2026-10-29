@@ -52,3 +52,13 @@
   .bm-footer { justify-content:center; margin-top:28px; }
 }
 @media(prefers-reduced-motion:reduce) { .bm-button { transition:none; } }
+
+/* Tela de entrada antes da campanha */
+.bm-gate { position:relative; display:grid; place-items:center; isolation:isolate; overflow:hidden; background:#100d0b; padding:32px 24px; }
+.bm-gate-background { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:blur(18px); opacity:.13; transform:scale(1.08); z-index:-1; }
+.bm-gate-content { width:100%; max-width:420px; text-align:center; color:#fff5e6; }
+.bm-gate-button { display:flex; align-items:center; justify-content:center; gap:16px; width:100%; min-height:64px; padding:18px 24px; border:1px solid #a89a8c; border-radius:999px; background:#302a26; color:#fff5e6; font:700 16px 'DM Sans',sans-serif; text-decoration:none; cursor:pointer; }
+.bm-gate-button:hover { background:#49392e; }
+.bm-gate-button:focus-visible { outline:3px solid #e7c9a0; outline-offset:5px; }
+.bm-gate .bm-instructions { border-color:#76614f; }
+.bm-gate .bm-text-button { color:#fff5e6; }
