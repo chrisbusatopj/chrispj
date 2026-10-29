@@ -18,18 +18,12 @@
 .bm-countdown strong { font-size:clamp(28px,3vw,42px); line-height:1; font-weight:700; font-variant-numeric:tabular-nums; display:block; }
 .bm-countdown span { font-size:10px; text-transform:uppercase; letter-spacing:.13em; display:block; margin-top:8px; }
 .bm-action-area { margin-top:28px; max-width:420px; }
-.bm-step { font-size:13px; margin:0 0 12px; }
 .bm-button { display:flex; align-items:center; justify-content:space-between; gap:14px; width:100%; border:0; border-radius:999px; background:var(--bm-accent); color:#fff5e6; padding:19px 26px; font:600 16px 'DM Sans',sans-serif; text-decoration:none; cursor:pointer; transition:background .2s,transform .2s; }
 .bm-button span { font-size:24px; font-weight:400; line-height:1; }
 .bm-button:hover { background:#793820; }
 .bm-button:active { transform:scale(.98); }
 .bm-button:disabled { cursor:default; opacity:.65; }
-.bm-button:focus-visible,.bm-text-button:focus-visible { outline:3px solid var(--bm-ink); outline-offset:4px; }
 .bm-helper { font-size:11px; line-height:1.6; margin:12px 0 0; color:#795743; }
-.bm-instructions { border-top:1px solid #cdb29a; margin-top:20px; padding-top:20px; font-size:13px; line-height:1.6; }
-.bm-instructions p { margin:8px 0; }
-.bm-text-button { border:0; background:none; color:var(--bm-ink); text-decoration:underline; padding:10px 12px 10px 0; cursor:pointer; font:inherit; }
-.bm-instructions input { width:100%; padding:10px; border:1px solid #bb967b; background:#fff8ef; color:var(--bm-ink); border-radius:6px; }
 .bm-footer { display:flex; align-items:center; gap:12px; font-size:11px; margin-top:38px; color:#795743; }
 .bm-footer span { width:28px; height:1px; background:#b68b6c; }
 @media(max-width:767px) {
@@ -48,17 +42,8 @@
   .bm-countdown { gap:8px; }
   .bm-countdown strong { font-size:34px; }
   .bm-button { font-size:15px; padding:18px 22px; }
-  .bm-instructions { text-align:left; }
   .bm-footer { justify-content:center; margin-top:28px; }
 }
 @media(prefers-reduced-motion:reduce) { .bm-button { transition:none; } }
 
-/* Tela de entrada antes da campanha */
-.bm-gate { position:relative; display:grid; place-items:center; isolation:isolate; overflow:hidden; background:#100d0b; padding:32px 24px; }
-.bm-gate-background { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:blur(18px); opacity:.13; transform:scale(1.08); z-index:-1; }
-.bm-gate-content { width:100%; max-width:420px; text-align:center; color:#fff5e6; }
-.bm-gate-button { display:flex; align-items:center; justify-content:center; gap:16px; width:100%; min-height:64px; padding:18px 24px; border:1px solid #a89a8c; border-radius:999px; background:#302a26; color:#fff5e6; font:700 16px 'DM Sans',sans-serif; text-decoration:none; cursor:pointer; }
-.bm-gate-button:hover { background:#49392e; }
-.bm-gate-button:focus-visible { outline:3px solid #e7c9a0; outline-offset:5px; }
-.bm-gate .bm-instructions { border-color:#76614f; }
-.bm-gate .bm-text-button { color:#fff5e6; }
+.bm-button:focus-visible { outline:3px solid var(--bm-ink); outline-offset:4px; }

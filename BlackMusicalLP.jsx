@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import portrait from './images/chris-sorrindo.jpg'
-import { BLACK_MUSICAL_GROUP, countdownParts, browserContext, externalBrowserUrl } from './black-musical-config.js'
+import { BLACK_MUSICAL_GROUP, countdownParts } from './black-musical-config.js'
 import './black-musical.css'
 
 function Countdown() {
@@ -20,15 +20,7 @@ function Countdown() {
 }
 
 export default function BlackMusicalLP() {
-  const [context] = useState(() => browserContext(navigator.userAgent))
-  const [instructions, setInstructions] = useState(false)
-  const [copyStatus, setCopyStatus] = useState('')
-  const [continueHere, setContinueHere] = useState(() => new URLSearchParams(window.location.search).get('bm_browser') === '1')
   const [openingGroup, setOpeningGroup] = useState(false)
-  const gate = context.embedded || !continueHere
-  const destination = new URL(window.location.href)
-  destination.searchParams.set('bm_browser', '1')
-  const pageUrl = destination.href
 
   useEffect(() => {
     const previous = document.title
@@ -45,30 +37,6 @@ export default function BlackMusicalLP() {
     window.addEventListener('pageshow', reset)
     return () => window.removeEventListener('pageshow', reset)
   }, [])
-
-  async function copyLink() {
-    try {
-      await navigator.clipboard.writeText(pageUrl)
-      setCopyStatus('Link copiado. Cole no Safari ou Chrome.')
-    } catch {
-      setCopyStatus('Toque no endereço abaixo para selecionar e copiar.')
-    }
-  }
-
-  if (gate) return <main className="bm-page bm-gate">
-    <img className="bm-gate-background" src={portrait} alt="" aria-hidden="true" />
-    <section className="bm-gate-content" aria-label="Continuar para a Black Musical">
-      {context.android && context.embedded
-        ? <a className="bm-gate-button" href={externalBrowserUrl(pageUrl)} onClick={() => setInstructions(true)}>Toque para continuar <span aria-hidden="true">↗</span></a>
-        : <button className="bm-gate-button" onClick={() => context.embedded ? setInstructions(true) : setContinueHere(true)}>Toque para continuar <span aria-hidden="true">↗</span></button>}
-      {instructions && <div className="bm-instructions" role="status">
-        <strong>Abra no navegador para continuar</strong>
-        <p>No menu do Instagram ou do aplicativo, toque em “Abrir no navegador” ou “Abrir no Safari”. A página da Black Musical aparecerá com o botão do grupo.</p>
-        <button className="bm-text-button" onClick={copyLink}>Copiar link</button>
-        {copyStatus && <><p>{copyStatus}</p><input aria-label="Link da Black Musical" readOnly value={pageUrl} onFocus={event => event.target.select()} /></>}
-      </div>}
-    </section>
-  </main>
 
   return <main className="bm-page">
     <div className="bm-layout">
