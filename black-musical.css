@@ -27,19 +27,20 @@
 .bm-footer { display:flex; align-items:center; gap:12px; font-size:11px; margin-top:38px; color:#795743; }
 .bm-footer span { width:28px; height:1px; background:#b68b6c; }
 @media(max-width:767px) {
-  .bm-layout { grid-template-columns:1fr; }
-  .bm-photo { min-height:0; height:360px; }
+  .bm-layout { grid-template-columns:1fr; align-content:start; }
+  .bm-photo { min-height:0; height:180px; }
   .bm-photo img { object-position:50% 58%; }
   .bm-photo::after { background:linear-gradient(0deg,#f4e7d6,transparent 32%); }
   .bm-photo-caption { display:none; }
-  .bm-content { position:relative; margin-top:-45px; padding:0 26px 30px; text-align:center; }
-  .bm-brand { font-size:18px; margin-bottom:26px; }
+  .bm-content { position:relative; margin-top:-20px; padding:0 26px 30px; text-align:center; }
+  .bm-brand { font-size:18px; margin-bottom:18px; }
   .bm-brand span { font-size:9px; }
   .bm-eyebrow { font-size:9px; margin-bottom:12px; }
-  .bm-content h1 { font-size:68px; margin-bottom:20px; }
-  .bm-intro { font-size:16px; margin:0 auto 24px; max-width:310px; }
+  .bm-content h1 { font-size:60px; margin-bottom:16px; }
+  .bm-intro { font-size:16px; margin:0 auto 18px; max-width:310px; }
   .bm-countdown,.bm-action-area { max-width:400px; margin-left:auto; margin-right:auto; }
   .bm-countdown { gap:8px; }
+  .bm-action-area { margin-top:20px; }
   .bm-countdown strong { font-size:34px; }
   .bm-button { font-size:15px; padding:18px 22px; }
   .bm-footer { justify-content:center; margin-top:28px; }
