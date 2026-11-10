@@ -20,6 +20,7 @@ import BotaoWhatsApp from '../BotaoWhatsApp.jsx'
 import OfertaRodape from '../OfertaRodape.jsx'
 import CaixaSecretaLP from '../CaixaSecretaLP.jsx'
 import BlackMusicalLP from '../BlackMusicalLP.jsx'
+import BlackMusicalOfertaLP from '../BlackMusicalOfertaLP.jsx'
 
 function PixelPageViews() {
   const { pathname } = useLocation()
@@ -38,6 +39,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <PixelPageViews />
       <Routes>
         <Route path="/blackmusical" element={<BlackMusicalLP />} />
+        <Route path="/black2" element={<BlackMusicalOfertaLP />} />
         <Route path="/" element={<BrincandoNaMusicaLP semLotes gravacao />} />
         <Route path="/2" element={<><BrincandoNaMusicaLP mostrarTimer={false} /><OfertaRodape /></>} />
         <Route path="/3" element={<BrincandoNaMusicaLP mostrarTimer={false} />} />

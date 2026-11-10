@@ -6,7 +6,7 @@ const MENSAGEM = 'vim do site da chris, pode me ajudar?'
 
 export default function BotaoWhatsApp() {
   const { pathname } = useLocation()
-  if (pathname.replace(/\/+$/, '') === '/blackmusical') return null
+  if (['/blackmusical', '/black2'].includes(pathname.replace(/\/+$/, ''))) return null
   if (pathname.startsWith('/admin') || pathname.startsWith('/quiz') || pathname.replace(/\/+$/, '') === '/assinatura') return null
 
   const mensagem = pathname.replace(/\/+$/, '').toLowerCase() === '/corpomusical3'

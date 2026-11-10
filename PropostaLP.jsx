@@ -483,7 +483,7 @@ const FASES = [
 
 // O "Mapa" é um caminho, não uma grade de bolinhas numeradas: os nós ficam
 // ligados por uma linha — horizontal no desktop, vertical no celular.
-function MapaDaDanca({ isMobile }) {
+export function MapaDaDanca({ isMobile }) {
   const no = {
     borderRadius: '50%',
     background: C.goldPale,
@@ -628,7 +628,7 @@ const COMPARATIVO = [
 
 // Capas dos módulos: linha única no desktop, carrossel que corre com o dedo no
 // celular — 5 capas em grade de 2 colunas deixaria uma órfã.
-function ModulosGravados({ isMobile }) {
+export function ModulosGravados({ isMobile }) {
   return (
     <div
       className="mod-scroller"
