@@ -38,8 +38,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <PixelPageViews />
       <Routes>
-        <Route path="/blackmusical" element={<BlackMusicalLP />} />
+        <Route path="/blackmusical" element={<BlackMusicalOfertaLP />} />
         <Route path="/black2" element={<BlackMusicalOfertaLP />} />
+        <Route path="/blackmusical-espera" element={<BlackMusicalLP />} />
         <Route path="/" element={<BrincandoNaMusicaLP semLotes gravacao />} />
         <Route path="/2" element={<><BrincandoNaMusicaLP mostrarTimer={false} /><OfertaRodape /></>} />
         <Route path="/3" element={<BrincandoNaMusicaLP mostrarTimer={false} />} />
