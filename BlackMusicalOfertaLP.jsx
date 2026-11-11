@@ -7,9 +7,8 @@ import trilhaFase2 from './images/trilha-v2-fase-2.jpg'
 import trilhaFase3 from './images/trilha-v2-fase-3.jpg'
 import trilhaFase4 from './images/trilha-v2-fase-4.jpg'
 import trilhaFase5 from './images/trilha-v2-fase-5.jpg'
-import trilhaFase6 from './images/trilha-v2-fase-6.jpg'
+import trilhaFase6 from './images/trilha-v3-fase-6.jpg'
 import { MapaDaDanca } from './PropostaLP.jsx'
-import { feedbackItems } from './BrincandoNaMusicaLP.jsx'
 import { formatarTelefone, normalizarTelefone, telefoneValido } from './checkout/telefone.js'
 import './black-musical-oferta.css'
 
@@ -41,9 +40,13 @@ function TrilhaFases() {
   </li>)}</ol>
 }
 
+const videosDepoimento = [
+  { id: 'YTPDzm_NZ9s', formato: 'vertical', titulo: 'Depoimento de aluna do Corpo Musical' },
+  { id: 'azmVP2nmvwA', formato: 'horizontal', titulo: 'Depoimento do Nilson' },
+]
+
 function Depoimentos() {
-  const trilha = useRef(null)
-  return <section className="bf-proof" aria-labelledby="bf-proof-title"><div className="bf-proof-heading"><span className="bf-eyebrow">Quem já viveu essa experiência</span><h2 id="bf-proof-title">Veja o que acontece com quem desenvolve uma Base Musical:</h2><div className="bf-proof-controls"><button aria-label="Depoimentos anteriores" onClick={() => trilha.current.scrollBy({ left: -340, behavior: 'smooth' })}>←</button><button aria-label="Próximos depoimentos" onClick={() => trilha.current.scrollBy({ left: 340, behavior: 'smooth' })}>→</button></div></div><div ref={trilha} className="bf-proof-track" tabIndex={0} aria-label="Depoimentos dos alunos, deslize para ver mais">{feedbackItems.map((item, i) => <figure key={item.src}><img src={item.src} alt={`Depoimento de ${item.name} — ${i + 1}`} loading="lazy" /><figcaption>{item.name}</figcaption></figure>)}</div></section>
+  return <section className="bf-proof" aria-labelledby="bf-proof-title"><div className="bf-proof-heading"><span className="bf-eyebrow">Quem já viveu essa experiência</span><h2 id="bf-proof-title">Veja o que acontece com quem desenvolve uma Base Musical:</h2></div><div className="bf-proof-videos">{videosDepoimento.map(video => <div key={video.id} className={`bf-proof-video bf-proof-video--${video.formato}`}><iframe src={`https://www.youtube-nocookie.com/embed/${video.id}?rel=0&modestbranding=1&playsinline=1`} title={video.titulo} loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen /></div>)}</div></section>
 }
 
 function Entregaveis() {

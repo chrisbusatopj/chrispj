@@ -185,3 +185,6 @@
 /* Mini VSL abaixo da headline */
 .bf-vsl{width:100%;max-width:340px;margin:0 auto 32px;aspect-ratio:9/16;border-radius:18px;overflow:hidden;background:#000;box-shadow:0 18px 40px #2a1d1433}.bf-vsl iframe{width:100%;height:100%;border:0;display:block}
 @media(max-width:767px){.bf-vsl{max-width:min(300px,78vw);margin:0 auto 24px;border-radius:14px}}
+/* Depoimentos em vídeo */
+.bf-proof-videos{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:24px;max-width:1100px;margin:8px auto 0;padding:0 26px}.bf-proof-video{border-radius:16px;overflow:hidden;background:#000;box-shadow:0 12px 30px #2a1d1426}.bf-proof-video iframe{display:block;width:100%;height:100%;border:0}.bf-proof-video--vertical{aspect-ratio:9/16;width:min(300px,100%)}.bf-proof-video--horizontal{aspect-ratio:16/9;width:min(680px,100%)}
+@media(max-width:767px){.bf-proof-videos{gap:18px;padding:0 20px}.bf-proof-video--vertical{width:min(280px,82vw)}.bf-proof-video{border-radius:12px}}
