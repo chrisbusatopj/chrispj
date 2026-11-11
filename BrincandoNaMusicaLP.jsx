@@ -998,7 +998,7 @@ function StatsStrip() {
 
 // ─── Testemunhos (Carrossel) ──────────────────────────────────────────────────
 
-const feedbackItems = [
+export const feedbackItems = [
   { src: feedbac1, name: 'Aluna' },
   { src: feedbac2, name: 'Aluna' },
   { src: feedbac3, name: 'Aluna' },
