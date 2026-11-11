@@ -198,3 +198,20 @@
 /* Selo +3 meses na lateral, sem cobrir a lista */
 .bf-featured .bf-benefits-wrap ul{padding-right:104px}.bf-featured .bf-bonus-seal{right:-18px;top:50%;transform:translateY(-50%) rotate(-12deg);width:110px}
 @media(max-width:767px){.bf-featured .bf-benefits-wrap ul{padding-right:74px}.bf-featured .bf-bonus-seal{right:-14px;width:84px}.bf-featured .bf-bonus-seal>span{font-size:14px}}
+/* Desktop: tudo centralizado numa coluna só */
+@media(min-width:768px){
+.bf-story-inner{max-width:780px;text-align:center}
+.bf-story h2{margin-left:auto;margin-right:auto}
+.bf-story-copy{margin:36px auto 0;text-align:center}
+.bf-story-copy ul{display:inline-block;max-width:640px;text-align:left;margin-left:auto;margin-right:auto}
+.bf-content-section{text-align:center}
+.bf-content-section>p{margin-left:auto;margin-right:auto}
+.bf-deliverables-heading{margin:0 auto 52px;text-align:center}
+.bf-deliverables-heading>p{max-width:640px;margin-left:auto;margin-right:auto}
+.bf-deliverables-grid{grid-template-columns:1fr;max-width:760px;margin:0 auto;gap:56px;text-align:center}
+.bf-deliverable--image-after{max-width:none}
+.bf-deliverable-copy p{max-width:620px;margin-left:auto;margin-right:auto}
+.bf-proof-heading{text-align:center}
+.bf-proof h2{margin-left:auto;margin-right:auto}
+.bf-proof-controls{justify-content:center}
+}
