@@ -114,7 +114,7 @@ export default function BlackMusicalOfertaLP() {
           <span className="bf-plan-label">{plano === 'anual' ? '12 meses + 3 meses de bônus = 15 meses no total' : 'De 3 para 6 meses · todos os benefícios'}</span>
           <h3>{plano === 'anual' ? 'Anual' : 'Semestral'} <em>Especial</em></h3>
           <div className="bf-price"><span>R$</span> 97<small>/mês</small></div>
-          <p className="bf-price-detail">{plano === 'anual' ? '12 meses · total de R$ 1.164,00' : '6 meses · total de R$ 582,00'}</p><small className="bf-payment-note">Valor mensal equivalente. Parcelamento e juros no checkout.</small>
+          <div className="bf-price-detail"><span>{plano === 'anual' ? 'Plano de 12 meses + 3 meses de bônus' : 'Plano de 6 meses'}</span><strong>Total de R$ {plano === 'anual' ? '1.164,00' : '582,00'}</strong></div><small className="bf-payment-note">Valor mensal equivalente. Parcelamento e juros no checkout.</small>
           <div className="bf-duration"><strong>{plano === 'anual' ? '15 meses de acesso no total' : '6 meses com todos os benefícios do anual'}</strong><span>{plano === 'anual' ? '12 meses de plano + 3 meses de bônus sem custo adicional.' : 'A mesma trilha, os mesmos encontros e todos os conteúdos do anual.'}</span></div>
           <ul>{beneficios.map(item => <li key={item}><span aria-hidden="true">✓</span>{item}</li>)}</ul>
           <div className="bf-purchase"><button className="bf-button" onClick={() => setEscolha({ plano, aluno: false })}>Quero meu acesso <span aria-hidden="true">→</span></button></div>
