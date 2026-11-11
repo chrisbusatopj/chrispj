@@ -116,3 +116,49 @@
 .bf-aluno-monthly small{font:400 16px 'DM Sans',sans-serif;margin-left:4px}
 .bf-aluno-equivalent{font-size:11px;color:#756858}
 @media(max-width:360px){.bf-plan-integrated .bf-aluno-values .bf-aluno-monthly{font-size:36px}}
+
+/* Entregáveis da comunidade na campanha Black Musical. */
+.bf-page #dentro{background:#fff;max-width:none;padding-inline:max(24px,calc((100% - 1080px)/2))}
+.bf-deliverables{background:#fff;color:#342317;padding:32px 24px 80px}
+.bf-deliverables-inner{max-width:1080px;margin:auto}
+.bf-deliverables-heading{max-width:760px;margin-bottom:40px}
+.bf-deliverables-heading>p{margin-top:22px;font-size:17px;line-height:1.75;color:#655646}
+.bf-deliverables-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:48px 32px}
+.bf-deliverable{min-width:0}
+.bf-deliverable-visual{height:280px;background:#f3ede3;border-radius:20px;overflow:hidden}
+.bf-deliverable-visual img{display:block;width:100%;height:100%;object-fit:cover}
+.bf-deliverable-visual--encontros img,.bf-deliverable-visual--replay img{object-fit:contain}
+.bf-deliverable-visual--mastermove img{object-position:center 38%}
+.bf-deliverable-visual--text{display:flex;align-items:center;padding:36px;background:#f5f0e7}
+.bf-deliverable-visual--text span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#795b32}
+.bf-deliverable-visual--text p{font:italic 36px/1.18 'Playfair Display',Georgia,serif;margin-top:20px;max-width:330px;color:#795b32;text-wrap:balance}
+.bf-deliverable-copy{padding:24px 0 0}
+.bf-deliverable-number{display:block;font-size:12px;letter-spacing:.15em;color:#8a6a3b;margin-bottom:12px}
+.bf-deliverable-copy h3{font-size:28px;line-height:1.2}
+.bf-deliverable-copy p{margin-top:16px;font-size:16px;line-height:1.75;color:#655646}
+@media(max-width:767px){.bf-deliverables{padding:24px 24px 56px}.bf-deliverables-grid{grid-template-columns:1fr;gap:36px}.bf-deliverables-heading{margin-bottom:32px}.bf-deliverable-visual{height:250px}.bf-deliverable-copy h3{font-size:26px}.bf-deliverable-visual--text{padding:28px}.bf-deliverable-visual--text p{font-size:32px}}
+
+/* Vantagens da campanha em destaque, sem brilho decorativo. */
+.bf-plan-main .bf-duration{border:1px solid #c6a87a66;border-radius:14px;background:#c6a87a14;padding:22px 18px;min-height:160px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.bf-advantage-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#d6bc93}
+.bf-plan-main .bf-duration strong{font:700 27px/1.15 'League Spartan','DM Sans',sans-serif;color:#f4dfbb;text-wrap:balance}
+.bf-plan-main .bf-duration span{font-size:14px;line-height:1.6;color:#e2d7c8;margin:0;text-wrap:pretty}
+.bf-featured .bf-duration{background:#e8cc9c;border-color:#e8cc9c}
+.bf-featured .bf-duration strong{color:#342317}
+.bf-featured .bf-duration span,.bf-featured .bf-advantage-label{color:#59432b}
+.bf-plan-main .bf-benefits-heading{margin:28px 0 0;text-align:left;font-size:12px;font-weight:600;letter-spacing:.04em;color:#e8c48a}
+.bf-plan-main ul{margin:18px 0 32px}
+.bf-plan-main li{font-size:16px;line-height:1.6;color:#f5eee3;gap:14px;margin-bottom:18px}
+.bf-plan-main li:last-child{margin-bottom:0}
+.bf-plan-main li>span{width:23px;height:23px;flex-basis:23px;font-size:13px;margin-top:2px;background:#c6a87a12}
+.bf-featured{box-shadow:0 12px 32px #160f1326}
+@media(max-width:767px){.bf-plan-main .bf-duration{min-height:0;padding:20px 16px}.bf-plan-main .bf-duration strong{font-size:25px}.bf-plan-main li{font-size:15px}.bf-plan-main .bf-benefits-heading{font-size:11px}}
+
+.bf-deliverable-visual--replay{background:transparent;overflow:visible;display:flex;justify-content:center;border-radius:0}
+.bf-deliverable-visual--replay img{width:auto;max-width:100%;height:100%;object-fit:contain;border-radius:14px}
+.bf-deliverable-visual--notebook{height:auto;aspect-ratio:3/2;background:#fff}
+.bf-deliverable-visual--notebook img{object-fit:contain}
+.bf-deliverable--image-after{display:flex;flex-direction:column}
+.bf-deliverable--image-after .bf-deliverable-copy{order:-1;padding-top:0;padding-bottom:24px}
+.bf-deliverable--image-after{grid-column:1 / -1;max-width:760px;width:100%;justify-self:center}
+.bf-deliverables-grid>.bf-deliverable:nth-last-child(-n+2) .bf-deliverable-copy{padding-top:0}

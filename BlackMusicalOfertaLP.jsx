@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import fundoHero from './images/fundo-primeira-dobra.jpg'
 import plataforma from './images/banner-plataforma.jpg'
-import { MapaDaDanca, ModulosGravados } from './PropostaLP.jsx'
+import encontrosAoVivo from './images/encontrosaovivo.png'
+import mastermoveNotebook from './images/mastermove-notebook.png'
+import { MapaDaDanca } from './PropostaLP.jsx'
 import { feedbackItems } from './BrincandoNaMusicaLP.jsx'
 import { formatarTelefone, normalizarTelefone, telefoneValido } from './checkout/telefone.js'
 import './black-musical-oferta.css'
@@ -19,6 +21,25 @@ const beneficios = [
 function Depoimentos() {
   const trilha = useRef(null)
   return <section className="bf-proof" aria-labelledby="bf-proof-title"><div className="bf-proof-heading"><span className="bf-eyebrow">Quem já viveu essa experiência</span><h2 id="bf-proof-title">Veja o que acontece com quem desenvolve uma Base Musical:</h2><div className="bf-proof-controls"><button aria-label="Depoimentos anteriores" onClick={() => trilha.current.scrollBy({ left: -340, behavior: 'smooth' })}>←</button><button aria-label="Próximos depoimentos" onClick={() => trilha.current.scrollBy({ left: 340, behavior: 'smooth' })}>→</button></div></div><div ref={trilha} className="bf-proof-track" tabIndex={0} aria-label="Depoimentos dos alunos, deslize para ver mais">{feedbackItems.map((item, i) => <figure key={item.src}><img src={item.src} alt={`Depoimento de ${item.name} — ${i + 1}`} loading="lazy" /><figcaption>{item.name}</figcaption></figure>)}</div></section>
+}
+
+function Entregaveis() {
+  const itens = [
+    { titulo: '1 encontro ao vivo por semana', texto: 'Dance junto com a Chris, com prática guiada, orientação e espaço para tirar dúvidas. Um encontro semanal para transformar o aprendizado em prática.', imagem: encontrosAoVivo, tipo: 'encontros' },
+    { titulo: 'Replays de todos os encontros', texto: 'Não pôde participar ao vivo? Assista depois e revisite as práticas enquanto seu plano estiver ativo.', imagem: encontrosAoVivo, tipo: 'encontros' },
+    { titulo: 'Transmissões e gravações do MasterMove', texto: 'Uma vez por mês, acompanhe ao vivo pela internet os encontros presenciais do MasterMove, realizados em São Paulo. As transmissões também ficam gravadas na plataforma para você assistir e rever durante o período de acesso do seu plano.', imagem: mastermoveNotebook, tipo: 'notebook' },
+    { titulo: 'Comunidade no WhatsApp', texto: 'Um espaço de troca com quem está no mesmo caminho: vídeos, mensagens, perguntas e apoio para evoluir junto.', destaque: 'Sua dança tem companhia.', legenda: 'Comunidade Corpo Musical' },
+    { titulo: 'Aulas temáticas', texto: 'Aprofunde temas da dança e amplie suas possibilidades de prática com as aulas temáticas disponíveis na plataforma.', destaque: 'Mais caminhos para explorar.', legenda: 'Para aprofundar sua dança' },
+  ]
+  return <section className="bf-deliverables" aria-labelledby="bf-deliverables-title">
+    <div className="bf-deliverables-inner">
+      <div className="bf-deliverables-heading"><span className="bf-eyebrow">Além da trilha e da plataforma</span><h2 id="bf-deliverables-title">Prática, acompanhamento<br /><em>e uma comunidade com você.</em></h2><p>Na Black Musical, todos estes benefícios estão nos dois planos: 6 meses no semestral ou 15 meses no anual, contando os 3 meses de bônus.</p></div>
+      <div className="bf-deliverables-grid">{itens.map((item, i) => <article className={`bf-deliverable${item.tipo === 'notebook' ? ' bf-deliverable--image-after' : ''}`} key={item.titulo}>
+        {item.imagem && <div className={`bf-deliverable-visual bf-deliverable-visual--${item.tipo}`}><img src={item.imagem} alt={item.titulo} loading="lazy" /></div>}
+        <div className="bf-deliverable-copy"><span className="bf-deliverable-number">{String(i + 1).padStart(2, '0')}</span><h3>{item.titulo}</h3><p>{item.texto}</p></div>
+      </article>)}</div>
+    </div>
+  </section>
 }
 
 function Compra({ escolha, onClose }) {
@@ -104,7 +125,8 @@ export default function BlackMusicalOfertaLP() {
     <section className="bf-story bf-story-intro"><div className="bf-story-inner"><span className="bf-eyebrow">Uma nova relação com a dança</span><h2>A dança é muito mais do que aprender passos.<br /><em>Ela é sobre sentir e expressar.</em></h2><div className="bf-story-copy"><p>Você não precisa de mais passos e sequências pra saber brincar na música e ter uma dança mais fluida.</p><p>Não precisa passar anos e anos buscando algo que nunca chega.</p><p>Desenvolva sua Base Musical e descubra novas possibilidades para dançar com mais autonomia, fluidez e segurança.</p><p>Conheça o Corpo Musical e descubra como transformar sua relação com a música, com o outro e com sua própria expressão dentro da dança.</p><a className="bf-button" href="#dentro">QUERO VIVER ESSA EXPERIÊNCIA</a></div></div></section>
     <section className="bf-story bf-story-question"><div className="bf-story-inner"><h2>Aprender mais passos não necessariamente vai te levar a uma <em>dança mais musical.</em></h2><div className="bf-story-copy"><h3>Você já sentiu que:</h3><ul><li>Depende dos passos que conhece para conseguir dançar?</li><li>Vive preocupado em acertar os movimentos em vez de aproveitar a música?</li><li>Tem dificuldade para acompanhar as músicas?</li><li>Gostaria de se soltar mais, improvisar, mas não sabe como?</li><li>Sente que sua dança fica limitada ao repertório que aprendeu?</li></ul><p>A verdade é que conhecer muitos passos não significa necessariamente ter liberdade para dançar.</p><p>Existe uma diferença entre saber reproduzir movimentos e desenvolver a capacidade de compreender a música e encontrar possibilidades de movimento a partir dela.</p><p><strong>É essa diferença que pode transformar sua experiência na dança.</strong></p></div></div></section>
     <section className="bf-story bf-story-for"><div className="bf-story-inner"><h2>O Corpo Musical não é para quem só quer copiar e executar passos.<br /><em>É para quem realmente deseja aprender a linguagem da dança.</em><br />Para quem deseja transformar música em movimento.</h2><div className="bf-story-copy"><h3>É para você que:</h3><ul><li>Quer ter mais liberdade para dançar.</li><li>Deseja desenvolver sua autonomia.</li><li>Quer aprender a improvisar.</li><li>Busca mais fluidez e naturalidade nos movimentos.</li><li>Deseja compreender melhor a música.</li><li>Quer aproveitar mais cada momento na pista.</li><li>Sente que pode explorar muito mais possibilidades na dança.</li></ul><p>Independentemente de quantos passos você conhece hoje, sempre existe espaço para desenvolver sua relação com a música e descobrir novas possibilidades.</p></div></div></section>
-    <section className="bf-content-section" id="dentro"><span className="bf-eyebrow">Por dentro da Comunidade</span><h2>Tudo o que a Chris ensina,<br /><em>em uma única jornada.</em></h2><p>Da percepção musical e corporal à expressão e à conexão com o outro. Uma trilha de aprendizagem estruturada, encontros semanais ao vivo, gravações e uma comunidade para evoluir junto.</p><img className="bf-platform" src={plataforma} loading="lazy" alt="Plataforma de conteúdos Corpo Musical" /><ModulosGravados isMobile={mobile} /></section>
+    <section className="bf-content-section" id="dentro"><span className="bf-eyebrow">Por dentro da Comunidade</span><h2>Tudo o que a Chris ensina,<br /><em>em uma única jornada.</em></h2><p>Da percepção musical e corporal à expressão e à conexão com o outro. Uma trilha de aprendizagem estruturada, encontros semanais ao vivo, gravações e uma comunidade para evoluir junto.</p><img className="bf-platform" src={plataforma} loading="lazy" alt="Plataforma de conteúdos Corpo Musical" /></section>
+    <Entregaveis />
     <section className="bf-content-section bf-map"><span className="bf-eyebrow">O Mapa da Dança</span><h2>Você não coleciona aulas.<br /><em>Você dança toda semana.</em></h2><MapaDaDanca isMobile={mobile} /></section>
     <Depoimentos />
     <section className="bf-offers" id="ofertas" aria-labelledby="bf-offers-title"><div className="bf-section-heading"><span className="bf-eyebrow">Condições especiais da Black Friday</span><h2 id="bf-offers-title">Todos os benefícios.<br /><em>Escolha sua condição especial.</em></h2><div className="bf-offer-intro"><p>Na Black Musical, você conquista mais benefícios em cada escolha.</p><p>Ao assinar o plano de 6 meses, você recebe todos os benefícios do plano anual, aproveitando a experiência completa do Corpo Musical.</p><p>E se escolher o plano anual, ganha mais 3 meses de bônus. São 15 meses de acesso no total, para aprofundar seu aprendizado, evoluir na dança e viver toda a jornada do Corpo Musical.</p></div></div>
@@ -113,7 +135,8 @@ export default function BlackMusicalOfertaLP() {
           <span className="bf-plan-label">{plano === 'anual' ? '12 meses + 3 meses de bônus = 15 meses no total' : 'De 3 para 6 meses · todos os benefícios'}</span>
           <h3>{plano === 'anual' ? 'Anual' : 'Semestral'} <em>Especial</em></h3>
           <div className="bf-price"><span>R$</span> 97<small>/mês</small></div>
-          <div className="bf-duration"><strong>{plano === 'anual' ? '15 meses de acesso no total' : '6 meses com todos os benefícios do anual'}</strong><span>{plano === 'anual' ? '12 meses de plano + 3 meses de bônus sem custo adicional.' : 'A mesma trilha, os mesmos encontros e todos os conteúdos do anual.'}</span></div>
+          <div className="bf-duration"><small className="bf-advantage-label">{plano === 'anual' ? 'Seu bônus na Black Musical' : 'Sua vantagem na Black Musical'}</small><strong>{plano === 'anual' ? '15 meses de acesso no total' : '6 meses com os benefícios do anual'}</strong><span>{plano === 'anual' ? 'Assine 12 meses e ganhe mais 3 meses, sem custo adicional.' : 'A experiência completa: mesma trilha, encontros e conteúdos do plano anual.'}</span></div>
+          <p className="bf-benefits-heading">Tudo isso está incluso no seu plano</p>
           <ul>{beneficios.map(item => <li key={item}><span aria-hidden="true">✓</span>{item}</li>)}</ul>
           <div className="bf-purchase"><button className="bf-button" onClick={() => setEscolha({ plano, aluno: false })}>Quero meu acesso <span aria-hidden="true">→</span></button></div>
         </div>
