@@ -147,10 +147,10 @@
 .bf-featured .bf-duration strong{color:#342317}
 .bf-featured .bf-duration span,.bf-featured .bf-advantage-label{color:#59432b}
 .bf-benefits-wrap{position:relative;flex:1}
-.bf-bonus-seal{position:absolute;right:-8px;top:-78px;bottom:auto;width:118px;aspect-ratio:1;border-radius:50%;background:#f4e6cc;border:1px solid #d8b779;box-shadow:0 6px 18px #160f131f;display:flex;align-items:center;justify-content:center;z-index:2;pointer-events:none;transform:rotate(-16deg)}
+.bf-bonus-seal{position:absolute;right:-6px;top:42%;bottom:auto;width:118px;aspect-ratio:1;border-radius:50%;background:#f4e6cc;border:1px solid #d8b779;box-shadow:0 6px 18px #160f131f;display:flex;align-items:center;justify-content:center;z-index:2;pointer-events:none;transform:rotate(-16deg)}
 .bf-bonus-seal:before{content:'';position:absolute;inset:5px;border:1px solid #b9945a59;border-radius:inherit}
 .bf-bonus-seal>span{font:700 20px/1.05 'League Spartan','DM Sans',sans-serif;color:#5b3f22;text-align:center;letter-spacing:-.02em}
-@media(max-width:400px){.bf-bonus-seal{width:100px;right:-6px;top:-70px}.bf-bonus-seal>span{font-size:17px}}
+@media(max-width:400px){.bf-bonus-seal{width:100px;right:-4px;top:42%}.bf-bonus-seal>span{font-size:17px}}
 .bf-plan-main .bf-benefits-heading{margin:28px 0 0;text-align:left;font-size:12px;font-weight:600;letter-spacing:.04em;color:#e8c48a}
 .bf-plan-main ul{margin:18px 0 32px}
 .bf-plan-main li{font-size:16px;line-height:1.6;color:#f5eee3;gap:14px;margin-bottom:18px}
@@ -193,3 +193,5 @@
 /* Trilha: linhas ao lado do "FASE X" */
 .bf-trilha-fase{display:flex;align-items:center;justify-content:center;gap:10px;width:100%}.bf-trilha-fase:before,.bf-trilha-fase:after{content:'';width:28px;height:1px;background:#8a6a3b80;flex:none}
 @media(max-width:767px){.bf-trilha-fase{gap:5px}.bf-trilha-fase:before,.bf-trilha-fase:after{width:12px}}
+/* Respiro entre as frases do título "Para quem é" */
+.bf-story-for h2 em{display:block;margin:.45em 0}
