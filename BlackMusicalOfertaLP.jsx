@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from 'react'
 import fundoHero from './images/fundo-primeira-dobra.jpg'
 import encontrosAoVivo from './images/encontrosaovivo.png'
 import mastermoveNotebook from './images/mastermove-notebook.png'
-import trilhaFase1 from './images/trilha-fase-1-v3.jpg'
-import trilhaFase2 from './images/trilha-fase-2-v3.jpg'
-import trilhaFase3 from './images/trilha-fase-3.jpg'
-import trilhaFase4 from './images/trilha-fase-4.jpg'
-import trilhaFase5 from './images/trilha-fase-5.jpg'
-import trilhaFase6 from './images/trilha-fase-6.jpg'
+import trilhaFase1 from './images/trilha-v2-fase-1.jpg'
+import trilhaFase2 from './images/trilha-v2-fase-2.jpg'
+import trilhaFase3 from './images/trilha-v2-fase-3.jpg'
+import trilhaFase4 from './images/trilha-v2-fase-4.jpg'
+import trilhaFase5 from './images/trilha-v2-fase-5.jpg'
+import trilhaFase6 from './images/trilha-v2-fase-6.jpg'
 import { MapaDaDanca } from './PropostaLP.jsx'
 import { feedbackItems } from './BrincandoNaMusicaLP.jsx'
 import { formatarTelefone, normalizarTelefone, telefoneValido } from './checkout/telefone.js'
@@ -36,8 +36,7 @@ function TrilhaFases() {
   return <ol className="bf-trilha" aria-label="Trilha de aprendizagem em 6 fases">{fases.map(item => <li key={item.fase} className="bf-trilha-item">
     <span className="bf-trilha-fase">Fase {item.fase}</span>
     <div className={`bf-trilha-card${item.imagem ? '' : ' bf-trilha-card--vazio'}`}>
-      {item.imagem && <img src={item.imagem} alt="" loading="lazy" />}
-      <div className="bf-trilha-texto"><strong>{item.titulo}</strong>{item.subtitulo && <small>{item.subtitulo}</small>}</div>
+      <img src={item.imagem} alt={`Fase ${item.fase}: ${item.titulo}${item.subtitulo ? ` · ${item.subtitulo}` : ''}`} loading="lazy" />
     </div>
   </li>)}</ol>
 }
@@ -142,7 +141,7 @@ export default function BlackMusicalOfertaLP() {
   }, [])
   return <main className="bf-page">
     <section className="bf-hero" id="inicio" style={{ backgroundImage: `linear-gradient(180deg, rgba(241,235,226,.9), rgba(241,235,226,.72) 45%, #f1ebe2), url(${fundoHero})` }}>
-      <div className="bf-hero-copy"><span className="bf-eyebrow">Black Musical · com Chris Busato</span><h1>Black <em>Musical.</em></h1><p>Para você entrar na comunidade e desenvolver uma dança mais verdadeira, fluida e musical, preparamos condições especiais para você.</p><a className="bf-button" href="#dentro">Quero fazer parte →</a><small>Uma jornada para dançar além dos passos.</small></div>
+      <div className="bf-hero-copy"><span className="bf-eyebrow">Black Musical · com Chris Busato</span><h1>Black <em>Musical.</em></h1><div className="bf-vsl"><iframe src="https://www.youtube-nocookie.com/embed/7I0JquUhQ1w?rel=0&modestbranding=1&playsinline=1" title="Black Musical com Chris Busato" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen /></div><a className="bf-button" href="#dentro">Quero fazer parte →</a><small>Uma jornada para dançar além dos passos.</small></div>
 
     </section>
     <section className="bf-story bf-story-intro"><div className="bf-story-inner"><span className="bf-eyebrow">Uma nova relação com a dança</span><h2>A dança é muito mais do que aprender passos.<br /><em>Ela é sobre SENTIR e SABER EXPRESSAR.</em></h2><div className="bf-story-copy"><p>Você não precisa de mais passos e sequências pra saber brincar na música e ter uma dança mais fluida.</p><p className="bf-story-emphasis"><strong>Não precisa passar anos e anos buscando algo que nunca chega.</strong></p><p>Desenvolva sua Base Musical para dançar com mais autonomia, fluidez e segurança.</p><p>Conheça o Corpo Musical e descubra como transformar sua relação com a música, com o outro e com sua própria expressão dentro da dança.</p><a className="bf-button" href="#dentro">Quero viver essa experiência</a></div></div></section>
