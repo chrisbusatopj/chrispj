@@ -111,3 +111,8 @@
 .bf-plan-integrated>.bf-aluno-offer .bf-button:hover{background:#c6a87a12;border-color:#c6a87a}
 .bf-plan-integrated .bf-aluno-validation{color:#756858;margin-top:10px!important}
 @media(max-width:767px){.bf-plan-main .bf-price-detail{padding:16px 8px}.bf-price-detail>strong{font-size:27px}.bf-price-detail>span{font-size:14px}.bf-plan-integrated>.bf-aluno-offer{padding:22px 20px}}
+.bf-plan-main>.bf-price{margin-bottom:24px}
+.bf-plan-integrated .bf-aluno-values .bf-aluno-monthly{display:block;font-size:42px;line-height:1.15;white-space:nowrap}
+.bf-aluno-monthly small{font:400 16px 'DM Sans',sans-serif;margin-left:4px}
+.bf-aluno-equivalent{font-size:11px;color:#756858}
+@media(max-width:360px){.bf-plan-integrated .bf-aluno-values .bf-aluno-monthly{font-size:36px}}

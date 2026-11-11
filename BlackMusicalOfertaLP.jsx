@@ -113,7 +113,6 @@ export default function BlackMusicalOfertaLP() {
           <span className="bf-plan-label">{plano === 'anual' ? '12 meses + 3 meses de bônus = 15 meses no total' : 'De 3 para 6 meses · todos os benefícios'}</span>
           <h3>{plano === 'anual' ? 'Anual' : 'Semestral'} <em>Especial</em></h3>
           <div className="bf-price"><span>R$</span> 97<small>/mês</small></div>
-          {plano === 'semestral' && <div className="bf-price-detail"><span>Plano de 6 meses</span><strong>Total de R$ 582,00</strong></div>}<small className="bf-payment-note">Valor mensal equivalente. Parcelamento e juros no checkout.</small>
           <div className="bf-duration"><strong>{plano === 'anual' ? '15 meses de acesso no total' : '6 meses com todos os benefícios do anual'}</strong><span>{plano === 'anual' ? '12 meses de plano + 3 meses de bônus sem custo adicional.' : 'A mesma trilha, os mesmos encontros e todos os conteúdos do anual.'}</span></div>
           <ul>{beneficios.map(item => <li key={item}><span aria-hidden="true">✓</span>{item}</li>)}</ul>
           <div className="bf-purchase"><button className="bf-button" onClick={() => setEscolha({ plano, aluno: false })}>Quero meu acesso <span aria-hidden="true">→</span></button></div>
@@ -121,7 +120,7 @@ export default function BlackMusicalOfertaLP() {
         <aside className="bf-aluno-offer" aria-label={`Condição de aluno — ${plano}`}>
           <span className="bf-aluno-badge">Já sou aluno ou ex-aluno · 30% OFF</span>
           <h4>Sua condição para ampliar o acesso</h4>
-          <div className="bf-aluno-values"><del>{plano === 'anual' ? 'R$ 1.164,00' : 'R$ 582,00'}</del><strong><span>Equivalente a R$ 67,90/mês</span>R$ {plano === 'anual' ? '814,80' : '407,40'}</strong></div><p className="bf-aluno-cash">Total com 30% OFF · {plano === 'anual' ? '12 meses + 3 de bônus' : '6 meses de acesso'}.<br />Parcelamento e juros no checkout.</p>
+          <div className="bf-aluno-values"><strong className="bf-aluno-monthly">R$ 67,90<small>/mês</small></strong><span className="bf-aluno-equivalent">Valor mensal equivalente</span></div><p className="bf-aluno-cash">30% OFF · {plano === 'anual' ? '12 meses + 3 de bônus' : '6 meses de acesso'}.</p>
           <button className="bf-button" onClick={() => setEscolha({ plano, aluno: true })}>Quero minha condição de aluno <span aria-hidden="true">→</span></button>
           <p className="bf-aluno-validation">Valide seu e-mail de aluno para continuar.</p>
         </aside>
