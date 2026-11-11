@@ -190,3 +190,6 @@
 @media(max-width:767px){.bf-proof-videos{gap:18px;padding:0 20px}.bf-proof-video{width:min(280px,82vw)}.bf-proof-video{border-radius:12px}}
 /* Degradê na dobra "Uma nova relação com a dança" */
 .bf-story.bf-story-intro{background:linear-gradient(180deg,#f1ebe2 0%,#ead9bd 50%,#e7dfd2 100%)}
+/* Trilha: linhas ao lado do "FASE X" */
+.bf-trilha-fase{display:flex;align-items:center;justify-content:center;gap:10px;width:100%}.bf-trilha-fase:before,.bf-trilha-fase:after{content:'';width:28px;height:1px;background:#8a6a3b80;flex:none}
+@media(max-width:767px){.bf-trilha-fase{gap:5px}.bf-trilha-fase:before,.bf-trilha-fase:after{width:12px}}
