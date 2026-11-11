@@ -195,3 +195,6 @@
 @media(max-width:767px){.bf-trilha-fase{gap:5px}.bf-trilha-fase:before,.bf-trilha-fase:after{width:12px}}
 /* Respiro entre as frases do título "Para quem é" */
 .bf-story-for h2 em{display:block;margin:.45em 0}
+/* Selo +3 meses na lateral, sem cobrir a lista */
+.bf-featured .bf-benefits-wrap ul{padding-right:104px}.bf-featured .bf-bonus-seal{right:-18px;top:50%;transform:translateY(-50%) rotate(-12deg);width:110px}
+@media(max-width:767px){.bf-featured .bf-benefits-wrap ul{padding-right:74px}.bf-featured .bf-bonus-seal{right:-14px;width:84px}.bf-featured .bf-bonus-seal>span{font-size:14px}}
