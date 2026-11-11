@@ -114,6 +114,11 @@ function Compra({ escolha, onClose }) {
       for (const key of ['utm_source', 'utm_campaign', 'utm_medium', 'utm_content', 'utm_term']) {
         if (params.get(key)) destination.searchParams.set(key, params.get(key))
       }
+      // Salva o lead na planilha sem segurar o redirecionamento; o sendBeacon sobrevive à troca de página.
+      try {
+        const lead = new Blob([JSON.stringify({ id: id.current, nome: form.get('nome'), telefone: normalizarTelefone(telefone), plano: 'online' })], { type: 'application/json' })
+        if (!navigator.sendBeacon?.('/api/leads-assinatura', lead)) fetch('/api/leads-assinatura', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: lead, keepalive: true }).catch(() => {})
+      } catch { /* Não bloquear o pagamento. */ }
       try { window.fbq?.('track', 'Lead', { content_name: `Black Musical - ${escolha.plano}`, content_category: data.elegivel ? 'aluno' : 'novo_aluno' }) } catch { /* Não bloquear pagamento por falha no pixel. */ }
       window.location.assign(destination.href)
     } catch (error) { setErro(error.name === 'TimeoutError' ? 'O envio demorou mais que o esperado. Tente novamente.' : error.message) }

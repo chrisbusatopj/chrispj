@@ -1,4 +1,3 @@
-import leadsHandler from './leads-assinatura.js'
 import { telefoneValido } from '../checkout/telefone.js'
 import { alunosBlackMusical } from './blackmusical-alunos.js'
 
@@ -28,13 +27,6 @@ export default async function blackHandler(req, res) {
   let url
   try { url = new URL(link); if (url.protocol !== 'https:' || url.hostname !== 'pay.cakto.com.br' || url.username || url.password) throw new Error() }
   catch { return res.status(503).json({ error: 'O checkout desta oferta estará disponível em breve.' }) }
-  // Usa a categoria online aceita pela integração atual da planilha.
-  // Não copiar o req com spread: os headers ficam no protótipo e se perdem, o que derrubava a função.
-  // O registro do lead não pode impedir a pessoa de chegar ao pagamento.
-  try {
-    await leadsHandler({ method: 'POST', headers: { 'content-type': 'application/json' }, body: { id, nome, telefone, plano: 'online' } }, {
-      setHeader() {}, status() { return this }, json() {},
-    })
-  } catch { /* Segue para o checkout mesmo se a planilha falhar. */ }
+  // O lead é salvo pelo navegador em paralelo (sendBeacon), para não atrasar o redirecionamento.
   return res.status(200).json({ ok: true, elegivel: Boolean(elegivel), checkoutUrl: url.href })
 }
