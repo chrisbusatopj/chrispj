@@ -99,15 +99,15 @@
 .bf-price-detail>span{display:block;font-size:15px;font-weight:500;line-height:1.5;text-wrap:balance;color:#ead9bc}
 .bf-price-detail>strong{display:block;margin-top:7px;font:700 29px/1.2 'League Spartan','DM Sans',sans-serif;letter-spacing:-.015em}
 .bf-plan-main .bf-payment-note{font-size:12px;color:#e0d4c4;margin:12px 0 24px}
-.bf-plan-integrated>.bf-aluno-offer{background:#1e1712;color:#d7c9b7;border-top:1px solid #c6a87a33;min-height:0;padding:24px}
-.bf-plan-integrated .bf-aluno-badge{background:transparent;color:#c6a87a;padding:0;font-size:12px}
-.bf-plan-integrated .bf-aluno-offer h4{color:#d7c9b7;font-size:14px;margin:10px 0 16px}
+.bf-plan-integrated>.bf-aluno-offer{background:#ffffff;color:#514334;border-top:1px solid #d8c9b6;min-height:0;padding:24px}
+.bf-plan-integrated .bf-aluno-badge{background:transparent;color:#795b32;padding:0;font-size:12px}
+.bf-plan-integrated .bf-aluno-offer h4{color:#514334;font-size:14px;margin:10px 0 16px}
 .bf-plan-integrated .bf-aluno-values{gap:6px}
-.bf-plan-integrated .bf-aluno-values del{font-size:13px;color:#ad9a85}
-.bf-plan-integrated .bf-aluno-values strong{font-size:28px;color:#e6dac8;gap:6px}
-.bf-plan-integrated .bf-aluno-values strong span{font-size:13px;color:#c2b29e}
-.bf-plan-integrated>.bf-aluno-offer .bf-aluno-cash{font-size:12px;line-height:1.6;color:#bfb09d;margin:10px 0 18px!important}
-.bf-plan-integrated>.bf-aluno-offer .bf-button{background:transparent;border:1px solid #c6a87a66;color:#e6dac8!important;box-shadow:none;padding:13px 16px;margin-top:0;font-size:11px}
+.bf-plan-integrated .bf-aluno-values del{font-size:13px;color:#756858}
+.bf-plan-integrated .bf-aluno-values strong{font-size:28px;color:#342317;gap:6px}
+.bf-plan-integrated .bf-aluno-values strong span{font-size:13px;color:#615342}
+.bf-plan-integrated>.bf-aluno-offer .bf-aluno-cash{font-size:12px;line-height:1.6;color:#615342;margin:10px 0 18px!important}
+.bf-plan-integrated>.bf-aluno-offer .bf-button{background:transparent;border:1px solid #9b8057;color:#342317!important;box-shadow:none;padding:13px 16px;margin-top:0;font-size:11px}
 .bf-plan-integrated>.bf-aluno-offer .bf-button:hover{background:#c6a87a12;border-color:#c6a87a}
-.bf-plan-integrated .bf-aluno-validation{color:#ad9a85;margin-top:10px!important}
+.bf-plan-integrated .bf-aluno-validation{color:#756858;margin-top:10px!important}
 @media(max-width:767px){.bf-plan-main .bf-price-detail{padding:16px 8px}.bf-price-detail>strong{font-size:27px}.bf-price-detail>span{font-size:14px}.bf-plan-integrated>.bf-aluno-offer{padding:22px 20px}}
