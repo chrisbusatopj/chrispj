@@ -49,7 +49,9 @@ const videosDepoimento = [
 ]
 
 function Depoimentos() {
-  return <section className="bf-proof" aria-labelledby="bf-proof-title"><div className="bf-proof-heading"><span className="bf-eyebrow">Quem já viveu essa experiência</span><h2 id="bf-proof-title">Veja o que acontece com quem desenvolve uma Base Musical:</h2></div><div className="bf-proof-videos">{videosDepoimento.map(video => <div key={video.id} className="bf-proof-video"><vturb-smartplayer id={`vid-${video.id}`} style={{ display: 'block', margin: '0 auto', width: '100%', maxWidth: '400px' }}><div className="vturb-player-placeholder" style={{ position: 'relative', width: '100%', padding: `${video.proporcao} 0 0`, zIndex: 0, backgroundColor: 'black' }}></div></vturb-smartplayer></div>)}</div></section>
+  const trilha = useRef(null)
+  const mover = sentido => trilha.current?.scrollBy({ left: sentido * trilha.current.clientWidth * 0.8, behavior: 'smooth' })
+  return <section className="bf-proof" aria-labelledby="bf-proof-title"><div className="bf-proof-heading"><span className="bf-eyebrow">Quem já viveu essa experiência</span><h2 id="bf-proof-title">Veja o que acontece com quem desenvolve uma Base Musical:</h2><div className="bf-proof-controls"><button type="button" aria-label="Depoimento anterior" onClick={() => mover(-1)}>←</button><button type="button" aria-label="Próximo depoimento" onClick={() => mover(1)}>→</button></div></div><div ref={trilha} className="bf-proof-videos" tabIndex={0} aria-label="Depoimentos em vídeo, deslize para ver mais">{videosDepoimento.map(video => <div key={video.id} className="bf-proof-video"><vturb-smartplayer id={`vid-${video.id}`} style={{ display: 'block', margin: '0 auto', width: '100%', maxWidth: '400px' }}><div className="vturb-player-placeholder" style={{ position: 'relative', width: '100%', padding: `${video.proporcao} 0 0`, zIndex: 0, backgroundColor: 'black' }}></div></vturb-smartplayer></div>)}</div></section>
 }
 
 function Entregaveis() {
