@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from 'react'
 import fundoHero from './images/fundo-primeira-dobra.jpg'
 import encontrosAoVivo from './images/encontrosaovivo.png'
 import mastermoveNotebook from './images/mastermove-notebook.png'
-import trilhaFase1 from './images/trilha-v2-fase-1.jpg'
-import trilhaFase2 from './images/trilha-v2-fase-2.jpg'
-import trilhaFase3 from './images/trilha-v2-fase-3.jpg'
-import trilhaFase4 from './images/trilha-v2-fase-4.jpg'
-import trilhaFase5 from './images/trilha-v2-fase-5.jpg'
-import trilhaFase6 from './images/trilha-v3-fase-6.jpg'
+import trilhaFase1 from './images/trilha-fase-1-v3.jpg'
+import trilhaFase2 from './images/trilha-fase-2-v3.jpg'
+import trilhaFase3 from './images/trilha-fase-3.jpg'
+import trilhaFase4 from './images/trilha-fase-4.jpg'
+import trilhaFase5 from './images/trilha-fase-5.jpg'
+import trilhaFase6 from './images/trilha-fase-6.jpg'
 import { MapaDaDanca } from './PropostaLP.jsx'
 import { formatarTelefone, normalizarTelefone, telefoneValido } from './checkout/telefone.js'
 import './black-musical-oferta.css'
@@ -35,18 +35,21 @@ function TrilhaFases() {
   return <ol className="bf-trilha" aria-label="Trilha de aprendizagem em 6 fases">{fases.map(item => <li key={item.fase} className="bf-trilha-item">
     <span className="bf-trilha-fase">Fase {item.fase}</span>
     <div className={`bf-trilha-card${item.imagem ? '' : ' bf-trilha-card--vazio'}`}>
-      <img src={item.imagem} alt={`Fase ${item.fase}: ${item.titulo}${item.subtitulo ? ` · ${item.subtitulo}` : ''}`} loading="lazy" />
+      <img src={item.imagem} alt="" loading="lazy" />
+      <div className="bf-trilha-texto"><strong>{item.titulo}</strong>{item.subtitulo && <small>{item.subtitulo}</small>}</div>
     </div>
   </li>)}</ol>
 }
 
+const vturbScript = id => `https://scripts.converteai.net/f83d06f7-a6e5-470f-be16-2373cdb1707e/players/${id}/v4/player.js`
+
 const videosDepoimento = [
-  { id: 'YTPDzm_NZ9s', formato: 'vertical', titulo: 'Depoimento de aluna do Corpo Musical' },
-  { id: 'azmVP2nmvwA', formato: 'horizontal', titulo: 'Depoimento do Nilson' },
+  { id: '6af4d34a194e478d8d23515d', proporcao: '177.77777777777777%' },
+  { id: '6af4d338194e478d8d23514b', proporcao: '176.02131438721136%' },
 ]
 
 function Depoimentos() {
-  return <section className="bf-proof" aria-labelledby="bf-proof-title"><div className="bf-proof-heading"><span className="bf-eyebrow">Quem já viveu essa experiência</span><h2 id="bf-proof-title">Veja o que acontece com quem desenvolve uma Base Musical:</h2></div><div className="bf-proof-videos">{videosDepoimento.map(video => <div key={video.id} className={`bf-proof-video bf-proof-video--${video.formato}`}><iframe src={`https://www.youtube-nocookie.com/embed/${video.id}?rel=0&modestbranding=1&playsinline=1`} title={video.titulo} loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen /></div>)}</div></section>
+  return <section className="bf-proof" aria-labelledby="bf-proof-title"><div className="bf-proof-heading"><span className="bf-eyebrow">Quem já viveu essa experiência</span><h2 id="bf-proof-title">Veja o que acontece com quem desenvolve uma Base Musical:</h2></div><div className="bf-proof-videos">{videosDepoimento.map(video => <div key={video.id} className="bf-proof-video"><vturb-smartplayer id={`vid-${video.id}`} style={{ display: 'block', margin: '0 auto', width: '100%', maxWidth: '400px' }}><div className="vturb-player-placeholder" style={{ position: 'relative', width: '100%', padding: `${video.proporcao} 0 0`, zIndex: 0, backgroundColor: 'black' }}></div></vturb-smartplayer></div>)}</div></section>
 }
 
 function Entregaveis() {
@@ -138,13 +141,17 @@ export default function BlackMusicalOfertaLP() {
   useEffect(() => {
     const old = document.title
     document.title = 'Black Musical | Chris Busato'
+    for (const playerId of ['6af4d1a9aafdc81a284bc770', ...videosDepoimento.map(video => video.id)]) {
+      const src = vturbScript(playerId)
+      if (!document.querySelector(`script[src="${src}"]`)) { const script = document.createElement('script'); script.src = src; script.async = true; document.head.appendChild(script) }
+    }
     const resize = () => setMobile(window.innerWidth < 768)
     window.addEventListener('resize', resize)
     return () => { document.title = old; window.removeEventListener('resize', resize) }
   }, [])
   return <main className="bf-page">
     <section className="bf-hero" id="inicio" style={{ backgroundImage: `linear-gradient(180deg, rgba(241,235,226,.9), rgba(241,235,226,.72) 45%, #f1ebe2), url(${fundoHero})` }}>
-      <div className="bf-hero-copy"><span className="bf-eyebrow">Black Musical · com Chris Busato</span><h1>Black <em>Musical.</em></h1><div className="bf-vsl"><iframe src="https://www.youtube-nocookie.com/embed/7I0JquUhQ1w?rel=0&modestbranding=1&playsinline=1" title="Black Musical com Chris Busato" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen /></div><a className="bf-button" href="#dentro">Quero fazer parte →</a><small>Uma jornada para dançar além dos passos.</small></div>
+      <div className="bf-hero-copy"><span className="bf-eyebrow">Black Musical · com Chris Busato</span><h1>Black <em>Musical.</em></h1><div className="bf-vsl"><vturb-smartplayer id="vid-6af4d1a9aafdc81a284bc770" style={{ display: 'block', margin: '0 auto', width: '100%', maxWidth: '400px' }}><div className="vturb-player-placeholder" style={{ position: 'relative', width: '100%', padding: '177.77777777777777% 0 0', zIndex: 0, backgroundColor: 'black' }}></div></vturb-smartplayer></div><a className="bf-button" href="#dentro">Quero fazer parte →</a><small>Uma jornada para dançar além dos passos.</small></div>
 
     </section>
     <section className="bf-story bf-story-intro"><div className="bf-story-inner"><span className="bf-eyebrow">Uma nova relação com a dança</span><h2>A dança é muito mais do que aprender passos.<br /><em>Ela é sobre SENTIR e SABER EXPRESSAR.</em></h2><div className="bf-story-copy"><p>Você não precisa de mais passos e sequências pra saber brincar na música e ter uma dança mais fluida.</p><p className="bf-story-emphasis"><strong>Não precisa passar anos e anos buscando algo que nunca chega.</strong></p><p>Desenvolva sua Base Musical para dançar com mais autonomia, fluidez e segurança.</p><p>Conheça o Corpo Musical e descubra como transformar sua relação com a música, com o outro e com sua própria expressão dentro da dança.</p><a className="bf-button" href="#dentro">Quero viver essa experiência</a></div></div></section>
