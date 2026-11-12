@@ -1,128 +1,132 @@
-// Configure PLANILHA_ID nas Propriedades do script.
+// Propriedades do script (Configurações do projeto → Propriedades do script):
+//   PLANILHA_ID = ID da planilha (parte entre /d/ e /edit na URL)
+//   ABA_ID      = número que aparece depois de "gid=" na URL quando a aba está aberta
+// Com ABA_ID configurado, você pode renomear a aba à vontade.
+
 var CABECALHOS = [
   'ID', 'Data', 'Nome', 'Telefone', 'Plano',
   'Já entrou em contato?', 'Agendar call',
   'Call feita', 'Comprou', 'Observação da call'
 ];
 
+var OFERTAS = {
+  blackmusical_semestral: 'Semestral',
+  blackmusical_anual: 'Anual',
+  blackmusical_semestral_aluno: 'Semestral — Aluno',
+  blackmusical_anual_aluno: 'Anual — Aluno',
+
+  // Outros formulários do site.
+  anual: 'Anual — Online regular',
+  trimestral: 'Trimestral — Online regular',
+  mastermove: 'MasterMove',
+  online: 'Interesse na comunidade online'
+};
+
 function abrirAba() {
-  var id = PropertiesService.getScriptProperties().getProperty('PLANILHA_ID');
-  if (!id || !id.trim()) throw new Error('Configure PLANILHA_ID.');
+  var props = PropertiesService.getScriptProperties();
+  var planilhaId = (props.getProperty('PLANILHA_ID') || '').trim();
+  if (!planilhaId) throw new Error('Configure PLANILHA_ID.');
 
-  var arquivo = SpreadsheetApp.openById(id.trim());
-  var aba = arquivo.getSheetByName('Leads Programa') ||
-    arquivo.insertSheet('Leads Programa');
+  var arquivo = SpreadsheetApp.openById(planilhaId);
+  var abaId = (props.getProperty('ABA_ID') || '').trim();
+  var aba = null;
 
-  if (aba.getMaxColumns() < 10) {
-    aba.insertColumnsAfter(aba.getMaxColumns(), 10 - aba.getMaxColumns());
+  // 1º: pela identificação fixa da aba (não muda quando renomeia).
+  if (abaId) {
+    var abas = arquivo.getSheets();
+    for (var i = 0; i < abas.length; i++) {
+      if (String(abas[i].getSheetId()) === abaId) { aba = abas[i]; break; }
+    }
   }
 
-  if (aba.getLastRow() === 0) {
-    aba.getRange(1, 1, 1, 10).setValues([CABECALHOS]);
-    aba.getRange(1, 1, 1, 10)
-      .setFontWeight('bold')
-      .setBackground('#eee8df');
-    aba.setColumnWidth(2, 155);
-    aba.setColumnWidth(3, 240);
-    aba.setColumnWidth(4, 155);
-    aba.setColumnWidth(5, 200);
-    aba.setColumnWidths(6, 4, 150);
-    aba.setColumnWidth(10, 320);
+  // 2º: pelo nome, se ABA_ID não estiver configurado.
+  if (!aba) aba = arquivo.getSheetByName('Leads Programa');
+
+  // 3º: cria a aba só se não existir nenhuma.
+  if (!aba) {
+    aba = arquivo.insertSheet('Leads Programa');
+    aba.getRange(1, 1, 1, CABECALHOS.length).setValues([CABECALHOS])
+      .setFontWeight('bold').setBackground('#eee8df');
+    aba.setFrozenRows(1);
   }
 
-  var atual = aba.getRange(1, 1, 1, 10).getValues()[0];
-  if (atual.join('|') !== CABECALHOS.join('|')) {
-    throw new Error('A aba Leads Programa tem colunas diferentes. Use uma aba vazia.');
-  }
-
-  aba.setFrozenRows(1);
-  aba.hideColumns(1);
   return aba;
 }
 
-// Execute esta função uma vez para autorizar e criar a estrutura.
-function prepararPlanilha() {
-  var lock = LockService.getScriptLock();
-  lock.waitLock(10000);
-  try {
-    abrirAba();
-    SpreadsheetApp.flush();
-  } finally {
-    lock.releaseLock();
+// Próxima linha livre olhando Data, Nome e Telefone (colunas B a D).
+// Assim, linhas antigas coladas à mão não atrapalham.
+function proximaLinha(aba) {
+  var ultima = aba.getLastRow();
+  if (ultima < 2) return 2;
+  var valores = aba.getRange(2, 2, ultima - 1, 3).getValues();
+  for (var i = valores.length - 1; i >= 0; i--) {
+    if (valores[i].join('').trim() !== '') return i + 3;
   }
+  return 2;
+}
+
+// Execute uma vez para autorizar.
+function prepararPlanilha() {
+  abrirAba();
+  SpreadsheetApp.flush();
+}
+
+function resposta(ok, erro) {
+  return ContentService
+    .createTextOutput(JSON.stringify({ ok: ok, erro: erro || null }))
+    .setMimeType(ContentService.MimeType.JSON);
 }
 
 function doPost(e) {
   var lock = LockService.getScriptLock();
-  var ofertas = {
-    blackmusical_semestral: 'Semestral',
-    blackmusical_anual: 'Anual',
-    blackmusical_semestral_aluno: 'Semestral — Aluno',
-    blackmusical_anual_aluno: 'Anual — Aluno',
-    anual: 'Anual — Online regular',
-    trimestral: 'Trimestral — Online regular',
-    mastermove: 'MasterMove',
-    online: 'Interesse na comunidade online'
-  };
-
-  function resposta(ok, erro) {
-    return ContentService
-      .createTextOutput(JSON.stringify({ ok: ok, erro: erro || null }))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
 
   try {
     var dados = JSON.parse(e.postData.contents);
+
     if (
       !/^[\da-f-]{36}$/i.test(dados.id || '') ||
       typeof dados.nome !== 'string' ||
       dados.nome.trim().length < 2 ||
       dados.nome.length > 100 ||
       !/^(?:55)?\d{10,11}$/.test(dados.telefone || '') ||
-      !Object.prototype.hasOwnProperty.call(ofertas, dados.plano)
-    ) return resposta(false, 'DADOS_INVALIDOS');
+      !Object.prototype.hasOwnProperty.call(OFERTAS, dados.plano)
+    ) {
+      return resposta(false, 'DADOS_INVALIDOS');
+    }
 
     lock.waitLock(10000);
     var aba = abrirAba();
-    var registros = aba.getLastRow() > 1
-      ? aba.getRange(2, 1, aba.getLastRow() - 1, 10).getValues()
-      : [];
-    var linha = 0;
 
-    for (var i = 0; i < registros.length; i++) {
-      var registro = registros[i];
-      // Preserva observações e marcações do comercial.
-      var vazio = registro.slice(2, 5).every(function(v) {
-        return String(v).trim() === '';
-      }) && String(registro[9]).trim() === '' &&
-        registro.slice(5, 9).every(function(v) {
-          return v === '' || v === false;
-        });
-
-      if (!vazio && registro[0] === dados.id) return resposta(true);
-      if (vazio && !linha) linha = i + 2;
+    // O mesmo envio não gera contato duplicado (procura o ID na coluna A).
+    if (aba.getLastRow() >= 2) {
+      var achou = aba.getRange(2, 1, aba.getLastRow() - 1, 1)
+        .createTextFinder(dados.id).matchEntireCell(true).findNext();
+      if (achou) return resposta(true);
     }
 
-    if (!linha) linha = registros.length + 2;
-    if (linha > aba.getMaxRows()) {
-      aba.insertRowsAfter(aba.getMaxRows(), 100);
-    }
+    var linha = proximaLinha(aba);
+    if (linha > aba.getMaxRows()) aba.insertRowsAfter(aba.getMaxRows(), 100);
 
     aba.getRange(linha, 3, 1, 2).setNumberFormat('@');
     aba.getRange(linha, 1, 1, 10).setValues([[
-      dados.id, new Date(),
-      "'" + dados.nome.trim(),
-      "'" + dados.telefone,
-      ofertas[dados.plano],
-      false, false, false, false, ''
+      dados.id,
+      new Date(),
+      dados.nome.trim(),
+      dados.telefone,
+      OFERTAS[dados.plano],
+      false, false, false, false,
+      ''
     ]]);
     aba.getRange(linha, 6, 1, 4).insertCheckboxes();
     aba.getRange(linha, 2).setNumberFormat('dd/MM/yyyy HH:mm:ss');
-    aba.getRange(linha, 10).setWrap(true);
+
     SpreadsheetApp.flush();
     return resposta(true);
+
   } catch (err) {
+    console.error(err);
     return resposta(false, 'FALHA_AO_PROCESSAR');
+
   } finally {
     if (lock.hasLock()) lock.releaseLock();
   }
