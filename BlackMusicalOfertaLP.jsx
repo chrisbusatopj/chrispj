@@ -116,7 +116,7 @@ function Compra({ escolha, onClose }) {
       }
       // Salva o lead na planilha sem segurar o redirecionamento; o sendBeacon sobrevive à troca de página.
       try {
-        const lead = new Blob([JSON.stringify({ id: id.current, nome: form.get('nome'), telefone: normalizarTelefone(telefone), plano: 'online' })], { type: 'application/json' })
+        const lead = new Blob([JSON.stringify({ id: id.current, nome: form.get('nome'), telefone: normalizarTelefone(telefone), plano: 'blackmusical_' + escolha.plano + (data.elegivel ? '_aluno' : '') })], { type: 'application/json' })
         if (!navigator.sendBeacon?.('/api/leads-assinatura', lead)) fetch('/api/leads-assinatura', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: lead, keepalive: true }).catch(() => {})
       } catch { /* Não bloquear o pagamento. */ }
       try { window.fbq?.('track', 'Lead', { content_name: `Black Musical - ${escolha.plano}`, content_category: data.elegivel ? 'aluno' : 'novo_aluno' }) } catch { /* Não bloquear pagamento por falha no pixel. */ }
