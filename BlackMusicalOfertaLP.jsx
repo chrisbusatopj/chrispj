@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import fundoHero from './images/fundo-primeira-dobra.jpg'
-import encontrosAoVivo from './images/encontrosaovivo.png'
-import mastermoveNotebook from './images/mastermove-notebook.png'
+import encontrosAoVivo from './images/encontros-ao-vivo.webp'
+import mastermoveNotebook from './images/mastermove-notebook.webp'
+import grupoAvatar from './images/whatsapp-grupo-avatar.webp'
+import comunidadeAvatar from './images/whatsapp-comunidade-avatar.webp'
 import trilhaFase1 from './images/trilha-final-fase-1.jpg'
 import trilhaFase2 from './images/trilha-final-fase-2.jpg'
 import trilhaFase3 from './images/trilha-final-fase-3.jpg'
@@ -46,6 +48,7 @@ const vturbScript = id => `https://scripts.converteai.net/f83d06f7-a6e5-470f-be1
 const videosDepoimento = [
   { id: '6af4d34a194e478d8d23515d', proporcao: '177.77777777777777%' },
   { id: '6af4d338194e478d8d23514b', proporcao: '176.02131438721136%' },
+  { id: '6af5b4a1a8bc6817087a74a3', proporcao: '177.77777777777777%' },
 ]
 
 function Depoimentos() {
@@ -54,19 +57,41 @@ function Depoimentos() {
   return <section className="bf-proof" aria-labelledby="bf-proof-title"><div className="bf-proof-heading"><span className="bf-eyebrow">Quem já viveu essa experiência</span><h2 id="bf-proof-title">Veja o que acontece com quem desenvolve uma Base Musical:</h2><div className="bf-proof-controls"><button type="button" aria-label="Depoimento anterior" onClick={() => mover(-1)}>←</button><button type="button" aria-label="Próximo depoimento" onClick={() => mover(1)}>→</button></div></div><div ref={trilha} className="bf-proof-videos" tabIndex={0} aria-label="Depoimentos em vídeo, deslize para ver mais">{videosDepoimento.map(video => <div key={video.id} className="bf-proof-video"><vturb-smartplayer id={`vid-${video.id}`} style={{ display: 'block', margin: '0 auto', width: '100%', maxWidth: '400px' }}><div className="vturb-player-placeholder" style={{ position: 'relative', width: '100%', padding: `${video.proporcao} 0 0`, zIndex: 0, backgroundColor: 'black' }}></div></vturb-smartplayer></div>)}</div></section>
 }
 
+const aulasTematicas = ['Vergonha na Dança', 'Do Erro à Possibilidade', 'Como Quebrar Padrões']
+
+function GrupoWhatsApp() {
+  return <div className="bf-wpp" aria-label="Dados do grupo da comunidade no WhatsApp">
+    <div className="bf-wpp-top"><span aria-hidden="true">✕</span>Dados do grupo</div>
+    <img className="bf-wpp-avatar" src={grupoAvatar} alt="" loading="lazy" decoding="async" />
+    <strong className="bf-wpp-nome">Online | Corpo Musical 💛</strong>
+    <p className="bf-wpp-info">Grupo na comunidade "Alunos | Corpo Musical" · 66 membros</p>
+    <div className="bf-wpp-comunidade"><img src={comunidadeAvatar} alt="" loading="lazy" decoding="async" /><div><strong>Alunos | Corpo Musical</strong><small>Comunidade · 3 grupos</small></div></div>
+    <div className="bf-wpp-descricao"><strong>✨ BEM-VINDO(A) À COMUNIDADE CORPO MUSICAL</strong><p>Este é nosso espaço de troca, para compartilhar experiênc…<span>Ler mais</span></p></div>
+    <p className="bf-wpp-membros">66 membros</p>
+  </div>
+}
+
+function AulasTematicas() {
+  return <ul className="bf-temas" aria-label="Aulas temáticas disponíveis">{aulasTematicas.map((aula, i) => <li key={aula} className="bf-tema">
+    <span className="bf-tema-play" aria-hidden="true">▶</span>
+    <small>Aula temática {String(i + 1).padStart(2, '0')}</small>
+    <strong>{aula}</strong>
+  </li>)}</ul>
+}
+
 function Entregaveis() {
   const itens = [
     { titulo: '1 encontro ao vivo por semana', texto: 'Dance junto com a Chris, com prática guiada, orientação e espaço para tirar dúvidas. Um encontro semanal para transformar o aprendizado em prática.', imagem: encontrosAoVivo, tipo: 'encontros' },
     { titulo: 'Replays de todos os encontros', texto: 'Não pôde participar ao vivo? Assista depois e revisite as práticas enquanto seu plano estiver ativo.' },
     { titulo: 'Transmissões e gravações dos nossos MasterMove (Encontros Presenciais)', texto: 'Uma vez por mês, acompanhe ao vivo pela internet os encontros presenciais do MasterMove, realizados em São Paulo. As transmissões também ficam gravadas na plataforma para você assistir e rever durante o período de acesso do seu plano.', imagem: mastermoveNotebook, tipo: 'notebook' },
-    { titulo: 'Comunidade no WhatsApp', texto: 'Um espaço de troca com quem está no mesmo caminho: vídeos, mensagens, perguntas e apoio para evoluir junto.', destaque: 'Sua dança tem companhia.', legenda: 'Comunidade Corpo Musical' },
-    { titulo: 'Aulas temáticas', texto: 'Aprofunde temas da dança e amplie suas possibilidades de prática com as aulas temáticas disponíveis na plataforma.', destaque: 'Mais caminhos para explorar.', legenda: 'Para aprofundar sua dança' },
+    { titulo: 'Comunidade no WhatsApp', texto: 'Um espaço de troca com quem está no mesmo caminho: vídeos, mensagens, perguntas e apoio para evoluir junto.', destaque: 'Sua dança tem companhia.', legenda: 'Comunidade Corpo Musical', visual: 'whatsapp' },
+    { titulo: 'Aulas temáticas', texto: 'Aprofunde temas da dança e amplie suas possibilidades de prática com as aulas temáticas disponíveis na plataforma.', destaque: 'Mais caminhos para explorar.', legenda: 'Para aprofundar sua dança', visual: 'temas' },
   ]
   return <section className="bf-deliverables" aria-labelledby="bf-deliverables-title">
     <div className="bf-deliverables-inner">
       <div className="bf-deliverables-heading"><span className="bf-eyebrow">Além da trilha e da plataforma</span><h2 id="bf-deliverables-title">Prática, acompanhamento<br /><em>e uma comunidade com você.</em></h2><p>Na Black Musical, todos estes benefícios estão nos dois planos: 6 meses no semestral ou 15 meses no anual, contando os 3 meses de bônus.</p></div>
-      <div className="bf-deliverables-grid">{itens.map((item, i) => <article className={`bf-deliverable${item.tipo === 'notebook' ? ' bf-deliverable--image-after' : ''}`} key={item.titulo}>
-        {item.imagem && <div className={`bf-deliverable-visual bf-deliverable-visual--${item.tipo}`}><img src={item.imagem} alt={item.titulo} loading="lazy" /></div>}
+      <div className="bf-deliverables-grid">{itens.map((item, i) => <article className={`bf-deliverable${item.imagem || item.visual ? ' bf-deliverable--image-after' : ''}`} key={item.titulo}>
+        {item.visual === 'temas' && <AulasTematicas />}{item.visual === 'whatsapp' && <GrupoWhatsApp />}{item.imagem && <div className={`bf-deliverable-visual bf-deliverable-visual--${item.tipo}`}><img src={item.imagem} alt={item.titulo} loading="lazy" decoding="async" /></div>}
         <div className="bf-deliverable-copy"><span className="bf-deliverable-number">{String(i + 1).padStart(2, '0')}</span><h3>{item.titulo}</h3><p>{item.texto}</p></div>
       </article>)}</div>
     </div>
