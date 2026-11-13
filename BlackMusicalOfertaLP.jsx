@@ -16,6 +16,10 @@ import estado1 from './images/estado-1-racional.webp'
 import estado2 from './images/estado-2-dependente.webp'
 import estado3 from './images/estado-3-independente.webp'
 import estado4 from './images/estado-4-sensivel.webp'
+import estado5 from './images/estado-5-musical.webp'
+import aulaTematica1 from './images/aula-tematica-1.webp'
+import aulaTematica2 from './images/aula-tematica-2.webp'
+import aulaTematica3 from './images/aula-tematica-3.webp'
 import { formatarTelefone, normalizarTelefone, telefoneValido } from './checkout/telefone.js'
 import './black-musical-oferta.css'
 
@@ -66,9 +70,9 @@ function Depoimentos() {
 
 // Capas das aulas temáticas: quando tiver as imagens, importe e coloque no lugar do null.
 const aulasTematicas = [
-  { titulo: 'Vergonha na Dança', capa: null },
-  { titulo: 'Do Erro à Possibilidade', capa: null },
-  { titulo: 'Como Quebrar Padrões', capa: null },
+  { titulo: 'Vergonha na Dança', capa: aulaTematica1 },
+  { titulo: 'Do Erro à Possibilidade', capa: aulaTematica2 },
+  { titulo: 'Como Quebrar Padrões', capa: aulaTematica3 },
 ]
 
 function GrupoWhatsApp() {
@@ -185,6 +189,8 @@ const icones = {
   elo: 'M10 13.5a4.5 4.5 0 0 0 6.8.5l2.7-2.7a4.5 4.5 0 0 0-6.4-6.4l-1.5 1.5M14 10.5a4.5 4.5 0 0 0-6.8-.5l-2.7 2.7a4.5 4.5 0 0 0 6.4 6.4l1.5-1.5',
   coracao: 'M20.5 5a5 5 0 0 0-7.1 0L12 6.4 10.6 5a5 5 0 0 0-7.1 7.1L12 20.6l8.5-8.5a5 5 0 0 0 0-7.1z',
   cadeado: 'M5.5 11h13v10h-13zM8.5 11V7.5a3.5 3.5 0 0 1 7 0V11M12 15v2',
+  nota: 'M9 18V5l11-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM20 16a3 3 0 1 1-6 0 3 3 0 0 1 6 0z',
+  ondas: 'M3 8c3-2 6 2 9 0s6-2 9 0M3 13c3-2 6 2 9 0s6-2 9 0M3 18c3-2 6 2 9 0s6-2 9 0',
   bussola: 'M12 21.5a9.5 9.5 0 1 0 0-19 9.5 9.5 0 0 0 0 19zM15.5 8.5l-2 5-5 2 2-5z',
 }
 
@@ -206,6 +212,13 @@ function EstadosCorpo() {
       </div>
       <img className="bf-estado-foto" src={e.foto} alt="" loading="lazy" decoding="async" />
     </li>)}</ol>
+    <div className="bf-estado-musical">
+      <img className="bf-estado-musical-foto" src={estado5} alt="" loading="lazy" decoding="async" />
+      <div className="bf-estado-musical-texto">
+        <div className="bf-estado-musical-topo"><span className="bf-estado-musical-selo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d={icones.nota} /></svg></span><div><h3>Corpo Musical</h3><p className="bf-estado-sub">Sente, expressa e compartilha.</p></div></div>
+        <ul>{[['nota', 'Compreende a música e brinca com suas possibilidades.'], ['ondas', 'Deixa o movimento nascer do sentir, não apenas do pensar.'], ['coracao', 'Compartilha a dança com conexão, sem se perder de si.']].map(([icone, texto]) => <li key={texto}><span className="bf-estado-icone" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d={icones[icone]} /></svg></span>{texto}</li>)}</ul>
+      </div>
+    </div>
   </div></section>
 }
 

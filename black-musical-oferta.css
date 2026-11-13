@@ -516,3 +516,21 @@
 .bf-estado-foto{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:contain;object-position:center bottom;align-self:end;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%);mask-image:linear-gradient(90deg,transparent,#000 14%)}
 @media(max-width:899px){.bf-estados-grid{grid-template-columns:1fr;grid-template-rows:none;grid-auto-flow:row}}
 @media(max-width:767px){.bf-estados{padding:56px 16px 60px}.bf-estados h2{margin-bottom:28px!important}.bf-estado{grid-template-columns:1fr;min-height:0}.bf-estado-foto{order:-1;-webkit-mask-image:linear-gradient(180deg,#000 85%,transparent);mask-image:linear-gradient(180deg,#000 85%,transparent)}.bf-estado-texto{padding:4px 18px 22px}.bf-estado h3{font-size:19px}.bf-estado ul li{font-size:14px}}
+.bf-tema--capa .bf-tema-capa{object-position:center 20%}.bf-tema--capa:before{display:none}.bf-tema--capa{border:1px solid #c6a87a40}
+.bf-tema--capa:nth-child(1) .bf-tema-capa{object-position:75% 25%}.bf-tema--capa:nth-child(2) .bf-tema-capa{object-position:60% 58%}.bf-tema--capa:nth-child(3) .bf-tema-capa{object-position:65% 30%}
+.bf-tema--capa:after{background:linear-gradient(180deg,#1a120c00 0%,#1a120c1a 30%,#2a1d14cc 68%,#2a1d14f2 100%)}
+.bf-comunidade-visual:has(.bf-temas){height:auto;min-height:170px}.bf-comunidade-visual .bf-tema--capa{height:200px}
+/* v49 quinto estado: corpo musical */
+.bf-estado-musical{margin-top:18px;display:grid;grid-template-columns:38% 1fr;align-items:stretch;background:#f6e7d8;border:1px solid #c9a466;border-radius:22px;overflow:hidden;text-align:left;box-shadow:0 16px 36px #2a1d141f}
+.bf-estado-musical-foto{display:block;width:100%;height:100%;min-height:300px;max-height:400px;object-fit:cover;object-position:center 30%;-webkit-mask-image:linear-gradient(90deg,#000 80%,transparent);mask-image:linear-gradient(90deg,#000 80%,transparent)}
+.bf-estado-musical-texto{padding:34px 40px 34px 28px;align-self:center;border-left:1px solid #c9a46666}
+.bf-estado-musical-topo{display:flex;align-items:center;gap:18px;margin-bottom:22px}
+.bf-estado-musical-selo{flex:none;width:72px;height:72px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#a8784a,#7a5233);color:#fff8ec;box-shadow:0 8px 18px #2a1d1433}
+.bf-estado-musical-selo svg{width:36px;height:36px}
+.bf-estado-musical h3{font:700 clamp(28px,3.2vw,40px)/1 'Lora',Georgia,serif;text-transform:uppercase;color:#2a1d14}
+.bf-estado-musical .bf-estado-sub{font-size:clamp(14px,1.5vw,18px);margin-top:8px!important}
+.bf-estado-musical ul{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.bf-estado-musical ul li{display:flex;align-items:center;gap:14px;font-size:17px;line-height:1.4;color:#2a1d14}
+.bf-estado-musical .bf-estado-icone{width:42px;height:42px}
+.bf-estado-musical .bf-estado-icone svg{width:21px;height:21px}
+@media(max-width:767px){.bf-estado-musical{grid-template-columns:1fr}.bf-estado-musical-foto{min-height:0;max-height:none;aspect-ratio:1/1;height:auto;-webkit-mask-image:linear-gradient(180deg,#000 85%,transparent);mask-image:linear-gradient(180deg,#000 85%,transparent)}.bf-estado-musical-texto{border-left:0;padding:6px 18px 24px}.bf-estado-musical-selo{width:54px;height:54px}.bf-estado-musical-selo svg{width:27px;height:27px}.bf-estado-musical ul li{font-size:15px}.bf-estado-musical .bf-estado-icone{width:36px;height:36px}}
