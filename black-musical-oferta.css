@@ -454,3 +454,27 @@
 .bf-oferta-selo b{font:700 38px/1 'Lora',Georgia,serif;margin-bottom:2px}
 @media(max-width:767px){.bf-oferta-selo{top:-58px;right:-4px;width:96px;height:96px;font-size:13px}.bf-oferta-selo b{font-size:30px}.bf-oferta-preco{font-size:58px}.bf-ofertas-coluna:has(.bf-oferta--anual){margin-top:20px}}
 @media(min-width:768px){.bf-oferta-selo{right:auto;left:-30px;transform:rotate(-10deg)}}
+.bf-transforma{scroll-margin-top:24px}
+.bf-tema-capa{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;z-index:0}
+.bf-tema--capa:after{content:'';position:absolute;inset:0;z-index:0;background:linear-gradient(180deg,#2a1d1426 0%,#2a1d1433 35%,#2a1d14d9 72%,#2a1d14f2 100%)}
+.bf-tema--capa:before{z-index:1}
+.bf-tema>*:not(.bf-tema-capa){position:relative;z-index:1}
+.bf-tema>.bf-tema-play{position:absolute;z-index:2}
+/* v35 aulas tematicas minimalistas (sem foto) */
+.bf-tema:not(.bf-tema--capa){background:radial-gradient(60% 45% at 70% -5%,#f3d9a466,transparent 70%),radial-gradient(90% 60% at 50% 110%,#1a120c,transparent 70%),linear-gradient(170deg,#7a5733,#4a3320 55%,#2a1d14);border:1px solid #c6a87a40}
+.bf-tema:not(.bf-tema--capa):before{right:auto;left:-35%;top:-30%;width:115%;border:1.5px solid #e8cc9c4d}
+.bf-tema:not(.bf-tema--capa):nth-child(2):before{left:auto;right:-55%;top:-10%}
+.bf-tema:not(.bf-tema--capa):nth-child(3):before{left:10%;top:-55%;width:130%}
+.bf-tema:not(.bf-tema--capa):after{content:'';position:absolute;top:-20%;right:12%;width:38%;height:75%;background:linear-gradient(180deg,#f8e6c255,transparent);filter:blur(14px);transform:rotate(18deg);pointer-events:none}
+.bf-tema-play{box-shadow:0 6px 16px #160f0c55}
+.bf-tema-linha{display:block;width:26px;height:1px;background:#c9a466;margin-top:7px}
+.bf-tema strong{font-family:'Lora',Georgia,serif;font-weight:500;color:#fbf2e2}
+.bf-comunidade-visual .bf-tema-linha{width:18px;margin-top:5px}
+/* v36 trilha: mini cards das 6 fases */
+.bf-comunidade-visual:has(.bf-fases-mini){background:#efe4d3;height:auto;min-height:170px}
+.bf-fases-mini{list-style:none;margin:0;padding:12px;width:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.bf-fases-mini li{position:relative;aspect-ratio:4/5;border-radius:10px;overflow:hidden;box-shadow:0 6px 14px #2a1d1426}
+.bf-fases-mini img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 22%}
+.bf-fases-mini-texto{position:absolute;left:0;right:0;bottom:0;padding:16px 6px 7px;text-align:center;background:linear-gradient(180deg,transparent,#5a4126e6 45%,#4a3320f2);color:#fff8ec;display:grid;gap:1px}
+.bf-fases-mini-texto small{font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#f0d9ad}
+.bf-fases-mini-texto strong{font-size:9.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;line-height:1.15}

@@ -58,7 +58,12 @@ function Depoimentos() {
   return <section className="bf-proof" aria-labelledby="bf-proof-title"><div className="bf-proof-heading"><span className="bf-eyebrow">Depoimentos</span><h2 id="bf-proof-title">Quem já começou a viver <em>essa transformação</em></h2><p className="bf-proof-sub">Conheça as experiências de quem está desenvolvendo uma nova relação com a música, com o corpo e com a dança.</p><div className="bf-proof-controls"><button type="button" aria-label="Depoimento anterior" onClick={() => mover(-1)}>←</button><button type="button" aria-label="Próximo depoimento" onClick={() => mover(1)}>→</button></div></div><div ref={trilha} className="bf-proof-videos" tabIndex={0} aria-label="Depoimentos em vídeo, deslize para ver mais">{videosDepoimento.map(video => <div key={video.id} className="bf-proof-video"><vturb-smartplayer id={`vid-${video.id}`} style={{ display: 'block', margin: '0 auto', width: '100%', maxWidth: '400px' }}><div className="vturb-player-placeholder" style={{ position: 'relative', width: '100%', padding: `${video.proporcao} 0 0`, zIndex: 0, backgroundColor: 'black' }}></div></vturb-smartplayer></div>)}</div></section>
 }
 
-const aulasTematicas = ['Vergonha na Dança', 'Do Erro à Possibilidade', 'Como Quebrar Padrões']
+// Capas das aulas temáticas: quando tiver as imagens, importe e coloque no lugar do null.
+const aulasTematicas = [
+  { titulo: 'Vergonha na Dança', capa: null },
+  { titulo: 'Do Erro à Possibilidade', capa: null },
+  { titulo: 'Como Quebrar Padrões', capa: null },
+]
 
 function GrupoWhatsApp() {
   return <div className="bf-wpp" aria-label="Dados do grupo da comunidade no WhatsApp">
@@ -73,9 +78,10 @@ function GrupoWhatsApp() {
 }
 
 function AulasTematicas() {
-  return <ul className="bf-temas" aria-label="Aulas temáticas disponíveis">{aulasTematicas.map((aula, i) => <li key={aula} className="bf-tema">
+  return <ul className="bf-temas" aria-label="Aulas temáticas disponíveis">{aulasTematicas.map(({ titulo: aula, capa }, i) => <li key={aula} className={`bf-tema${capa ? ' bf-tema--capa' : ''}`}>
+    {capa && <img className="bf-tema-capa" src={capa} alt="" loading="lazy" decoding="async" />}
     <span className="bf-tema-play" aria-hidden="true">▶</span>
-    <small>Aula temática {String(i + 1).padStart(2, '0')}</small>
+    <small>Aula temática {String(i + 1).padStart(2, '0')}</small><i className="bf-tema-linha" aria-hidden="true" />
     <strong>{aula}</strong>
   </li>)}</ul>
 }
@@ -96,7 +102,7 @@ function Secao5() {
         <p className="bf-sentir-forte">Porque não basta compreender a música. É preciso aprender a dançá-la.</p></div>
       <img src={trilhaFase2} alt="" loading="lazy" decoding="async" />
     </div>
-    <div className="bf-transforma"><h3>Como o Corpo Musical transforma sua maneira de dançar?</h3><p className="bf-transforma-sub">Em vez de começar pelos passos, desenvolvemos as habilidades que permitem compreender a música e transformar o que você escuta em movimento.</p>
+    <div className="bf-transforma" id="como-transforma"><h3>Como o Corpo Musical transforma sua maneira de dançar?</h3><p className="bf-transforma-sub">Em vez de começar pelos passos, desenvolvemos as habilidades que permitem compreender a música e transformar o que você escuta em movimento.</p>
       <ul>{etapas.map(etapa => <li key={etapa.rotulo}><img src={etapa.foto} alt="" loading="lazy" decoding="async" /><div><small>{etapa.rotulo}</small><strong>{etapa.titulo}</strong><p>{etapa.texto}</p></div></li>)}</ul>
       <p className="bf-transforma-fim">O objetivo não é abandonar os passos. É deixar de depender exclusivamente deles para conseguir dançar.</p></div>
   </div></section>
@@ -104,7 +110,7 @@ function Secao5() {
 
 function Comunidade() {
   const cards = [
-    { rotulo: 'Fundamentos do método', titulo: 'Trilha de Aprendizagem', texto: 'Aulas gravadas organizadas nas seis fases do Corpo Musical para você desenvolver sua dança com profundidade e no seu ritmo.', itens: ['Compreenda a música e sua estrutura', 'Desenvolva recursos corporais e expressivos', 'Estude quando e quantas vezes quiser'], visual: 'modulos' },
+    { rotulo: 'Fundamentos do método', titulo: 'Trilha de Aprendizagem', texto: 'Aulas gravadas organizadas nas seis fases do Corpo Musical para você desenvolver sua dança com profundidade e no seu ritmo.', itens: ['Compreenda a música e sua estrutura', 'Desenvolva recursos corporais e expressivos', 'Estude quando e quantas vezes quiser'], visual: 'fases' },
     { rotulo: 'Prática + acompanhamento', titulo: 'Aulas Online ao Vivo', texto: 'Encontros semanais pelo Zoom para praticar, aprofundar e tirar dúvidas com a Chris, acompanhando sua evolução.', itens: ['Prática guiada em turma', 'Espaço para dúvidas e orientação', 'Gravações disponíveis para rever'], foto: encontrosAoVivo, contida: true },
     { rotulo: 'Aprofundamento presencial', titulo: 'MasterMove', texto: 'Acompanhe os encontros presenciais de aprofundamento por transmissão ao vivo ou gravação, mesmo à distância.', itens: ['Encontros presenciais realizados em São Paulo', 'Acesso online por transmissão', 'Gravações incluídas no plano'], foto: mastermoveNotebook, contida: true },
     { rotulo: 'Novos olhares sobre a dança', titulo: 'Aulas Temáticas', texto: 'Aprofunde assuntos específicos que ampliam sua compreensão sobre o corpo, a expressão, as relações e a vida.', itens: ['Temas especiais e aprofundamentos', 'Corpo, expressão, relação e vida', 'Novas perspectivas para sua dança'], visual: 'temas' },
@@ -115,7 +121,7 @@ function Comunidade() {
     <span className="bf-ofertas-eyebrow">Por dentro da comunidade</span>
     <h2 id="bf-comunidade-title">Diferentes formas de aprender. <em>Uma jornada para transformar sua dança.</em></h2>
     <div className="bf-comunidade-grid">{cards.map(card => <article key={card.titulo} className="bf-comunidade-card">
-      <div className={`bf-comunidade-visual${card.contida ? ' bf-comunidade-visual--contida' : ''}`}>{card.foto && <img src={card.foto} alt="" loading="lazy" decoding="async" />}{card.visual === 'modulos' && <ModulosTrilha />}{card.visual === 'temas' && <AulasTematicas />}{card.visual === 'whatsapp' && <GrupoWhatsAppMini />}</div>
+      <div className={`bf-comunidade-visual${card.contida ? ' bf-comunidade-visual--contida' : ''}`}>{card.foto && <img src={card.foto} alt="" loading="lazy" decoding="async" />}{card.visual === 'fases' && <FasesMini />}{card.visual === 'temas' && <AulasTematicas />}{card.visual === 'whatsapp' && <GrupoWhatsAppMini />}</div>
       <div className="bf-comunidade-corpo"><small>{card.rotulo}</small><h3>{card.titulo}</h3><p>{card.texto}</p><ul>{card.itens.map(item => <li key={item}><span aria-hidden="true">✓</span>{item}</li>)}</ul></div>
     </article>)}</div>
   </div></section>
@@ -128,6 +134,10 @@ const modulosTrilha = [
   ['Fase 3', 'Movimento | A Expressão', 3],
   ['Fase 4', 'Consciência Relacional', 13],
 ]
+
+function FasesMini() {
+  return <ol className="bf-fases-mini" aria-label="As 6 fases da trilha">{fases.map(item => <li key={item.fase}><img src={item.imagem} alt="" loading="lazy" decoding="async" /><span className="bf-fases-mini-texto"><small>Fase {item.fase}</small><strong>{item.titulo}</strong></span></li>)}</ol>
+}
 
 function ModulosTrilha() {
   return <ul className="bf-modulos" aria-label="Módulos da trilha na plataforma">{modulosTrilha.map(([fase, nome]) => <li key={nome}><span className="bf-modulos-fase">{fase}</span><strong>{nome}</strong></li>)}</ul>
@@ -274,7 +284,7 @@ export default function BlackMusicalOfertaLP() {
   }, [])
   return <main className="bf-page">
     <section className="bf-hero" id="inicio" style={{ backgroundImage: `linear-gradient(180deg, rgba(241,235,226,.9), rgba(241,235,226,.72) 45%, #f1ebe2), url(${fundoHero})` }}>
-      <div className="bf-hero-copy"><span className="bf-eyebrow">Black Musical · com Chris Busato</span><h1>Black <em>Musical.</em></h1><div className="bf-vsl"><vturb-smartplayer id="vid-6af4d1a9aafdc81a284bc770" style={{ display: 'block', margin: '0 auto', width: '100%', maxWidth: '400px' }}><div className="vturb-player-placeholder" style={{ position: 'relative', width: '100%', padding: '177.77777777777777% 0 0', zIndex: 0, backgroundColor: 'black' }}></div></vturb-smartplayer></div><a className="bf-button" href="#dentro">Quero fazer parte →</a><small>Uma jornada para dançar além dos passos.</small></div>
+      <div className="bf-hero-copy"><span className="bf-eyebrow">Black Musical · com Chris Busato</span><h1>Black <em>Musical.</em></h1><div className="bf-vsl"><vturb-smartplayer id="vid-6af4d1a9aafdc81a284bc770" style={{ display: 'block', margin: '0 auto', width: '100%', maxWidth: '400px' }}><div className="vturb-player-placeholder" style={{ position: 'relative', width: '100%', padding: '177.77777777777777% 0 0', zIndex: 0, backgroundColor: 'black' }}></div></vturb-smartplayer></div><a className="bf-button" href="#como-transforma">Quero fazer parte →</a><small>Uma jornada para dançar além dos passos.</small></div>
 
     </section>
     <section className="bf-story bf-story-intro"><div className="bf-story-inner"><span className="bf-eyebrow">Black Musical</span><h2>A dança é muito mais do que aprender passos.<br /><em className="bf-em-forte">Ela é sobre sentir e saber expressar.</em></h2><div className="bf-story-copy"><h3 className="bf-story-lead">Uma nova relação com a dança começa pela música e pela compreensão da sua estrutura.</h3><p><strong>Você não precisa acumular mais passos e sequências para conseguir improvisar, brincar com a música e desenvolver uma dança mais fluida.</strong></p><p>No Corpo Musical, você aprende a compreender a música e a desenvolver recursos próprios para construir uma dança mais livre, expressiva e musical.</p><p className="bf-story-emphasis"><strong>Um caminho que parte da música, e não dos passos.</strong></p><a className="bf-button" href="#dentro">Quero fazer parte</a></div></div></section>
