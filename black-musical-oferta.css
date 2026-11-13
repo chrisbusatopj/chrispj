@@ -497,3 +497,22 @@
 .bf-paraquem li:last-child:nth-child(odd){grid-column:1/-1;flex-direction:row;align-items:flex-start;justify-self:center;max-width:calc(50% + 120px);width:100%}
 .bf-paraquem strong span{display:block;margin:0 0 2px;font-size:13px;letter-spacing:.14em}
 @media(max-width:767px){.bf-story-copy ul.bf-paraquem{gap:10px}.bf-paraquem li{padding:14px 12px 16px;gap:10px;border-radius:14px}.bf-paraquem-icone{width:36px;height:36px}.bf-paraquem-icone svg{width:19px;height:19px}.bf-paraquem strong{font-size:14.5px;line-height:1.3}.bf-paraquem strong span{font-size:11px}.bf-paraquem p{font-size:13px;line-height:1.5;margin-top:5px!important}.bf-paraquem li:last-child:nth-child(odd){flex-direction:row;align-items:flex-start;max-width:none}}
+/* v43 os 4 estados do corpo */
+.bf-estados{padding:72px 24px 80px;background:#e7dfd2}
+.bf-estados-inner{max-width:1180px;margin:auto;text-align:center}
+.bf-estados h2{max-width:820px;margin:0 auto 40px!important;font-size:clamp(28px,3.4vw,42px);color:#2a1d14}
+.bf-estados h2 em{display:block;color:#8a6a3b}
+.bf-estados-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;grid-auto-flow:column;gap:18px;text-align:left}
+.bf-estado{display:grid;grid-template-columns:1fr 54%;align-items:end;background:#f6e7d8;border:1px solid #e3cfb0;border-radius:20px;overflow:hidden;box-shadow:0 12px 28px #2a1d1412;min-height:0}
+.bf-estado-texto{padding:22px 0 22px 22px;align-self:center;position:relative;z-index:1}
+.bf-estado-topo{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px}
+.bf-estado-num{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#e2c290,#b88a4e);color:#fff8ec;font:600 22px 'Lora',Georgia,serif}
+.bf-estado h3{font:600 21px/1.1 'Lora',Georgia,serif;text-transform:uppercase;letter-spacing:.01em;color:#2a1d14;margin-top:2px!important}
+.bf-estado-sub{margin-top:5px!important;font:600 13px/1.3 'Lora',Georgia,serif;text-transform:uppercase;letter-spacing:.03em;color:#9a7440}
+.bf-estado ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.bf-estado ul li{display:flex;align-items:center;gap:10px;font-size:14.5px;line-height:1.4;color:#3b2a1d}
+.bf-estado-icone{flex:none;width:34px;height:34px;border-radius:50%;background:#f0e1c8;color:#8a6a3b;display:grid;place-items:center}
+.bf-estado-icone svg{width:18px;height:18px}
+.bf-estado-foto{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:contain;object-position:center bottom;align-self:end;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%);mask-image:linear-gradient(90deg,transparent,#000 14%)}
+@media(max-width:899px){.bf-estados-grid{grid-template-columns:1fr;grid-template-rows:none;grid-auto-flow:row}}
+@media(max-width:767px){.bf-estados{padding:56px 16px 60px}.bf-estados h2{margin-bottom:28px!important}.bf-estado{grid-template-columns:1fr;min-height:0}.bf-estado-foto{order:-1;-webkit-mask-image:linear-gradient(180deg,#000 85%,transparent);mask-image:linear-gradient(180deg,#000 85%,transparent)}.bf-estado-texto{padding:4px 18px 22px}.bf-estado h3{font-size:19px}.bf-estado ul li{font-size:14px}}

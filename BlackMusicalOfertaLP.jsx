@@ -12,6 +12,10 @@ import trilhaFase5 from './images/trilha-final-fase-5.jpg'
 import trilhaFase6 from './images/trilha-final-fase-6.jpg'
 import sentirApoio from './images/sentir-apoio.webp'
 import bandaBaseMusical from './images/banda-base-musical.webp'
+import estado1 from './images/estado-1-racional.webp'
+import estado2 from './images/estado-2-dependente.webp'
+import estado3 from './images/estado-3-independente.webp'
+import estado4 from './images/estado-4-sensivel.webp'
 import { formatarTelefone, normalizarTelefone, telefoneValido } from './checkout/telefone.js'
 import './black-musical-oferta.css'
 
@@ -169,6 +173,42 @@ const paraQuem = [
   { titulo: 'Aproveitar e sentir mais cada dança', texto: 'Sentir-se mais seguro para experimentar, se conectar com a música e dialogar com o outro sem ficar o tempo todo preocupado em acertar.', icone: 'M12 20s-7-4.5-9-9a4.5 4.5 0 0 1 9-2 4.5 4.5 0 0 1 9 2c-2 4.5-9 9-9 9Z' },
 ]
 
+const icones = {
+  cerebro: 'M12 4.5a3.5 3.5 0 0 0-6.6 1.6A3.5 3.5 0 0 0 4 12.5a3.5 3.5 0 0 0 3 5.4A3 3 0 0 0 12 19.5zM12 4.5a3.5 3.5 0 0 1 6.6 1.6A3.5 3.5 0 0 1 20 12.5a3.5 3.5 0 0 1-3 5.4 3 3 0 0 1-5 1.6M12 4.5v15M8 9.5c1 0 2 .7 2 2M16 9.5c-1 0-2 .7-2 2',
+  lista: 'M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01',
+  escudo: 'M12 21.5s7.5-3.7 7.5-9.5V5.5L12 2.5l-7.5 3V12c0 5.8 7.5 9.5 7.5 9.5zM12 8.5v6M9 11.5h6',
+  pessoas: 'M8 8.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM16 8.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM4 20v-5.5a4 4 0 0 1 8 0V20M12 20v-5.5a4 4 0 0 1 8 0V20',
+  duvida: 'M9 9a3 3 0 1 1 4.5 2.6c-1 .6-1.5 1.2-1.5 2.4M12 18h.01',
+  correr: 'M14 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM6.5 21l3.5-6 3 2.5V21M10 15l1.5-6.5L16 12h3.5M6 11.5l3-3.5 3 .5',
+  andar: 'M12 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM12 8v6l-3 7M12 14l3 7M8 11.5l4-3.5 4 3.5',
+  raio: 'M13 2.5 4.5 13.5h7l-1 8 8.5-11h-7l1-8z',
+  elo: 'M10 13.5a4.5 4.5 0 0 0 6.8.5l2.7-2.7a4.5 4.5 0 0 0-6.4-6.4l-1.5 1.5M14 10.5a4.5 4.5 0 0 0-6.8-.5l-2.7 2.7a4.5 4.5 0 0 0 6.4 6.4l1.5-1.5',
+  coracao: 'M20.5 5a5 5 0 0 0-7.1 0L12 6.4 10.6 5a5 5 0 0 0-7.1 7.1L12 20.6l8.5-8.5a5 5 0 0 0 0-7.1z',
+  cadeado: 'M5.5 11h13v10h-13zM8.5 11V7.5a3.5 3.5 0 0 1 7 0V11M12 15v2',
+  bussola: 'M12 21.5a9.5 9.5 0 1 0 0-19 9.5 9.5 0 0 0 0 19zM15.5 8.5l-2 5-5 2 2-5z',
+}
+
+const estadosCorpo = [
+  { n: 1, titulo: 'Corpo Racional', sub: 'Organiza sem sentir', foto: estado1, itens: [['cerebro', 'Pensa demais e controla.'], ['lista', 'Foca em acertar e seguir regras.'], ['escudo', 'Tende à rigidez e à cobrança.']] },
+  { n: 2, titulo: 'Corpo Dependente', sub: 'Sem base própria', foto: estado2, itens: [['pessoas', 'Precisa do outro para se orientar.'], ['duvida', 'Dúvida constante e insegurança.'], ['correr', 'Espera, cede e se perde fácil.']] },
+  { n: 3, titulo: 'Corpo Independente', sub: '', foto: estado3, itens: [['andar', 'Mais focada em si, percebe pouco o outro.'], ['raio', 'Sabe se mover e tem recursos.'], ['elo', 'Desconecta do par, da música e do todo.']] },
+  { n: 4, titulo: 'Sensível Desorganizado', sub: 'Sente, mas não sustenta o que sente.', foto: estado4, itens: [['coracao', 'Sente intensamente e se entrega.'], ['cadeado', 'Se sente reprimida quando está com o outro.'], ['bussola', 'Se perde, se desorienta e não encontra direção.']] },
+]
+
+function EstadosCorpo() {
+  return <section className="bf-estados" aria-labelledby="bf-estados-title"><div className="bf-estados-inner">
+    <span className="bf-eyebrow">Os 4 estados do corpo na dança</span>
+    <h2 id="bf-estados-title">Não são tipos de pessoas. <em>São estados que todos nós acessamos.</em></h2>
+    <ol className="bf-estados-grid">{estadosCorpo.map(e => <li key={e.n} className="bf-estado">
+      <div className="bf-estado-texto">
+        <div className="bf-estado-topo"><span className="bf-estado-num">{e.n}</span><div><h3>{e.titulo}</h3>{e.sub && <p className="bf-estado-sub">{e.sub}</p>}</div></div>
+        <ul>{e.itens.map(([icone, texto]) => <li key={texto}><span className="bf-estado-icone" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d={icones[icone]} /></svg></span>{texto}</li>)}</ul>
+      </div>
+      <img className="bf-estado-foto" src={e.foto} alt="" loading="lazy" decoding="async" />
+    </li>)}</ol>
+  </div></section>
+}
+
 function ParaQuem() {
   return <ul className="bf-paraquem">{paraQuem.map((item, i) => <li key={item.titulo}>
     <span className="bf-paraquem-icone" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d={item.icone} /></svg></span>
@@ -290,6 +330,7 @@ export default function BlackMusicalOfertaLP() {
 
     </section>
     <section className="bf-story bf-story-intro"><div className="bf-story-inner"><span className="bf-eyebrow">Black Musical</span><h2>A dança é muito mais do que aprender passos.<br /><em className="bf-em-forte">Ela é sobre sentir e saber expressar.</em></h2><div className="bf-story-copy"><h3 className="bf-story-lead">Uma nova relação com a dança começa pela música e pela compreensão da sua estrutura.</h3><p><strong>Você não precisa acumular mais passos e sequências para conseguir improvisar, brincar com a música e desenvolver uma dança mais fluida.</strong></p><p>No Corpo Musical, você aprende a compreender a música e a desenvolver recursos próprios para construir uma dança mais livre, expressiva e musical.</p><p className="bf-story-emphasis"><strong>Um caminho que parte da música, e não dos passos.</strong></p><a className="bf-button" href="#dentro">Quero fazer parte</a></div></div></section>
+    <EstadosCorpo />
     <section className="bf-story bf-story-question"><div className="bf-story-inner"><h2>Aprender mais passos não necessariamente vai te levar a uma <em>dança mais musical.</em></h2><div className="bf-story-copy"><h3>Você já sentiu que...</h3><ul><li>Conhece vários passos, mas acaba repetindo sempre as mesmas sequências?</li><li>Tem dificuldade para acompanhar a música e perceber o momento certo de se movimentar?</li><li>Gostaria de improvisar e brincar com a música, mas não sabe por onde começar?</li><li>Fica tão preocupado em acertar que acaba deixando de aproveitar a dança?</li><li>Sente que depende dos passos ou da outra pessoa para conseguir continuar dançando?</li></ul><p><strong>Aprender mais passos não significa, necessariamente, desenvolver uma dança mais musical.</strong></p><p>Existe uma diferença entre saber reproduzir movimentos e compreender a música para encontrar suas próprias possibilidades de movimento.</p></div></div></section>
     <section className="bf-story bf-story-for"><div className="bf-story-inner"><h2>O Corpo Musical não é para quem deseja apenas copiar e executar passos.<em>É para quem quer compreender a linguagem da dança e desenvolver recursos próprios para se movimentar com mais liberdade.</em></h2><div className="bf-story-copy"><h3>É para você que deseja:</h3><ParaQuem /></div></div></section>
     <section className="bf-base" aria-labelledby="bf-base-title"><div className="bf-base-inner">
