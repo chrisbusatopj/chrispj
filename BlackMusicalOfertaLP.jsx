@@ -104,7 +104,7 @@ function Secao5() {
 
 function Comunidade() {
   const cards = [
-    { rotulo: 'Fundamentos do método', titulo: 'Trilha de Aprendizagem', texto: 'Aulas gravadas organizadas nas seis fases do Corpo Musical para você desenvolver sua dança com profundidade e no seu ritmo.', itens: ['Compreenda a música e sua estrutura', 'Desenvolva recursos corporais e expressivos', 'Estude quando e quantas vezes quiser'], foto: trilhaFase1 },
+    { rotulo: 'Fundamentos do método', titulo: 'Trilha de Aprendizagem', texto: 'Aulas gravadas organizadas nas seis fases do Corpo Musical para você desenvolver sua dança com profundidade e no seu ritmo.', itens: ['Compreenda a música e sua estrutura', 'Desenvolva recursos corporais e expressivos', 'Estude quando e quantas vezes quiser'], visual: 'modulos' },
     { rotulo: 'Prática + acompanhamento', titulo: 'Aulas Online ao Vivo', texto: 'Encontros semanais pelo Zoom para praticar, aprofundar e tirar dúvidas com a Chris, acompanhando sua evolução.', itens: ['Prática guiada em turma', 'Espaço para dúvidas e orientação', 'Gravações disponíveis para rever'], foto: encontrosAoVivo, contida: true },
     { rotulo: 'Aprofundamento presencial', titulo: 'MasterMove', texto: 'Acompanhe os encontros presenciais de aprofundamento por transmissão ao vivo ou gravação, mesmo à distância.', itens: ['Encontros presenciais realizados em São Paulo', 'Acesso online por transmissão', 'Gravações incluídas no plano'], foto: mastermoveNotebook, contida: true },
     { rotulo: 'Novos olhares sobre a dança', titulo: 'Aulas Temáticas', texto: 'Aprofunde assuntos específicos que ampliam sua compreensão sobre o corpo, a expressão, as relações e a vida.', itens: ['Temas especiais e aprofundamentos', 'Corpo, expressão, relação e vida', 'Novas perspectivas para sua dança'], visual: 'temas' },
@@ -115,10 +115,22 @@ function Comunidade() {
     <span className="bf-ofertas-eyebrow">Por dentro da comunidade</span>
     <h2 id="bf-comunidade-title">Diferentes formas de aprender. <em>Uma jornada para transformar sua dança.</em></h2>
     <div className="bf-comunidade-grid">{cards.map(card => <article key={card.titulo} className="bf-comunidade-card">
-      <div className={`bf-comunidade-visual${card.contida ? ' bf-comunidade-visual--contida' : ''}`}>{card.foto && <img src={card.foto} alt="" loading="lazy" decoding="async" />}{card.visual === 'temas' && <AulasTematicas />}{card.visual === 'whatsapp' && <GrupoWhatsAppMini />}</div>
+      <div className={`bf-comunidade-visual${card.contida ? ' bf-comunidade-visual--contida' : ''}`}>{card.foto && <img src={card.foto} alt="" loading="lazy" decoding="async" />}{card.visual === 'modulos' && <ModulosTrilha />}{card.visual === 'temas' && <AulasTematicas />}{card.visual === 'whatsapp' && <GrupoWhatsAppMini />}</div>
       <div className="bf-comunidade-corpo"><small>{card.rotulo}</small><h3>{card.titulo}</h3><p>{card.texto}</p><ul>{card.itens.map(item => <li key={item}><span aria-hidden="true">✓</span>{item}</li>)}</ul></div>
     </article>)}</div>
   </div></section>
+}
+
+const modulosTrilha = [
+  ['Fase 1', 'Musicalização', 6],
+  ['Fase 1', 'Musicalidade', 45],
+  ['Fase 2', 'Percepção Corporal', 21],
+  ['Fase 3', 'Movimento | A Expressão', 3],
+  ['Fase 4', 'Consciência Relacional', 13],
+]
+
+function ModulosTrilha() {
+  return <ul className="bf-modulos" aria-label="Módulos da trilha na plataforma">{modulosTrilha.map(([fase, nome, total]) => <li key={nome}><span className="bf-modulos-fase">{fase}</span><strong>{nome}</strong><small>{total} {total === 1 ? 'conteúdo' : 'conteúdos'}</small></li>)}</ul>
 }
 
 function GrupoWhatsAppMini() {
