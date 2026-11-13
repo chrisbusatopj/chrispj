@@ -10,6 +10,8 @@ import trilhaFase3 from './images/trilha-final-fase-3.jpg'
 import trilhaFase4 from './images/trilha-final-fase-4.jpg'
 import trilhaFase5 from './images/trilha-final-fase-5.jpg'
 import trilhaFase6 from './images/trilha-final-fase-6.jpg'
+import sentirApoio from './images/sentir-apoio.webp'
+import bandaBaseMusical from './images/banda-base-musical.webp'
 import { formatarTelefone, normalizarTelefone, telefoneValido } from './checkout/telefone.js'
 import './black-musical-oferta.css'
 
@@ -86,8 +88,8 @@ function AulasTematicas() {
   </li>)}</ul>
 }
 
-// Foto da banda da Sessão 4. Deixe null até ter uma imagem própria (sem marca d'água de terceiros).
-const imagemBanda = null
+// Foto da banda da Sessão 4.
+const imagemBanda = bandaBaseMusical
 
 function Secao5() {
   const etapas = [
@@ -100,7 +102,7 @@ function Secao5() {
       <div className="bf-sentir-texto"><span className="bf-sentir-linha" aria-hidden="true" /><h2 id="bf-sentir-title">Aqui, sentir e compreender <em>caminham juntos.</em></h2><p>No Corpo Musical, você desenvolve conhecimentos e habilidades para transformar aquilo que escuta, compreende e sente em novas possibilidades de movimento.</p>
         <div className="bf-sentir-chips"><span><b>Compreensão</b><small>a técnica</small></span><i aria-hidden="true">+</i><span><b>Experiência</b><small>a sensibilidade</small></span></div>
         <p className="bf-sentir-forte">Porque não basta compreender a música. É preciso aprender a dançá-la.</p></div>
-      <img src={trilhaFase2} alt="" loading="lazy" decoding="async" />
+      <img className="bf-sentir-apoio" src={sentirApoio} alt="" loading="lazy" decoding="async" />
     </div>
     <div className="bf-transforma" id="como-transforma"><h3>Como o Corpo Musical transforma sua maneira de dançar?</h3><p className="bf-transforma-sub">Em vez de começar pelos passos, desenvolvemos as habilidades que permitem compreender a música e transformar o que você escuta em movimento.</p>
       <ul>{etapas.map(etapa => <li key={etapa.rotulo}><img src={etapa.foto} alt="" loading="lazy" decoding="async" /><div><small>{etapa.rotulo}</small><strong>{etapa.titulo}</strong><p>{etapa.texto}</p></div></li>)}</ul>
