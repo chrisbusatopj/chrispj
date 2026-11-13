@@ -130,7 +130,7 @@ const modulosTrilha = [
 ]
 
 function ModulosTrilha() {
-  return <ul className="bf-modulos" aria-label="Módulos da trilha na plataforma">{modulosTrilha.map(([fase, nome, total]) => <li key={nome}><span className="bf-modulos-fase">{fase}</span><strong>{nome}</strong><small>{total} {total === 1 ? 'conteúdo' : 'conteúdos'}</small></li>)}</ul>
+  return <ul className="bf-modulos" aria-label="Módulos da trilha na plataforma">{modulosTrilha.map(([fase, nome]) => <li key={nome}><span className="bf-modulos-fase">{fase}</span><strong>{nome}</strong></li>)}</ul>
 }
 
 function GrupoWhatsAppMini() {
