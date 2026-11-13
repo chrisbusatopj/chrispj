@@ -240,3 +240,196 @@
 .bf-wpp-descricao p span{color:#25d366;font-weight:600}
 .bf-wpp-membros{text-align:left;margin-top:16px!important;font-size:13px;color:#8696a0}
 @media(max-width:767px){.bf-wpp{max-width:330px;padding:18px 18px 20px}.bf-wpp-comunidade{margin:16px -18px 0;padding:12px 18px}.bf-wpp-avatar{width:104px;height:104px}.bf-wpp-nome{font-size:20px}}
+/* Briefing: título sem caixa alta/itálico */
+.bf-story h2 em.bf-em-forte{font-style:normal;font-weight:700}
+.bf-story-copy .bf-story-lead{font:500 clamp(20px,2.2vw,26px)/1.4 'Playfair Display',Georgia,serif;color:#342317;margin-bottom:22px}
+/* Para quem é — cards com ícones */
+.bf-paraquem{list-style:none;padding:0!important;margin:0!important;display:grid;gap:14px;text-align:left}
+.bf-paraquem li{display:flex;gap:16px;align-items:flex-start;background:#fffbf5;border:1px solid #e3d6c3;border-radius:16px;padding:18px 20px;margin:0!important}
+.bf-paraquem li::marker{content:''}
+.bf-paraquem-icone{flex:none;width:46px;height:46px;border-radius:50%;background:#f1e4cf;color:#8a6a3b;display:grid;place-items:center}
+.bf-paraquem-icone svg{width:24px;height:24px}
+.bf-paraquem strong{display:block;font-size:17px;color:#342317;line-height:1.35}
+.bf-paraquem strong span{color:#8a6a3b;font-weight:600;letter-spacing:.06em;margin-right:4px}
+.bf-paraquem p{margin-top:6px!important;font-size:15px;line-height:1.6;color:#655646}
+/* Entregáveis: subtítulo e destaque */
+.bf-deliverable-copy h3 small{display:block;margin-top:6px;font:italic 400 .62em/1.3 'Playfair Display',Georgia,serif;color:#8a6a3b}
+.bf-deliverable-copy p+p{margin-top:12px}
+.bf-deliverable-copy .bf-deliverable-destaque{font-weight:700;color:#342317}
+.bf-jornada{max-width:760px;margin:64px auto 0;padding:36px 32px;background:#f5efe5;border-radius:22px;text-align:center}
+.bf-jornada h3{font-size:clamp(26px,3vw,34px);margin-bottom:22px}
+.bf-jornada ul{list-style:none;padding:0;margin:0 0 22px;display:grid;gap:10px;font-size:17px;color:#5e4e41}
+.bf-jornada strong{color:#342317}
+.bf-jornada p{font-size:16px;line-height:1.7;color:#655646;max-width:600px;margin:0 auto}
+/* Ofertas: subtítulo */
+.bf-offer-sub{margin:18px auto 0!important;max-width:640px;font-size:18px;font-weight:700;color:#f3e3c4}
+/* FAQ */
+.bf-faq{padding:80px 24px;background:#f5efe5}
+.bf-faq-inner{max-width:820px;margin:auto;text-align:center}
+.bf-faq h2{margin-bottom:36px}
+.bf-faq-lista{display:grid;gap:12px;text-align:left}
+.bf-faq details{background:#fffdf9;border:1px solid #e3d6c3;border-radius:14px;padding:0 22px}
+.bf-faq summary{cursor:pointer;list-style:none;display:flex;gap:14px;align-items:baseline;padding:20px 28px 20px 0;position:relative;font-weight:700;font-size:17px;color:#342317;line-height:1.4}
+.bf-faq summary::-webkit-details-marker{display:none}
+.bf-faq summary span{color:#8a6a3b;font-size:13px;letter-spacing:.08em;flex:none}
+.bf-faq summary:after{content:'+';position:absolute;right:0;top:16px;font-size:24px;color:#8a6a3b;transition:transform .2s}
+.bf-faq details[open] summary:after{transform:rotate(45deg)}
+.bf-faq details>div{padding:0 0 20px 36px}
+.bf-faq details p{font-size:16px;line-height:1.7;color:#5e4e41}
+.bf-faq details p+p{margin-top:12px}
+/* Aceite dos termos */
+.bf-termos{display:flex!important;gap:10px;align-items:flex-start;font-weight:400!important;font-size:13px!important}
+.bf-termos input{width:18px!important;height:18px;flex:none;margin-top:2px;padding:0!important}
+.bf-termos a{color:#8a6a3b;text-decoration:underline}
+@media(max-width:767px){.bf-paraquem li{padding:16px;gap:12px}.bf-paraquem-icone{width:40px;height:40px}.bf-paraquem strong{font-size:16px}.bf-jornada{padding:28px 20px;margin-top:48px}.bf-jornada ul{font-size:16px}.bf-faq{padding:56px 18px}.bf-faq details{padding:0 16px}.bf-faq summary{font-size:16px}.bf-faq details>div{padding-left:0}}
+.bf-story-copy ul.bf-paraquem{display:grid;width:100%;max-width:none}
+/* Ofertas — versão do briefing (fundo claro) */
+.bf-ofertas{padding:80px 24px 64px;background:radial-gradient(90% 60% at 50% 0%,#fbf4e8,transparent 70%),linear-gradient(180deg,#f3e9da,#eadcc6);scroll-margin-top:24px}
+.bf-ofertas-head{max-width:860px;margin:0 auto 44px;text-align:center}
+.bf-ofertas-eyebrow{display:inline-flex;align-items:center;gap:14px;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#6e5230}
+.bf-ofertas-eyebrow:before,.bf-ofertas-eyebrow:after{content:'';width:36px;height:1px;background:#8a6a3b80}
+.bf-ofertas-head h2{margin-top:16px!important;font-size:clamp(32px,4vw,52px);color:#2a1d14}
+.bf-ofertas-head h2 em{display:block;margin-top:6px;font-size:.62em;color:#8a6a3b}
+.bf-ofertas-head p{margin-top:16px!important;font-size:16px;color:#5e4e41}
+.bf-ofertas-grid{max-width:960px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:start}
+.bf-ofertas-coluna{display:flex;flex-direction:column;gap:16px}
+.bf-oferta{position:relative;border-radius:22px;padding:38px 30px 26px;text-align:center;background:linear-gradient(180deg,#fbf5ec,#f3e7d6);border:1px solid #e1cfb4;box-shadow:0 18px 40px #2a1d141f;color:#2a1d14}
+.bf-oferta--anual{background:radial-gradient(100% 60% at 50% 0%,#6a4a2c,transparent 70%),linear-gradient(170deg,#4a321f,#2e2015);border:2px solid #d8b779;color:#fff8ec}
+.bf-oferta-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#e8cc9c,#c9a466);color:#2a1d14;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;border-radius:999px}
+.bf-oferta-selo{position:absolute;top:-22px;right:-16px;width:84px;height:84px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f6e4bf,#c9a466);color:#2a1d14;display:grid;place-content:center;font:italic 600 12px/1.05 'Playfair Display',Georgia,serif;text-align:center;box-shadow:0 8px 18px #160f1340;transform:rotate(10deg)}
+.bf-oferta-selo b{display:block;font:700 22px/1 'Playfair Display',Georgia,serif;font-style:normal}
+.bf-oferta h3{font-size:26px;font-weight:500}
+.bf-oferta-preco{margin-top:12px;font:600 64px/1 'Playfair Display',Georgia,serif;letter-spacing:-.02em}
+.bf-oferta-preco span{font-size:26px;margin-right:6px;vertical-align:.7em}
+.bf-oferta-preco small{font-size:26px;font-weight:400}
+.bf-oferta-duracao{display:inline-block;margin-top:18px;padding:8px 22px;border-radius:999px;background:#ead9bd;color:#2a1d14}
+.bf-oferta-duracao strong{font:600 18px 'Playfair Display',Georgia,serif}
+.bf-oferta-duracao--anual{display:block;border-radius:12px;background:linear-gradient(180deg,#fbf0dc,#ecd5ab);padding:12px 16px}
+.bf-oferta-duracao--anual strong{display:block;font-size:20px}
+.bf-oferta-duracao small{display:block;font:italic 13px 'Playfair Display',Georgia,serif;color:#5e4e41}
+.bf-oferta-resumo{margin:14px auto 0!important;max-width:300px;font:italic 15px/1.5 'Playfair Display',Georgia,serif;color:#6e5a48}
+.bf-oferta--anual .bf-oferta-resumo{color:#ecdcc2}
+.bf-oferta ul{list-style:none;margin:22px auto 26px;padding:0;max-width:320px;text-align:left;display:grid;gap:10px;font-size:15px}
+.bf-oferta li{display:flex;gap:10px}
+.bf-oferta li span{color:#b08a4f;font-weight:700}
+.bf-oferta--anual li span{color:#e8cc9c}
+.bf-oferta-botao{width:100%;border:0;border-radius:10px;padding:17px 18px;font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:linear-gradient(180deg,#6a4a2c,#4a321f);color:#fff8ec;cursor:pointer;transition:transform .2s,filter .2s}
+.bf-oferta--anual .bf-oferta-botao{background:linear-gradient(180deg,#f3d9a4,#c9a466);color:#2a1d14}
+.bf-oferta-botao:hover{transform:translateY(-2px);filter:brightness(1.05)}
+.bf-oferta-nota{margin-top:14px!important;font:italic 13px/1.4 'Playfair Display',Georgia,serif;color:#7a6654}
+.bf-oferta--anual .bf-oferta-nota{color:#d9c6a6}
+.bf-aluno-box{background:#f7f0e5;border:3px solid #2a1d14;border-radius:14px;padding:18px 20px;text-align:center;color:#2a1d14}
+.bf-aluno-box>span{display:block;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#8a6a3b}
+.bf-aluno-box strong{display:block;margin-top:6px;font-size:15px}
+.bf-aluno-box button{width:100%;margin-top:14px;border:1px solid #8a6a3b;border-radius:999px;background:transparent;padding:12px 16px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#4a3320;cursor:pointer}
+.bf-aluno-box button:hover{background:#2a1d14;color:#fff8ec}
+.bf-aluno-box small{display:block;margin-top:10px;font-size:12px;color:#7a6654}
+.bf-ofertas-rodape{max-width:760px;margin:36px auto 0!important;text-align:center;font-size:14px;line-height:1.7;color:#6e5a48}
+@media(max-width:767px){.bf-ofertas{padding:56px 18px 48px}.bf-ofertas-grid{grid-template-columns:1fr;gap:40px}.bf-oferta{padding:34px 22px 22px}.bf-oferta-preco{font-size:56px}.bf-oferta-selo{right:-6px;width:74px;height:74px}.bf-ofertas-eyebrow{font-size:10px;gap:8px}.bf-ofertas-eyebrow:before,.bf-ofertas-eyebrow:after{width:18px}}
+.bf-ofertas-grid{align-items:stretch}.bf-ofertas-coluna .bf-oferta{flex:1;display:flex;flex-direction:column}.bf-oferta ul{flex:1;align-content:start}
+@media(max-width:767px){.bf-oferta-botao{font-size:13px;letter-spacing:.04em;padding:16px 12px}}
+.bf-oferta>.bf-oferta-duracao:not(.bf-oferta-duracao--anual){align-self:center}
+/* Sessão 4 — Base Musical */
+.bf-base{padding:84px 24px;background:#fff}
+.bf-base-inner{max-width:780px;margin:auto;text-align:center}
+.bf-base-pergunta{font-size:clamp(18px,2vw,22px);font-weight:700;color:#5e4e41;max-width:640px;margin:0 auto 14px!important}
+.bf-base h2{font-size:clamp(30px,3.6vw,46px);margin-bottom:40px}
+.bf-base-card{background:#f3ebe0;border-radius:22px;padding:32px 28px 30px;box-shadow:0 14px 34px #2a1d1414}
+.bf-base-card h3{font:600 clamp(20px,2.2vw,26px)/1.3 'DM Sans',sans-serif;color:#2a1d14;margin-bottom:22px}
+.bf-base-foto{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:16px;margin-bottom:26px}
+.bf-base-card blockquote{margin:0;padding:0}
+.bf-base-card blockquote>span{display:block;font:400 54px/1 'Playfair Display',Georgia,serif;color:#b08a4f;height:30px}
+.bf-base-card blockquote strong{display:block;font:italic 600 21px 'Playfair Display',Georgia,serif;color:#2a1d14;margin-bottom:12px}
+.bf-base-card blockquote p{font-size:16px;line-height:1.6;color:#4e3f33}
+.bf-base-card blockquote p+p{margin-top:8px}
+.bf-base-virada{margin:24px 0 18px!important;padding-top:22px;border-top:1px solid #c9b08a80;font:italic 600 20px 'Playfair Display',Georgia,serif;color:#2a1d14}
+.bf-base-destaque{background:#2a1d14;color:#fff8ec;border-radius:16px;padding:22px 22px 20px}
+.bf-base-destaque strong{display:block;font-size:19px;margin-bottom:8px}
+.bf-base-destaque p{font-size:15px;line-height:1.6;color:#e9dcc6}
+@media(max-width:767px){.bf-base{padding:56px 18px}.bf-base-card{padding:24px 18px 22px}.bf-base h2{margin-bottom:28px}}
+/* Sessão 5 — sentir e compreender */
+.bf-sentir{padding:80px 24px;background:#f6efe5}
+.bf-sentir-inner{max-width:980px;margin:auto}
+.bf-sentir-banner{display:grid;grid-template-columns:1.15fr .85fr;align-items:stretch;background:linear-gradient(120deg,#fbf3e7,#efdfc6);border-radius:24px;overflow:hidden;box-shadow:0 16px 36px #2a1d141a}
+.bf-sentir-texto{padding:40px 36px;text-align:left}
+.bf-sentir-linha{display:block;width:44px;height:2px;background:#c9a466;margin-bottom:18px}
+.bf-sentir h2{font-size:clamp(28px,3.4vw,42px);line-height:1.15;color:#2a1d14}
+.bf-sentir h2 em{display:block}
+.bf-sentir-texto>p{margin-top:16px!important;font-size:16px;line-height:1.65;color:#5e4e41}
+.bf-sentir-chips{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:20px}
+.bf-sentir-chips span{display:flex;flex-direction:column;background:#f3e3c4;border-radius:999px;padding:8px 18px;line-height:1.15}
+.bf-sentir-chips b{font-size:14px;color:#2a1d14}
+.bf-sentir-chips small{font:italic 12px 'Playfair Display',Georgia,serif;color:#6e5230}
+.bf-sentir-chips i{font-style:normal;font-size:20px;color:#8a6a3b}
+.bf-sentir-texto .bf-sentir-forte{font-weight:700;color:#2a1d14}
+.bf-sentir-banner img{width:100%;height:100%;min-height:320px;object-fit:cover;object-position:center 20%}
+.bf-transforma{margin-top:44px;background:#fffdf9;border:1px solid #e3d6c3;border-radius:22px;padding:34px 30px;text-align:center}
+.bf-transforma h3{font-size:clamp(24px,2.6vw,32px)}
+.bf-transforma-sub{max-width:620px;margin:12px auto 0!important;font-size:15px;line-height:1.6;color:#655646}
+.bf-transforma ul{list-style:none;padding:0;margin:28px 0 0;text-align:left}
+.bf-transforma li{display:flex;gap:20px;align-items:center;padding:20px 0;border-top:1px solid #eadfcf}
+.bf-transforma li img{flex:none;width:120px;height:120px;border-radius:16px;object-fit:cover;object-position:center 25%}
+.bf-transforma li small{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#8a6a3b}
+.bf-transforma li strong{display:block;margin-top:4px;font-size:18px;color:#2a1d14;line-height:1.35}
+.bf-transforma li p{margin-top:6px!important;font-size:15px;line-height:1.6;color:#5e4e41}
+.bf-transforma-fim{margin-top:18px!important;padding-top:20px;border-top:1px solid #eadfcf;font:italic 18px/1.5 'Playfair Display',Georgia,serif;color:#2a1d14}
+/* Sessão 6 — Mapa da Dança */
+.bf-mapa>p strong{color:#2a1d14}
+/* Sessões x e 7 — comunidade em cards */
+.bf-comunidade{padding:84px 24px;background:linear-gradient(180deg,#f3e9da,#efe3d1);text-align:center}
+.bf-comunidade-inner{max-width:1080px;margin:auto}
+.bf-comunidade-intro{max-width:720px;margin:0 auto 52px;background:#fffdf9;border:1px solid #e3d6c3;border-radius:18px;padding:24px 26px}
+.bf-comunidade-intro strong{display:block;font:600 22px 'Playfair Display',Georgia,serif;color:#2a1d14}
+.bf-comunidade-intro p{margin-top:10px!important;font-size:15px;line-height:1.6;color:#5e4e41}
+.bf-comunidade-intro b{color:#2a1d14}
+.bf-comunidade h2{margin-top:14px!important;font-size:clamp(28px,3.4vw,42px);color:#2a1d14}
+.bf-comunidade h2 em{display:block}
+.bf-comunidade-grid{margin-top:40px;display:grid;grid-template-columns:repeat(6,1fr);gap:20px;text-align:left}
+.bf-comunidade-card{grid-column:span 2;display:flex;flex-direction:column;background:#fbf6ee;border:1px solid #e3d6c3;border-radius:18px;overflow:hidden;box-shadow:0 12px 26px #2a1d1414}
+.bf-comunidade-card:nth-child(4){grid-column:2 / span 2}.bf-comunidade-card:nth-child(5){grid-column:4 / span 2}
+.bf-comunidade-visual{height:170px;background:#2a1d14;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.bf-comunidade-visual img{width:100%;height:100%;object-fit:cover;object-position:center 25%}
+.bf-comunidade-visual--contida{background:#f3ebe0}
+.bf-comunidade-visual--contida img{object-fit:contain;object-position:center}
+.bf-comunidade-visual .bf-temas{width:100%;padding:12px;gap:8px}
+.bf-comunidade-visual .bf-tema{aspect-ratio:auto;height:146px;padding:12px 10px;border-radius:12px}
+.bf-comunidade-visual .bf-tema-play{top:10px;left:10px;width:26px;height:26px;font-size:9px}
+.bf-comunidade-visual .bf-tema small{font-size:7.5px;letter-spacing:.08em}
+.bf-comunidade-visual .bf-tema strong{font-size:13px;margin-top:4px}
+.bf-wpp-mini{display:flex;align-items:center;gap:12px;background:#111b21;color:#e9edef;border-radius:14px;padding:14px 16px;margin:0 16px;text-align:left;font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif}
+.bf-wpp-mini img{width:54px;height:54px;border-radius:50%;object-fit:cover;flex:none}
+.bf-wpp-mini strong{display:block;font-size:15px;font-weight:500}
+.bf-wpp-mini small{display:block;margin-top:3px;font-size:12px;color:#8696a0;line-height:1.35}
+.bf-comunidade-corpo{padding:20px 20px 22px}
+.bf-comunidade-corpo small{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#8a6a3b}
+.bf-comunidade-corpo h3{margin-top:6px;font-size:22px;color:#2a1d14}
+.bf-comunidade-corpo p{margin-top:8px!important;font-size:14px;line-height:1.55;color:#5e4e41}
+.bf-comunidade-corpo ul{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:7px;font-size:13.5px;color:#3d2f24}
+.bf-comunidade-corpo li{display:flex;gap:8px}
+.bf-comunidade-corpo li span{flex:none;width:18px;height:18px;border-radius:50%;background:#b08a4f;color:#fff;font-size:10px;display:grid;place-items:center;margin-top:1px}
+/* Sessão 7.1 — passos */
+.bf-passos{padding:76px 24px;background:#fbf6ee;text-align:center}
+.bf-passos-inner{max-width:920px;margin:auto}
+.bf-passos h2{margin-top:12px!important;font-size:clamp(30px,3.6vw,44px)}
+.bf-passos-inner>p{margin-top:8px!important;font-size:16px;color:#5e4e41}
+.bf-passos ol{list-style:none;padding:0;margin:34px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;counter-reset:none}
+.bf-passos li{position:relative;background:#f3e9da;border-radius:18px;padding:34px 20px 22px}
+.bf-passos li+li:before{content:'→';position:absolute;left:-17px;top:50%;transform:translateY(-50%);color:#8a6a3b;font-size:18px}
+.bf-passos-numero{position:absolute;top:-16px;left:50%;transform:translateX(-50%);width:32px;height:32px;border-radius:50%;background:#8a6a3b;color:#fff;font-weight:700;display:grid;place-items:center}
+.bf-passos svg{width:34px;height:34px;color:#2a1d14}
+.bf-passos li strong{display:block;margin-top:10px;font-size:17px;color:#2a1d14}
+.bf-passos li p{margin-top:6px!important;font-size:14px;line-height:1.55;color:#5e4e41}
+/* Depoimentos — subtítulo */
+.bf-proof-sub{max-width:620px;margin:12px auto 0!important;font-size:16px;line-height:1.6;color:#5e4e41}
+/* Ponte antes das ofertas */
+.bf-ponte{padding:64px 24px 8px;background:linear-gradient(180deg,#e7dfd2,#f3e9da);text-align:center}
+.bf-ponte-inner{max-width:720px;margin:auto}
+.bf-ponte h2{font-size:clamp(28px,3.4vw,42px)}
+.bf-ponte p{margin-top:14px!important;font-size:17px;line-height:1.7;color:#5e4e41}
+.bf-ponte strong{color:#2a1d14}
+@media(max-width:767px){
+.bf-sentir{padding:52px 16px}.bf-sentir-banner{grid-template-columns:1fr}.bf-sentir-banner img{min-height:0;height:260px;order:-1}.bf-sentir-texto{padding:26px 20px}
+.bf-transforma{padding:24px 16px}.bf-transforma li{gap:14px;align-items:flex-start}.bf-transforma li img{width:84px;height:84px;border-radius:12px}.bf-transforma li strong{font-size:16px}.bf-transforma li p{font-size:14px}
+.bf-comunidade{padding:56px 16px}.bf-comunidade-grid{grid-template-columns:1fr;gap:18px}.bf-comunidade-card,.bf-comunidade-card:nth-child(4),.bf-comunidade-card:nth-child(5){grid-column:auto}
+.bf-passos{padding:56px 18px}.bf-passos ol{grid-template-columns:1fr;gap:28px}.bf-passos li+li:before{content:'↓';left:50%;top:-24px;transform:translateX(-50%)}
+.bf-ponte{padding:48px 18px 4px}}
