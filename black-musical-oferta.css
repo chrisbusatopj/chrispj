@@ -534,3 +534,5 @@
 .bf-estado-musical .bf-estado-icone{width:42px;height:42px}
 .bf-estado-musical .bf-estado-icone svg{width:21px;height:21px}
 @media(max-width:767px){.bf-estado-musical{grid-template-columns:1fr}.bf-estado-musical-foto{min-height:0;max-height:none;aspect-ratio:1/1;height:auto;-webkit-mask-image:linear-gradient(180deg,#000 85%,transparent);mask-image:linear-gradient(180deg,#000 85%,transparent)}.bf-estado-musical-texto{border-left:0;padding:6px 18px 24px}.bf-estado-musical-selo{width:54px;height:54px}.bf-estado-musical-selo svg{width:27px;height:27px}.bf-estado-musical ul li{font-size:15px}.bf-estado-musical .bf-estado-icone{width:36px;height:36px}}
+.bf-story.bf-story-intro{padding-bottom:28px}.bf-estados{padding-top:28px}@media(max-width:767px){.bf-story.bf-story-intro{padding-bottom:20px}.bf-estados{padding-top:20px}}
+.bf-story-intro .bf-story-copy>:last-child{margin-bottom:0!important}
