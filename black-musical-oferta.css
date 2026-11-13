@@ -453,3 +453,4 @@
 .bf-oferta-selo{top:-38px;right:-30px;width:118px;height:118px;font:italic 600 15px/1.1 'Lora',Georgia,serif;background:radial-gradient(circle at 32% 28%,#fff3d6,#e2c07f 55%,#b8893f);border:3px solid #fff4dc;box-shadow:0 0 0 2px #c9a466,0 14px 30px #160f1366,0 0 34px #f3d9a466;transform:rotate(10deg);z-index:2}
 .bf-oferta-selo b{font:700 38px/1 'Lora',Georgia,serif;margin-bottom:2px}
 @media(max-width:767px){.bf-oferta-selo{top:-58px;right:-4px;width:96px;height:96px;font-size:13px}.bf-oferta-selo b{font-size:30px}.bf-oferta-preco{font-size:58px}.bf-ofertas-coluna:has(.bf-oferta--anual){margin-top:20px}}
+@media(min-width:768px){.bf-oferta-selo{right:auto;left:-30px;transform:rotate(-10deg)}}
