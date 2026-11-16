@@ -6,7 +6,7 @@ A /blackmusical mantém a página do grupo WhatsApp. A /black2 apresenta a ofert
 
 | Plano | Padrão | Aluno (30% OFF) |
 |---|---|---|
-| Semestral, 6 meses | R$582 — https://pay.cakto.com.br/umehfhs | R$407,40 — https://pay.cakto.com.br/3ehqxnn |
+| Semestral, 6 meses | R$582 — https://pay.cakto.com.br/p6uv2hf_1318168 | R$407,40 — https://pay.cakto.com.br/3ehqxnn |
 | Anual, 12 + 3 meses bônus | R$1.164 — https://pay.cakto.com.br/pj42tqs | R$814,80 — https://pay.cakto.com.br/3ag5fxx |
 
 Os valores mensais de R$97 e R$67,90 são equivalências dos totais em 6 ou 12 meses, não promessas de parcelas sem juros. O checkout calcula o parcelamento. As condições anteriores de R$697 e 12x R$67 foram removidas.

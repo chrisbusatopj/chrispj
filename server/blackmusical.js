@@ -2,7 +2,7 @@ import { telefoneValido } from '../checkout/telefone.js'
 import { alunosBlackMusical } from './blackmusical-alunos.js'
 
 const checkouts = {
-  semestral: { PADRAO: 'https://pay.cakto.com.br/umehfhs', ALUNO: 'https://pay.cakto.com.br/3ehqxnn' },
+  semestral: { PADRAO: 'https://pay.cakto.com.br/p6uv2hf_1318168', ALUNO: 'https://pay.cakto.com.br/3ehqxnn' },
   anual: { PADRAO: 'https://pay.cakto.com.br/pj42tqs', ALUNO: 'https://pay.cakto.com.br/3ag5fxx' },
 }
 
