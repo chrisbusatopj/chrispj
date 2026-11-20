@@ -44,7 +44,7 @@ const fases = [
   { fase: 6, titulo: 'Vida Musical', subtitulo: 'Levar isso para a vida', imagem: trilhaFase6 },
 ]
 
-function TrilhaFases() {
+export function TrilhaFases() {
   return <ol className="bf-trilha" aria-label="Trilha de aprendizagem em 6 fases">{fases.map(item => <li key={item.fase} className="bf-trilha-item">
     <span className="bf-trilha-fase">Fase {item.fase}</span>
     <div className={`bf-trilha-card${item.imagem ? '' : ' bf-trilha-card--vazio'}`}>
@@ -118,7 +118,7 @@ function Secao5() {
   </div></section>
 }
 
-function Comunidade() {
+export function Comunidade({ eyebrow = 'Por dentro da comunidade', titulo = <>Diferentes formas de aprender. <em>Uma jornada para transformar sua dança.</em></>, intro = true } = {}) {
   const cards = [
     { rotulo: 'Fundamentos do método', titulo: 'Trilha de Aprendizagem', texto: 'Aulas gravadas organizadas nas seis fases do Corpo Musical para você desenvolver sua dança com profundidade e no seu ritmo.', itens: ['Compreenda a música e sua estrutura', 'Desenvolva recursos corporais e expressivos', 'Estude quando e quantas vezes quiser'], visual: 'fases' },
     { rotulo: 'Prática + acompanhamento', titulo: 'Aulas Online ao Vivo', texto: 'Encontros semanais pelo Zoom para praticar, aprofundar e tirar dúvidas com a Chris, acompanhando sua evolução.', itens: ['Prática guiada em turma', 'Espaço para dúvidas e orientação', 'Gravações disponíveis para rever'], foto: encontrosAoVivo, contida: true },
@@ -127,9 +127,9 @@ function Comunidade() {
     { rotulo: 'Troca + conexão', titulo: 'Comunidade no WhatsApp', texto: 'Um espaço de troca com quem está no mesmo caminho, para compartilhar descobertas, tirar dúvidas e seguir evoluindo junto.', itens: ['Troca de experiências', 'Perguntas e sugestões', 'Apoio ao longo da jornada'], visual: 'whatsapp' },
   ]
   return <section className="bf-comunidade" aria-labelledby="bf-comunidade-title"><div className="bf-comunidade-inner">
-    <div className="bf-comunidade-intro"><strong>E como essa jornada acontece na prática?</strong><p>No Corpo Musical, você combina uma trilha de aprendizagem estruturada com encontros ao vivo, experiências de aprofundamento e uma comunidade para compartilhar sua evolução.</p><p><b>Diferentes formas de aprender, praticar e integrar os conhecimentos à sua dança.</b></p></div>
-    <span className="bf-ofertas-eyebrow">Por dentro da comunidade</span>
-    <h2 id="bf-comunidade-title">Diferentes formas de aprender. <em>Uma jornada para transformar sua dança.</em></h2>
+    {intro && <div className="bf-comunidade-intro"><strong>E como essa jornada acontece na prática?</strong><p>No Corpo Musical, você combina uma trilha de aprendizagem estruturada com encontros ao vivo, experiências de aprofundamento e uma comunidade para compartilhar sua evolução.</p><p><b>Diferentes formas de aprender, praticar e integrar os conhecimentos à sua dança.</b></p></div>}
+    <span className="bf-ofertas-eyebrow">{eyebrow}</span>
+    <h2 id="bf-comunidade-title">{titulo}</h2>
     <div className="bf-comunidade-grid">{cards.map(card => <article key={card.titulo} className="bf-comunidade-card">
       <div className={`bf-comunidade-visual${card.contida ? ' bf-comunidade-visual--contida' : ''}`}>{card.foto && <img src={card.foto} alt="" loading="lazy" decoding="async" />}{card.visual === 'fases' && <FasesMini />}{card.visual === 'temas' && <AulasTematicas />}{card.visual === 'whatsapp' && <GrupoWhatsAppMini />}</div>
       <div className="bf-comunidade-corpo"><small>{card.rotulo}</small><h3>{card.titulo}</h3><p>{card.texto}</p><ul>{card.itens.map(item => <li key={item}><span aria-hidden="true">✓</span>{item}</li>)}</ul></div>
