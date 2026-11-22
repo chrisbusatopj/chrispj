@@ -21,6 +21,7 @@ import aulaTematica1 from './images/aula-tematica-1.webp'
 import aulaTematica2 from './images/aula-tematica-2.webp'
 import aulaTematica3 from './images/aula-tematica-3.webp'
 import { formatarTelefone, normalizarTelefone, telefoneValido } from './checkout/telefone.js'
+import { MASTERMOVE_ALUNO_DISPONIVEL } from './black-musical-config.js'
 import './black-musical-oferta.css'
 
 const beneficiosOferta = ['Trilha completa do Mapa da Dança', 'Encontros ao vivo 1x por semana', 'Gravações dos encontros', 'MasterMove por transmissão e gravação', 'Aulas temáticas', 'Comunidade no WhatsApp']
@@ -253,6 +254,24 @@ function Faq() {
 // Link da página de Termos de Uso. Enquanto estiver vazio, a caixinha de aceite não aparece.
 const TERMOS_URL = ''
 
+const mastermoveComo = [
+  ['2 horas de conteúdo', 'Fundamentos essenciais para desenvolver o corpo e uma dança mais integral.'],
+  ['1 hora de prática entre os colegas', 'Exploração, integração e prática com acompanhamento.'],
+  ['1 encontro por mês', 'Presencial em São Paulo · Domingos · 9h às 12h'],
+]
+const beneficiosMasterMove = ['1 encontro presencial por mês, em São Paulo', '2h de conteúdo + 1h de prática guiada por encontro', 'Exploração e prática junto com os colegas', 'Acompanhamento no corpo, ao vivo']
+const bonusMasterMove = ['Trilha completa do Mapa da Dança', 'Encontros ao vivo 1x por semana', 'Gravações dos encontros', 'MasterMove por transmissão e gravação', 'Aulas temáticas', 'Comunidade no WhatsApp']
+
+function MasterMoveComo() {
+  return <section className="bf-mm-como" aria-labelledby="bf-mm-como-title"><div className="bf-mm-como-inner">
+    <span className="bf-ofertas-eyebrow">A oferta principal</span>
+    <h2 id="bf-mm-como-title">O online traz o conhecimento. <em>O MasterMove traz a aplicação presencial.</em></h2>
+    <p>Uma vez por mês, em São Paulo, você vive na prática tudo o que desenvolve na trilha: conteúdo, prática guiada e acompanhamento no corpo, ao vivo com a Chris e com os colegas.</p>
+    <ol className="bf-mm-como-grid">{mastermoveComo.map(([titulo, texto], i) => <li key={titulo}><span>{String(i + 1).padStart(2, '0')}</span><strong>{titulo}</strong><p>{texto}</p></li>)}</ol>
+    <p className="bf-mm-como-bonus"><strong>E de bônus:</strong> todo o online do Corpo Musical por 15 meses, para continuar se desenvolvendo entre um encontro e outro.</p>
+  </div></section>
+}
+
 function Compra({ escolha, onClose }) {
   const dialog = useRef(null)
   const id = useRef(crypto.randomUUID())
@@ -306,7 +325,7 @@ function Compra({ escolha, onClose }) {
   }
   return <dialog className="bf-dialog" ref={dialog} aria-labelledby="bf-dialog-title" onCancel={event => { if (ocupado) event.preventDefault(); else onClose() }}>
     <button className="bf-close" onClick={onClose} disabled={ocupado} aria-label="Fechar">×</button>
-    <span className="bf-eyebrow">{aluno ? 'Já sou aluno ou ex-aluno' : escolha.plano === 'anual' ? 'Anual especial · 15 meses de acesso' : 'Semestral especial · 6 meses de acesso'}</span>
+    <span className="bf-eyebrow">{aluno ? 'Já sou aluno ou ex-aluno' : escolha.plano === 'mastermove' ? 'MasterMove presencial · Black Musical' : escolha.plano === 'anual' ? 'Anual especial · 15 meses de acesso' : 'Semestral especial · 6 meses de acesso'}</span>
     <h2 id="bf-dialog-title">{aluno ? 'Sua condição para ampliar o acesso' : 'Sua próxima dança começa aqui.'}</h2>
     <p>{aluno ? 'Use seu e-mail de cadastro para validar sua condição de aluno ou ex-aluno.' : 'Deixe seu nome e WhatsApp para seguir ao pagamento.'}</p>
     <form onSubmitCapture={enviar} aria-busy={ocupado}>
@@ -323,12 +342,13 @@ function Compra({ escolha, onClose }) {
   </dialog>
 }
 
-export default function BlackMusicalOfertaLP() {
+export default function BlackMusicalOfertaLP({ modo = 'online' } = {}) {
+  const mm = modo === 'mastermove'
   const [escolha, setEscolha] = useState(null)
   const [mobile, setMobile] = useState(() => window.innerWidth < 768)
   useEffect(() => {
     const old = document.title
-    document.title = 'Black Musical | Chris Busato'
+    document.title = mm ? 'MasterMove · Black Musical | Chris Busato' : 'Black Musical | Chris Busato'
     for (const playerId of ['6af4d1a9aafdc81a284bc770', ...videosDepoimento.map(video => video.id)]) {
       const src = vturbScript(playerId)
       if (!document.querySelector(`script[src="${src}"]`)) { const script = document.createElement('script'); script.src = src; script.async = true; document.head.appendChild(script) }
@@ -339,7 +359,7 @@ export default function BlackMusicalOfertaLP() {
   }, [])
   return <main className="bf-page">
     <section className="bf-hero" id="inicio" style={{ backgroundImage: `linear-gradient(180deg, rgba(241,235,226,.9), rgba(241,235,226,.72) 45%, #f1ebe2), url(${fundoHero})` }}>
-      <div className="bf-hero-copy"><span className="bf-eyebrow">Black Musical · com Chris Busato</span><h1>Black <em>Musical.</em></h1><div className="bf-vsl"><vturb-smartplayer id="vid-6af4d1a9aafdc81a284bc770" style={{ display: 'block', margin: '0 auto', width: '100%', maxWidth: '400px' }}><div className="vturb-player-placeholder" style={{ position: 'relative', width: '100%', padding: '177.77777777777777% 0 0', zIndex: 0, backgroundColor: 'black' }}></div></vturb-smartplayer></div><a className="bf-button" href="#como-transforma">Quero fazer parte →</a><small>Uma jornada para dançar além dos passos.</small></div>
+      <div className="bf-hero-copy"><span className="bf-eyebrow">{mm ? 'Black Musical · MasterMove presencial' : 'Black Musical · com Chris Busato'}</span><h1>Black <em>Musical.</em></h1>{mm && <p className="bf-hero-mm">MasterMove presencial em São Paulo <b>+ todo o online do Corpo Musical de bônus, por 15 meses.</b></p>}<div className="bf-vsl"><vturb-smartplayer id="vid-6af4d1a9aafdc81a284bc770" style={{ display: 'block', margin: '0 auto', width: '100%', maxWidth: '400px' }}><div className="vturb-player-placeholder" style={{ position: 'relative', width: '100%', padding: '177.77777777777777% 0 0', zIndex: 0, backgroundColor: 'black' }}></div></vturb-smartplayer></div><a className="bf-button" href="#como-transforma">Quero fazer parte →</a><small>{mm ? 'Aplicação presencial + todo o online de bônus.' : 'Uma jornada para dançar além dos passos.'}</small></div>
 
     </section>
     <section className="bf-story bf-story-intro"><div className="bf-story-inner"><span className="bf-eyebrow">Black Musical</span><h2>A dança é muito mais do que aprender passos.<br /><em className="bf-em-forte">Ela é sobre sentir e saber expressar.</em></h2><div className="bf-story-copy"><h3 className="bf-story-lead">Uma nova relação com a dança começa pela música e pela compreensão da sua estrutura.</h3><p><strong>Você não precisa acumular mais passos e sequências para conseguir improvisar, brincar com a música e desenvolver uma dança mais fluida.</strong></p><p>No Corpo Musical, você aprende a compreender a música e a desenvolver recursos próprios para construir uma dança mais livre, expressiva e musical.</p><p className="bf-story-emphasis"><strong>Um caminho que parte da música, e não dos passos.</strong></p></div></div></section>
@@ -360,10 +380,37 @@ export default function BlackMusicalOfertaLP() {
     </div></section>
     <Secao5 />
     <section className="bf-content-section bf-mapa" id="dentro"><span className="bf-eyebrow">O Mapa da Dança</span><h2>E como você desenvolve <em>essas habilidades?</em></h2><p>Através do <strong>Mapa da Dança</strong>, uma jornada de aprendizagem estruturada em seis fases que começa pela música e amplia progressivamente suas possibilidades de movimento, expressão e conexão.</p><TrilhaFases /></section>
-    <Comunidade />
+    {mm && <MasterMoveComo />}
+    {mm ? <Comunidade intro={false} eyebrow="Bônus do MasterMove" titulo={<>Todo o online do Corpo Musical, <em>incluso por 15 meses.</em></>} /> : <Comunidade />}
     <Passos />
     <Depoimentos />
-    <section className="bf-ponte"><div className="bf-ponte-inner"><h2>Sua dança também pode <em>começar a mudar.</em></h2><p>Se você deseja ir além da repetição de passos e desenvolver uma dança mais livre, fluida e musical, a Black Musical é uma oportunidade especial para começar essa jornada.</p><p><strong>Conheça as condições especiais para fazer parte da Comunidade Corpo Musical.</strong></p></div></section>
+    {mm ? <section className="bf-ponte"><div className="bf-ponte-inner"><h2>Sua dança também pode <em>começar a mudar.</em></h2><p>Se você está em São Paulo ou consegue vir aos encontros, o MasterMove é a forma mais completa de viver o Corpo Musical: a prática presencial com a Chris e, de bônus, todo o online para continuar se desenvolvendo.</p><p><strong>Conheça a condição especial da Black Musical para o MasterMove.</strong></p></div></section> : <section className="bf-ponte"><div className="bf-ponte-inner"><h2>Sua dança também pode <em>começar a mudar.</em></h2><p>Se você deseja ir além da repetição de passos e desenvolver uma dança mais livre, fluida e musical, a Black Musical é uma oportunidade especial para começar essa jornada.</p><p><strong>Conheça as condições especiais para fazer parte da Comunidade Corpo Musical.</strong></p></div></section>}
+    {mm ? <section className="bf-ofertas" id="ofertas" aria-labelledby="bf-offers-title">
+      <div className="bf-ofertas-head"><span className="bf-ofertas-eyebrow">Condição especial da Black Musical</span><h2 id="bf-offers-title">MasterMove presencial.<em>E todo o online de bônus, por 15 meses.</em></h2><p>Na Black Musical, ao entrar no MasterMove você recebe também toda a experiência online do Corpo Musical, com 3 meses a mais de acesso.</p></div>
+      <div className="bf-ofertas-grid bf-ofertas-grid--mm"><div className="bf-ofertas-coluna">
+        <article className="bf-oferta bf-oferta--anual bf-oferta--mm">
+          <span className="bf-oferta-badge">Black Musical</span><span className="bf-oferta-selo" aria-hidden="true"><b>+3</b>meses<br />de online</span>
+          <h3>MasterMove Presencial</h3>
+          <div className="bf-oferta-preco bf-oferta-preco--mm"><small className="bf-oferta-x">12x</small><span>R$</span>167</div>
+          <p className="bf-oferta-avista">ou R$ 1.717,73 à vista</p>
+          <div className="bf-oferta-duracao bf-oferta-duracao--anual"><strong>Bônus: 15 meses de todo o online</strong><small>12 meses + 3 meses de bônus</small></div>
+          <p className="bf-oferta-resumo">A prática presencial com a Chris e todo o caminho online para continuar evoluindo entre os encontros.</p>
+          <p className="bf-oferta-lista-titulo">No MasterMove</p>
+          <ul className="bf-oferta-lista--mm">{beneficiosMasterMove.map(item => <li key={item}><span aria-hidden="true">✓</span>{item}</li>)}</ul>
+          <p className="bf-oferta-lista-titulo">Bônus: todo o online por 15 meses</p>
+          <ul>{bonusMasterMove.map(item => <li key={item}><span aria-hidden="true">✓</span>{item}</li>)}</ul>
+          <button className="bf-oferta-botao" onClick={() => setEscolha({ plano: 'mastermove', aluno: false })}>Quero fazer parte do MasterMove</button>
+          <p className="bf-oferta-nota">Encontros presenciais em São Paulo · Domingos, das 9h às 12h.</p>
+        </article>
+        {MASTERMOVE_ALUNO_DISPONIVEL && <aside className="bf-aluno-box" aria-label="Condição de aluno — MasterMove">
+          <span>Já é aluno ou ex-aluno?</span>
+          <strong>Temos uma condição especial para você.</strong>
+          <button onClick={() => setEscolha({ plano: 'mastermove', aluno: true })}>Quero minha condição de aluno <span aria-hidden="true">→</span></button>
+          <small>Valide seu e-mail de aluno para continuar.</small>
+        </aside>}
+      </div></div>
+      <p className="bf-ofertas-rodape">O MasterMove é o encontro presencial mensal do Corpo Musical, em São Paulo. Na condição da Black Musical, ele vem com todo o online de bônus: trilha do Mapa da Dança, encontros ao vivo semanais, gravações, aulas temáticas e comunidade, por 15 meses.</p>
+    </section> : <>
     <section className="bf-ofertas" id="ofertas" aria-labelledby="bf-offers-title">
       <div className="bf-ofertas-head"><span className="bf-ofertas-eyebrow">Condições especiais da Black Musical</span><h2 id="bf-offers-title">Todos os benefícios do Corpo Musical.<em>Escolha o tempo da sua jornada.</em></h2><p>Na Black Musical, você tem duas condições especiais para fazer parte da Comunidade Corpo Musical.</p></div>
       <div className="bf-ofertas-grid">{['anual', 'semestral'].map(plano => <div key={plano} className="bf-ofertas-coluna">
@@ -386,8 +433,9 @@ export default function BlackMusicalOfertaLP() {
       </div>)}</div>
       <p className="bf-ofertas-rodape">Com o Plano Semestral Especial, você tem 6 meses de acesso a toda a trilha de aprendizagem, aos encontros ao vivo, aos conteúdos e aos benefícios do Corpo Musical. Com o Plano Anual Especial, você garante 12 meses de acesso e ganha mais 3 meses gratuitos de bônus, totalizando 15 meses para aprofundar seu aprendizado e desenvolver sua dança.</p>
     </section>
+    </>}
     <Faq />
-    <section className="bf-final bf-closing"><div className="bf-closing-inner"><h2>Sua dança pode ser mais <em>verdadeira, fluida e musical.</em></h2><p>Você não precisa continuar dependendo dos mesmos passos para conseguir aproveitar a música.</p><p><strong>Desenvolva sua Base Musical e descubra novas possibilidades de improvisar, criar e se expressar na dança.</strong></p><p>Aproveite as condições especiais da Black Musical para começar essa jornada no Corpo Musical.</p><a className="bf-button" href="#ofertas">Quero fazer parte do Corpo Musical</a></div></section>
+    <section className="bf-final bf-closing"><div className="bf-closing-inner"><h2>Sua dança pode ser mais <em>verdadeira, fluida e musical.</em></h2><p>Você não precisa continuar dependendo dos mesmos passos para conseguir aproveitar a música.</p><p><strong>Desenvolva sua Base Musical e descubra novas possibilidades de improvisar, criar e se expressar na dança.</strong></p><p>Aproveite as condições especiais da Black Musical para começar essa jornada no Corpo Musical.</p><a className="bf-button" href="#ofertas">{mm ? 'Quero fazer parte do MasterMove' : 'Quero fazer parte do Corpo Musical'}</a></div></section>
     <footer className="bf-footer">Comunidade Corpo Musical · Chris Busato</footer>
     {escolha && <Compra escolha={escolha} onClose={() => setEscolha(null)} />}
   </main>

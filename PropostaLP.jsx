@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import EscolhaPagamento from './checkout/EscolhaPagamento.jsx'
+import BlackMusicalOfertaLP from './BlackMusicalOfertaLP.jsx'
 import { CHECKOUTS_TEMPORARIOS } from './checkout/links-temporarios.js'
 import { numeroDaRota, linkWhatsApp, abrirWhatsApp } from './whatsapp.js'
 import fundoHero from './images/fundo-primeira-dobra.jpg'
@@ -228,9 +229,8 @@ function Tag({ children, tone = 'gold' }) {
   )
 }
 
-// O Master Move é presencial em São Paulo — quem é de fora precisa ver isso
-// antes de decidir, não só no meio dos bullets.
-function SeloSaoPaulo({ children = 'Presencial em São Paulo', dark = false, isMobile }) {
+// Selo de contexto para os cards de oferta: local do presencial ou conforto do online.
+function SeloDestaque({ children = 'Presencial em São Paulo', dark = false, isMobile, casa = false }) {
   return (
     <span style={{
       display: 'inline-flex',
@@ -248,8 +248,17 @@ function SeloSaoPaulo({ children = 'Presencial em São Paulo', dark = false, isM
       lineHeight: 1.3,
     }}>
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: 0 }}>
-        <path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z" />
-        <circle cx="12" cy="10" r="2.6" />
+        {casa ? (
+          <>
+            <path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V10z" />
+            <path d="M9 21v-7h6v7" />
+          </>
+        ) : (
+          <>
+            <path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z" />
+            <circle cx="12" cy="10" r="2.6" />
+          </>
+        )}
       </svg>
       {children}
     </span>
@@ -1163,6 +1172,11 @@ function OfertaOnline({ isMobile, semPrecos, somenteParcelas }) {
             textAlign: 'center',
             boxShadow: '0 2px 3px rgba(42,29,20,0.03), 0 18px 44px rgba(42,29,20,0.09)',
           }}>
+            {semPrecos && (
+              <div style={{ marginBottom: isMobile ? 26 : 30 }}>
+                <SeloDestaque casa isMobile={isMobile}>Aprenda no conforto de casa</SeloDestaque>
+              </div>
+            )}
             {!semPrecos && (
               <>
                 <Eyebrow color={C.brownLight}>Investimento</Eyebrow>
@@ -1279,9 +1293,9 @@ function OfertaMasterMove({ isMobile, semPrecos, somenteParcelas, somentePresenc
             <div style={{ marginTop: isMobile ? 18 : 22 }}>
               {/* "Presencial" já está no subtítulo logo acima; no celular sai do
                   selo para ele caber numa linha. */}
-              <SeloSaoPaulo dark isMobile={isMobile}>
+              <SeloDestaque dark isMobile={isMobile}>
                 {isMobile ? 'São Paulo · Domingos, 9h às 12h' : 'Presencial em São Paulo · Domingos, 9h às 12h'}
-              </SeloSaoPaulo>
+              </SeloDestaque>
             </div>
 
             <p style={{
@@ -1546,7 +1560,7 @@ function OfertaMasterMove({ isMobile, semPrecos, somenteParcelas, somentePresenc
             }} />
 
             <div style={{ marginBottom: semPrecos ? (isMobile ? 26 : 30) : (isMobile ? 22 : 26) }}>
-              <SeloSaoPaulo dark isMobile={isMobile} />
+              <SeloDestaque dark isMobile={isMobile} />
             </div>
 
             {!semPrecos && (
@@ -1867,6 +1881,9 @@ export default function PropostaLP({ semPrecos = false, somenteParcelas = false,
       .cm-escolha-caminho:focus-visible { outline: 3px solid ${C.brown}; outline-offset: 4px; }
     `}</style><EscolhaModalidade isMobile={isMobile} /></>
   }
+
+  // Black Musical: o MasterMove presencial vira a página da Black, com todo o online como bônus.
+  if (escolherModalidade) return <BlackMusicalOfertaLP modo="mastermove" />
 
   return (
     <>

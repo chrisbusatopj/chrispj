@@ -537,3 +537,25 @@
 .bf-story.bf-story-intro{padding-bottom:28px}.bf-estados{padding-top:28px}@media(max-width:767px){.bf-story.bf-story-intro{padding-bottom:20px}.bf-estados{padding-top:20px}}
 .bf-story-intro .bf-story-copy>:last-child{margin-bottom:0!important}
 @media(min-width:768px){.bf-ofertas-coluna:has(.bf-oferta--anual){order:2}.bf-ofertas-coluna:not(:has(.bf-oferta--anual)){order:1}.bf-oferta-selo{left:auto;right:-30px;transform:rotate(10deg)}}
+.bf-hero-mm{margin:-6px 0 18px!important;font-size:17px;line-height:1.5;color:#5e4e41;max-width:420px}
+.bf-hero-mm b{color:#2a1d14}
+/* v54 MasterMove da Black */
+.bf-mm-como{padding:72px 24px;background:#efe4d3;text-align:center}
+.bf-mm-como-inner{max-width:980px;margin:auto}
+.bf-mm-como h2{margin-top:16px!important;font-size:clamp(30px,3.6vw,46px);color:#2a1d14}
+.bf-mm-como h2 em{display:block;color:#8a6a3b}
+.bf-mm-como-inner>p{max-width:700px;margin:18px auto 0!important;font-size:17px;line-height:1.7;color:#5e4e41}
+.bf-mm-como-grid{list-style:none;margin:36px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;text-align:left}
+.bf-mm-como-grid li{background:#fffbf5;border:1px solid #e3cfb0;border-radius:18px;padding:24px 22px;box-shadow:0 12px 28px #2a1d1410}
+.bf-mm-como-grid span{display:block;font:600 13px 'DM Sans',sans-serif;letter-spacing:.14em;color:#b08a4f;margin-bottom:10px}
+.bf-mm-como-grid strong{display:block;font:600 20px/1.25 'Lora',Georgia,serif;color:#2a1d14}
+.bf-mm-como-grid p{margin-top:8px!important;font-size:15px;line-height:1.55;color:#5e4e41}
+.bf-mm-como-bonus{margin-top:28px!important;font-size:17px!important;color:#2a1d14!important}
+.bf-ofertas-grid--mm{grid-template-columns:minmax(0,520px);justify-content:center}
+.bf-oferta-preco--mm{display:flex;align-items:baseline;justify-content:center;gap:6px}
+.bf-oferta-x{font:500 24px 'Lora',Georgia,serif;color:#ecdcc2}
+.bf-oferta-avista{margin-top:6px!important;font-size:15px;color:#ecdcc2}
+.bf-oferta-lista-titulo{margin:22px auto -10px!important;max-width:320px;text-align:left;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#e8cc9c}
+.bf-oferta ul.bf-oferta-lista--mm{flex:none;margin-bottom:6px}
+@media(min-width:768px){.bf-ofertas-grid--mm .bf-oferta-selo{left:auto;right:-30px;transform:rotate(10deg)}}
+@media(max-width:767px){.bf-mm-como{padding:56px 18px}.bf-mm-como-grid{grid-template-columns:1fr}.bf-ofertas-grid--mm{grid-template-columns:1fr}}

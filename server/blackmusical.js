@@ -4,6 +4,8 @@ import { alunosBlackMusical } from './blackmusical-alunos.js'
 const checkouts = {
   semestral: { PADRAO: 'https://pay.cakto.com.br/p6uv2hf_1318168', ALUNO: 'https://pay.cakto.com.br/3ehqxnn' },
   anual: { PADRAO: 'https://pay.cakto.com.br/pj42tqs', ALUNO: 'https://pay.cakto.com.br/3ag5fxx' },
+  // MasterMove da Black Musical (página /corpomusical#presencial). Preencha ALUNO com o checkout da condição de aluno.
+  mastermove: { PADRAO: 'https://pay.cakto.com.br/yyd7dpq_1333801', ALUNO: '' },
 }
 
 export default async function blackHandler(req, res) {
@@ -12,7 +14,7 @@ export default async function blackHandler(req, res) {
   let body
   try { body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body } catch { return res.status(400).json({ error: 'Dados inválidos.' }) }
   const { plano, aluno, email = '', nome, telefone, id } = body || {}
-  if (!['semestral', 'anual'].includes(plano) || typeof aluno !== 'boolean' ||
+  if (!['semestral', 'anual', 'mastermove'].includes(plano) || typeof aluno !== 'boolean' ||
       typeof nome !== 'string' || nome.trim().length < 2 || nome.length > 100 ||
       typeof telefone !== 'string' || !telefoneValido(telefone) || !/^[\da-f-]{36}$/i.test(id || '') ||
       (aluno && (typeof email !== 'string' || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)))) {
