@@ -559,3 +559,12 @@
 .bf-oferta ul.bf-oferta-lista--mm{flex:none;margin-bottom:6px}
 @media(min-width:768px){.bf-ofertas-grid--mm .bf-oferta-selo{left:auto;right:-30px;transform:rotate(10deg)}}
 @media(max-width:767px){.bf-mm-como{padding:56px 18px}.bf-mm-como-grid{grid-template-columns:1fr}.bf-ofertas-grid--mm{grid-template-columns:1fr}}
+
+/* v56 MasterMove casal ao lado */
+.bf-ofertas-grid--mm{grid-template-columns:repeat(2,minmax(0,500px));gap:56px}
+.bf-ofertas-grid--mm .bf-ofertas-coluna{order:0!important}
+.bf-ofertas-grid--mm .bf-oferta{height:100%}
+.bf-oferta--casal .bf-oferta-selo b{font-size:40px}
+@media(max-width:767px){.bf-ofertas-grid--mm{grid-template-columns:1fr;gap:48px}}
+.bf-ofertas-grid--mm .bf-oferta-botao{letter-spacing:.06em;font-size:14px;padding-left:20px;padding-right:20px;gap:10px}
+@media(min-width:768px){.bf-ofertas-grid--mm .bf-oferta-selo{right:-48px;top:-48px;transform:rotate(10deg) scale(.86)}}

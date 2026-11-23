@@ -1213,7 +1213,7 @@ function BonusOnlineMasterMove({ isMobile }) {
   return (
     <section aria-labelledby="bonus-online-titulo" style={{ marginTop: isMobile ? 56 : 80, paddingTop: isMobile ? 40 : 56, borderTop: '1px solid rgba(198,168,122,0.3)' }}>
       <Reveal>
-        <Eyebrow color={C.goldLight}>Bônus do MasterMove</Eyebrow>
+        <Eyebrow color={C.goldLight}>Incluso no MasterMove</Eyebrow>
         <h3 id="bonus-online-titulo" style={{ fontFamily: "'Playfair Display', serif", fontSize: isMobile ? 32 : 46, fontWeight: 500, lineHeight: 1.2, color: C.white, textAlign: 'center', maxWidth: 740, margin: '18px auto 0' }}>
           Também está incluso durante <span style={{ color: C.goldLight }}>12 meses todo o online:</span>
         </h3>
@@ -1362,7 +1362,7 @@ function OfertaMasterMove({ isMobile, semPrecos, somenteParcelas, somentePresenc
                 letterSpacing: '0.14em',
                 textTransform: 'uppercase',
               }}>
-                {somentePresencial ? 'Bônus incluso' : 'Incluso'}
+                {'Incluso'}
               </div>
               <div style={{
                 width: 52, height: 52, borderRadius: '50%',
@@ -1388,7 +1388,7 @@ function OfertaMasterMove({ isMobile, semPrecos, somenteParcelas, somentePresenc
                 color: 'rgba(255,253,250,0.66)',
                 marginTop: 10,
               }}>
-                {somentePresencial ? 'Ao entrar no Master Move, você também recebe o Programa Online como bônus: conteúdos gravados por fases e encontros ao vivo para continuar seu desenvolvimento entre os encontros presenciais.' : <>Todo o conhecimento do Corpo Musical, com conteúdos gravados por fases
+                {somentePresencial ? 'Ao entrar no Master Move, você também recebe o Programa Online incluso: conteúdos gravados por fases e encontros ao vivo para continuar seu desenvolvimento entre os encontros presenciais.' : <>Todo o conhecimento do Corpo Musical, com conteúdos gravados por fases
                 e encontros ao vivo para aprofundar o processo. Você não escolhe entre
                 um e outro — o online vem junto.</>}
               </p>
@@ -1461,7 +1461,7 @@ function OfertaMasterMove({ isMobile, semPrecos, somenteParcelas, somentePresenc
             textTransform: 'uppercase',
             color: C.goldLight,
           }}>
-            {somentePresencial ? 'Master Move presencial + Programa Online de bônus' : 'Conhecimento + aplicação presencial'}
+            {somentePresencial ? 'Master Move presencial + Programa Online incluso' : 'Conhecimento + aplicação presencial'}
           </div>
         </Reveal>
 
@@ -1580,7 +1580,7 @@ function OfertaMasterMove({ isMobile, semPrecos, somenteParcelas, somentePresenc
               </>
             )}
 
-            <ListaVantagens itens={somentePresencial ? [...VANTAGENS_MASTERMOVE.slice(1), 'Bônus: Programa Online do Corpo Musical incluso'] : VANTAGENS_MASTERMOVE} isMobile={isMobile} semDivisor={semPrecos} />
+            <ListaVantagens itens={somentePresencial ? [...VANTAGENS_MASTERMOVE.slice(1), 'Incluso: Programa Online do Corpo Musical'] : VANTAGENS_MASTERMOVE} isMobile={isMobile} semDivisor={semPrecos} />
 
             <div style={{ marginTop: 28, maxWidth: 460, marginLeft: 'auto', marginRight: 'auto' }}>
               <CtaFinal semPrecos={semPrecos} checkout={CHECKOUT_MASTERMOVE} mensagem={MENSAGEM_MASTERMOVE} full>
@@ -1882,7 +1882,7 @@ export default function PropostaLP({ semPrecos = false, somenteParcelas = false,
     `}</style><EscolhaModalidade isMobile={isMobile} /></>
   }
 
-  // Black Musical: o MasterMove presencial vira a página da Black, com todo o online como bônus.
+  // Black Musical: o MasterMove presencial vira a página da Black, com todo o online incluso.
   if (escolherModalidade) return <BlackMusicalOfertaLP modo="mastermove" />
 
   return (

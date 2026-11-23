@@ -325,7 +325,7 @@ function Compra({ escolha, onClose }) {
   }
   return <dialog className="bf-dialog" ref={dialog} aria-labelledby="bf-dialog-title" onCancel={event => { if (ocupado) event.preventDefault(); else onClose() }}>
     <button className="bf-close" onClick={onClose} disabled={ocupado} aria-label="Fechar">×</button>
-    <span className="bf-eyebrow">{aluno ? 'Já sou aluno ou ex-aluno' : escolha.plano === 'mastermove' ? 'MasterMove presencial · Black Musical' : escolha.plano === 'anual' ? 'Anual especial · 15 meses de acesso' : 'Semestral especial · 6 meses de acesso'}</span>
+    <span className="bf-eyebrow">{aluno ? 'Já sou aluno ou ex-aluno' : escolha.plano === 'mastermove_casal' ? 'MasterMove casal · Black Musical' : escolha.plano === 'mastermove' ? 'MasterMove presencial · Black Musical' : escolha.plano === 'anual' ? 'Anual especial · 15 meses de acesso' : 'Semestral especial · 6 meses de acesso'}</span>
     <h2 id="bf-dialog-title">{aluno ? 'Sua condição para ampliar o acesso' : 'Sua próxima dança começa aqui.'}</h2>
     <p>{aluno ? 'Use seu e-mail de cadastro para validar sua condição de aluno ou ex-aluno.' : 'Deixe seu nome e WhatsApp para seguir ao pagamento.'}</p>
     <form onSubmitCapture={enviar} aria-busy={ocupado}>
@@ -408,6 +408,21 @@ export default function BlackMusicalOfertaLP({ modo = 'online' } = {}) {
           <button onClick={() => setEscolha({ plano: 'mastermove', aluno: true })}>Quero minha condição de aluno <span aria-hidden="true">→</span></button>
           <small>Valide seu e-mail de aluno para continuar.</small>
         </aside>}
+      </div><div className="bf-ofertas-coluna bf-ofertas-coluna--casal">
+        <article className="bf-oferta bf-oferta--anual bf-oferta--mm bf-oferta--casal">
+          <span className="bf-oferta-badge">Casal</span><span className="bf-oferta-selo" aria-hidden="true"><b>2</b>pessoas</span>
+          <h3>MasterMove Casal</h3>
+          <div className="bf-oferta-preco bf-oferta-preco--mm"><small className="bf-oferta-x">12x</small><span>R$</span>330</div>
+          <p className="bf-oferta-avista">ou R$ 3.397 à vista · equivale a 12x R$ 165 por pessoa</p>
+          <div className="bf-oferta-duracao bf-oferta-duracao--anual"><strong>Incluso: 15 meses de todo o online</strong><small>para os dois · 12 meses + 3 meses inclusos</small></div>
+          <p className="bf-oferta-resumo">Para quem vai entrar junto: os dois no MasterMove presencial, com uma condição especial para o casal.</p>
+          <p className="bf-oferta-lista-titulo">No MasterMove, para os dois</p>
+          <ul className="bf-oferta-lista--mm">{beneficiosMasterMove.map(item => <li key={item}><span aria-hidden="true">✓</span>{item}</li>)}</ul>
+          <p className="bf-oferta-lista-titulo">Incluso: todo o online por 15 meses</p>
+          <ul>{bonusMasterMove.map(item => <li key={item}><span aria-hidden="true">✓</span>{item}</li>)}</ul>
+          <button className="bf-oferta-botao" onClick={() => setEscolha({ plano: 'mastermove_casal', aluno: false })}>Quero entrar em casal</button>
+          <p className="bf-oferta-nota">Inscrição para 2 pessoas · Encontros em São Paulo · Domingos, das 9h às 12h.</p>
+        </article>
       </div></div>
       <p className="bf-ofertas-rodape">O MasterMove é o encontro presencial mensal do Corpo Musical, em São Paulo. Na condição da Black Musical, ele vem com todo o online incluso: trilha do Mapa da Dança, encontros ao vivo semanais, gravações, aulas temáticas e comunidade, por 15 meses.</p>
     </section> : <>
@@ -418,7 +433,7 @@ export default function BlackMusicalOfertaLP({ modo = 'online' } = {}) {
           {plano === 'anual' && <><span className="bf-oferta-badge">Mais escolhido</span><span className="bf-oferta-selo" aria-hidden="true"><b>+3</b>meses<br />gratuitos</span></>}
           <h3>Plano {plano === 'anual' ? 'Anual' : 'Semestral'} Especial</h3>
           <div className="bf-oferta-preco"><span>R$</span>97<small>/mês</small></div>
-          {plano === 'anual' ? <div className="bf-oferta-duracao bf-oferta-duracao--anual"><strong>15 meses de acesso no total</strong><small>12 meses + 3 meses de bônus</small></div> : <div className="bf-oferta-duracao"><strong>6 meses de acesso</strong></div>}
+          {plano === 'anual' ? <div className="bf-oferta-duracao bf-oferta-duracao--anual"><strong>15 meses de acesso no total</strong><small>12 meses + 3 meses inclusos</small></div> : <div className="bf-oferta-duracao"><strong>6 meses de acesso</strong></div>}
           <p className="bf-oferta-resumo">{plano === 'anual' ? 'Mais tempo para aprofundar, praticar e integrar sua dança.' : 'Acesso completo à experiência do Corpo Musical, por 6 meses.'}</p>
           <ul>{beneficiosOferta.map(item => <li key={item}><span aria-hidden="true">✓</span>{item}</li>)}</ul>
           <button className="bf-oferta-botao" onClick={() => setEscolha({ plano, aluno: false })}>{plano === 'anual' ? 'Quero garantir meus 15 meses' : 'Quero fazer parte'}</button>
@@ -431,7 +446,7 @@ export default function BlackMusicalOfertaLP({ modo = 'online' } = {}) {
           <small>Valide seu e-mail de aluno para continuar.</small>
         </aside>
       </div>)}</div>
-      <p className="bf-ofertas-rodape">Com o Plano Semestral Especial, você tem 6 meses de acesso a toda a trilha de aprendizagem, aos encontros ao vivo, aos conteúdos e aos benefícios do Corpo Musical. Com o Plano Anual Especial, você garante 12 meses de acesso e ganha mais 3 meses gratuitos de bônus, totalizando 15 meses para aprofundar seu aprendizado e desenvolver sua dança.</p>
+      <p className="bf-ofertas-rodape">Com o Plano Semestral Especial, você tem 6 meses de acesso a toda a trilha de aprendizagem, aos encontros ao vivo, aos conteúdos e aos benefícios do Corpo Musical. Com o Plano Anual Especial, você garante 12 meses de acesso e ganha mais 3 meses inclusos, totalizando 15 meses para aprofundar seu aprendizado e desenvolver sua dança.</p>
     </section>
     </>}
     <Faq />
