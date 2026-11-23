@@ -268,7 +268,7 @@ function MasterMoveComo() {
     <h2 id="bf-mm-como-title">O online traz o conhecimento. <em>O MasterMove traz a aplicação presencial.</em></h2>
     <p>Uma vez por mês, em São Paulo, você vive na prática tudo o que desenvolve na trilha: conteúdo, prática guiada e acompanhamento no corpo, ao vivo com a Chris e com os colegas.</p>
     <ol className="bf-mm-como-grid">{mastermoveComo.map(([titulo, texto], i) => <li key={titulo}><span>{String(i + 1).padStart(2, '0')}</span><strong>{titulo}</strong><p>{texto}</p></li>)}</ol>
-    <p className="bf-mm-como-bonus"><strong>E de bônus:</strong> todo o online do Corpo Musical por 15 meses, para continuar se desenvolvendo entre um encontro e outro.</p>
+    <p className="bf-mm-como-bonus"><strong>E incluso:</strong> todo o online do Corpo Musical por 15 meses, para continuar se desenvolvendo entre um encontro e outro.</p>
   </div></section>
 }
 
@@ -359,7 +359,7 @@ export default function BlackMusicalOfertaLP({ modo = 'online' } = {}) {
   }, [])
   return <main className="bf-page">
     <section className="bf-hero" id="inicio" style={{ backgroundImage: `linear-gradient(180deg, rgba(241,235,226,.9), rgba(241,235,226,.72) 45%, #f1ebe2), url(${fundoHero})` }}>
-      <div className="bf-hero-copy"><span className="bf-eyebrow">{mm ? 'Black Musical · MasterMove presencial' : 'Black Musical · com Chris Busato'}</span><h1>Black <em>Musical.</em></h1>{mm && <p className="bf-hero-mm">MasterMove presencial em São Paulo <b>+ todo o online do Corpo Musical de bônus, por 15 meses.</b></p>}<div className="bf-vsl"><vturb-smartplayer id="vid-6af4d1a9aafdc81a284bc770" style={{ display: 'block', margin: '0 auto', width: '100%', maxWidth: '400px' }}><div className="vturb-player-placeholder" style={{ position: 'relative', width: '100%', padding: '177.77777777777777% 0 0', zIndex: 0, backgroundColor: 'black' }}></div></vturb-smartplayer></div><a className="bf-button" href="#como-transforma">Quero fazer parte →</a><small>{mm ? 'Aplicação presencial + todo o online de bônus.' : 'Uma jornada para dançar além dos passos.'}</small></div>
+      <div className="bf-hero-copy"><span className="bf-eyebrow">{mm ? 'Black Musical · MasterMove presencial' : 'Black Musical · com Chris Busato'}</span><h1>Black <em>Musical.</em></h1>{mm && <p className="bf-hero-mm">MasterMove presencial em São Paulo <b>+ todo o online do Corpo Musical incluso, por 15 meses.</b></p>}<div className="bf-vsl"><vturb-smartplayer id="vid-6af4d1a9aafdc81a284bc770" style={{ display: 'block', margin: '0 auto', width: '100%', maxWidth: '400px' }}><div className="vturb-player-placeholder" style={{ position: 'relative', width: '100%', padding: '177.77777777777777% 0 0', zIndex: 0, backgroundColor: 'black' }}></div></vturb-smartplayer></div><a className="bf-button" href="#como-transforma">Quero fazer parte →</a><small>{mm ? 'Aplicação presencial + todo o online incluso.' : 'Uma jornada para dançar além dos passos.'}</small></div>
 
     </section>
     <section className="bf-story bf-story-intro"><div className="bf-story-inner"><span className="bf-eyebrow">Black Musical</span><h2>A dança é muito mais do que aprender passos.<br /><em className="bf-em-forte">Ela é sobre sentir e saber expressar.</em></h2><div className="bf-story-copy"><h3 className="bf-story-lead">Uma nova relação com a dança começa pela música e pela compreensão da sua estrutura.</h3><p><strong>Você não precisa acumular mais passos e sequências para conseguir improvisar, brincar com a música e desenvolver uma dança mais fluida.</strong></p><p>No Corpo Musical, você aprende a compreender a música e a desenvolver recursos próprios para construir uma dança mais livre, expressiva e musical.</p><p className="bf-story-emphasis"><strong>Um caminho que parte da música, e não dos passos.</strong></p></div></div></section>
@@ -381,23 +381,23 @@ export default function BlackMusicalOfertaLP({ modo = 'online' } = {}) {
     <Secao5 />
     <section className="bf-content-section bf-mapa" id="dentro"><span className="bf-eyebrow">O Mapa da Dança</span><h2>E como você desenvolve <em>essas habilidades?</em></h2><p>Através do <strong>Mapa da Dança</strong>, uma jornada de aprendizagem estruturada em seis fases que começa pela música e amplia progressivamente suas possibilidades de movimento, expressão e conexão.</p><TrilhaFases /></section>
     {mm && <MasterMoveComo />}
-    {mm ? <Comunidade intro={false} eyebrow="Bônus do MasterMove" titulo={<>Todo o online do Corpo Musical, <em>incluso por 15 meses.</em></>} /> : <Comunidade />}
+    {mm ? <Comunidade intro={false} eyebrow="Incluso no MasterMove" titulo={<>Todo o online do Corpo Musical, <em>incluso por 15 meses.</em></>} /> : <Comunidade />}
     <Passos />
     <Depoimentos />
-    {mm ? <section className="bf-ponte"><div className="bf-ponte-inner"><h2>Sua dança também pode <em>começar a mudar.</em></h2><p>Se você está em São Paulo ou consegue vir aos encontros, o MasterMove é a forma mais completa de viver o Corpo Musical: a prática presencial com a Chris e, de bônus, todo o online para continuar se desenvolvendo.</p><p><strong>Conheça a condição especial da Black Musical para o MasterMove.</strong></p></div></section> : <section className="bf-ponte"><div className="bf-ponte-inner"><h2>Sua dança também pode <em>começar a mudar.</em></h2><p>Se você deseja ir além da repetição de passos e desenvolver uma dança mais livre, fluida e musical, a Black Musical é uma oportunidade especial para começar essa jornada.</p><p><strong>Conheça as condições especiais para fazer parte da Comunidade Corpo Musical.</strong></p></div></section>}
+    {mm ? <section className="bf-ponte"><div className="bf-ponte-inner"><h2>Sua dança também pode <em>começar a mudar.</em></h2><p>Se você está em São Paulo ou consegue vir aos encontros, o MasterMove é a forma mais completa de viver o Corpo Musical: a prática presencial com a Chris e, incluso, todo o online para continuar se desenvolvendo.</p><p><strong>Conheça a condição especial da Black Musical para o MasterMove.</strong></p></div></section> : <section className="bf-ponte"><div className="bf-ponte-inner"><h2>Sua dança também pode <em>começar a mudar.</em></h2><p>Se você deseja ir além da repetição de passos e desenvolver uma dança mais livre, fluida e musical, a Black Musical é uma oportunidade especial para começar essa jornada.</p><p><strong>Conheça as condições especiais para fazer parte da Comunidade Corpo Musical.</strong></p></div></section>}
     {mm ? <section className="bf-ofertas" id="ofertas" aria-labelledby="bf-offers-title">
-      <div className="bf-ofertas-head"><span className="bf-ofertas-eyebrow">Condição especial da Black Musical</span><h2 id="bf-offers-title">MasterMove presencial.<em>E todo o online de bônus, por 15 meses.</em></h2><p>Na Black Musical, ao entrar no MasterMove você recebe também toda a experiência online do Corpo Musical, com 3 meses a mais de acesso.</p></div>
+      <div className="bf-ofertas-head"><span className="bf-ofertas-eyebrow">Condição especial da Black Musical</span><h2 id="bf-offers-title">MasterMove presencial.<em>E todo o online incluso, por 15 meses.</em></h2><p>Na Black Musical, ao entrar no MasterMove você recebe também toda a experiência online do Corpo Musical, com 3 meses a mais de acesso.</p></div>
       <div className="bf-ofertas-grid bf-ofertas-grid--mm"><div className="bf-ofertas-coluna">
         <article className="bf-oferta bf-oferta--anual bf-oferta--mm">
           <span className="bf-oferta-badge">Black Musical</span><span className="bf-oferta-selo" aria-hidden="true"><b>+3</b>meses<br />de online</span>
           <h3>MasterMove Presencial</h3>
           <div className="bf-oferta-preco bf-oferta-preco--mm"><small className="bf-oferta-x">12x</small><span>R$</span>167</div>
           <p className="bf-oferta-avista">ou R$ 1.717,73 à vista</p>
-          <div className="bf-oferta-duracao bf-oferta-duracao--anual"><strong>Bônus: 15 meses de todo o online</strong><small>12 meses + 3 meses de bônus</small></div>
+          <div className="bf-oferta-duracao bf-oferta-duracao--anual"><strong>Incluso: 15 meses de todo o online</strong><small>12 meses + 3 meses inclusos</small></div>
           <p className="bf-oferta-resumo">A prática presencial com a Chris e todo o caminho online para continuar evoluindo entre os encontros.</p>
           <p className="bf-oferta-lista-titulo">No MasterMove</p>
           <ul className="bf-oferta-lista--mm">{beneficiosMasterMove.map(item => <li key={item}><span aria-hidden="true">✓</span>{item}</li>)}</ul>
-          <p className="bf-oferta-lista-titulo">Bônus: todo o online por 15 meses</p>
+          <p className="bf-oferta-lista-titulo">Incluso: todo o online por 15 meses</p>
           <ul>{bonusMasterMove.map(item => <li key={item}><span aria-hidden="true">✓</span>{item}</li>)}</ul>
           <button className="bf-oferta-botao" onClick={() => setEscolha({ plano: 'mastermove', aluno: false })}>Quero fazer parte do MasterMove</button>
           <p className="bf-oferta-nota">Encontros presenciais em São Paulo · Domingos, das 9h às 12h.</p>
@@ -409,7 +409,7 @@ export default function BlackMusicalOfertaLP({ modo = 'online' } = {}) {
           <small>Valide seu e-mail de aluno para continuar.</small>
         </aside>}
       </div></div>
-      <p className="bf-ofertas-rodape">O MasterMove é o encontro presencial mensal do Corpo Musical, em São Paulo. Na condição da Black Musical, ele vem com todo o online de bônus: trilha do Mapa da Dança, encontros ao vivo semanais, gravações, aulas temáticas e comunidade, por 15 meses.</p>
+      <p className="bf-ofertas-rodape">O MasterMove é o encontro presencial mensal do Corpo Musical, em São Paulo. Na condição da Black Musical, ele vem com todo o online incluso: trilha do Mapa da Dança, encontros ao vivo semanais, gravações, aulas temáticas e comunidade, por 15 meses.</p>
     </section> : <>
     <section className="bf-ofertas" id="ofertas" aria-labelledby="bf-offers-title">
       <div className="bf-ofertas-head"><span className="bf-ofertas-eyebrow">Condições especiais da Black Musical</span><h2 id="bf-offers-title">Todos os benefícios do Corpo Musical.<em>Escolha o tempo da sua jornada.</em></h2><p>Na Black Musical, você tem duas condições especiais para fazer parte da Comunidade Corpo Musical.</p></div>
